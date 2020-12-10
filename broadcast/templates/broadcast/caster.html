@@ -146,7 +146,7 @@
                 case 4: statusString = "매우 나쁨";
                 case 5: statusString = "방송 불능";
             }
-            alert(`송출상태 ${statusString}`)
+            statusMsg.innerText = `송출상태 ${statusString}`
         },
         onError(error) {
             alert(error)

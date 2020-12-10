@@ -163,7 +163,8 @@
                 closeCast(voluntary = false)
                 alert("영상송출 서버 연결이 불안정합니다. 방송을 종료합니다.")
             } else if (cleanedError === "2370") {
-                alert("개발 버전은 3분간만 방송이 가능합니다.")
+                closeCast(voluntary = false)
+                alert("개발 버전은 30초간만 방송이 가능합니다.")
             }
         },
         onClose() {

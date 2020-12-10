@@ -237,6 +237,11 @@
         caster.close()
     }
 
+
+    window.onbeforeunload = function (e) {
+        return "종료하시겠습니까?"
+    }
+
 </script>
 
 </body>

@@ -71,6 +71,7 @@
     let currentVideo, currentAudio
     let videoInputList = []
     let audioInputList = []
+    var caster
 
     function getDevices(successCallback = null) {
         navigator.mediaDevices.getUserMedia({audio: true, video: true}).then(function (stream) {
@@ -147,7 +148,7 @@
     }
 
     function startCast() {
-        const caster = new Remon({
+        caster = new Remon({
             listener: remonListener,
             config: remonConfig
         })
@@ -185,7 +186,16 @@
             remonConfig.media.video.deviceId = videoInputSelector.value
             remonConfig.media.audio.deviceId = audioInputSelector.value
             startCast()
+        } else {
+            if (currentVideo !== videoInputSelector.value) {
+                caster.setVideoDevice(videoInputSelector.value)
+            }
+            if (currentAudio !== audioInputSelector.value) {
+                caster.setAudioDevice(audioInputSelector.value)
+            }
         }
+        currentVideo = videoInputSelector.value
+        currentAudio = audioInputSelector.value
     }
 
     document.addEventListener('DOMContentLoaded', function (event) {

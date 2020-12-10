@@ -18,7 +18,7 @@
         <div class="col-12">
             <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
             </div>
-            <video id="remoteVideo" autoplay muted style="width: 100vw !important;" poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
+            <video id="remoteVideo" autoplay style="width: 100vw !important;" poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
             <div class="position-fixed text-center" style="bottom: 0px; z-index: 99999; padding: 10px">
 {#                <span id="statusMsg" class="text-white">송출대기</span>#}
             </div>
@@ -57,7 +57,7 @@
 
     const remonListener = {
         onJoin() {
-            alert('입장')
+            // alert('입장')
         },
         onError(error) {
             alert(error)

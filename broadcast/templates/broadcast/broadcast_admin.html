@@ -34,6 +34,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@remotemonster/sdk/remon.min.js"></script>
 <script>
     const channelId = '{{ broadcast.channel_id }}'
+    var viewer
     const remonConfig = {
         credential: {
             serviceId: '{{ remon_credential.serviceId }}',
@@ -54,11 +55,11 @@
     }
 
     function joinCast() {
-        var viewer = new Remon({
+        viewer = new Remon({
             listener: remonListener,
             config: remonConfig
         })
-        viewer.joinRoom(channelId)
+        viewer.joinCast(channelId)
     }
 
     document.addEventListener('DOMContentLoaded', function (event) {

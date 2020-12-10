@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" style="height: 100%; background-color: black; overscroll-behavior: none">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,28 +7,25 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body class=" bg-dark">
+<body>
 <!-- As a link -->
-<nav class="navbar navbar-light bg-dark mb-1">
-    <div class="container-fluid  bg-dark">
-        <span class="navbar-brand text-white">{{ broadcast.title }}</span>
-    </div>
-</nav>
-<div class="container-fluid bg-dark">
-    <div class="row  bg-dark">
-        <div class="col-md-4  bg-dark">
-            <div class="card ">
-                <div class="card-header">
-                    <button type="button" class="btn btn-primary" onclick="joinCast()">시청시작</button>
-                </div>
-                <div class="card-body p-0">
-                    <video id="remoteVideoFirst" autoplay playsinline controls muted style="width: 100%" poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
-                </div>
+<!--
+<div class="container-fluid p-0" style="height: 100vh !important; overscroll-behavior: none; overflow: hidden; background-color: black">
+-->
+<input hidden id="isConnected" value="false">
+<div class="container-fluid p-0" style="overscroll-behavior: none; overflow: hidden; background-color: black">
+    <div class="row">
+        <div class="col-12">
+            <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
+            </div>
+            <video id="remoteVideo" autoplay muted style="width: 100vw !important;" poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
+            <div class="position-fixed text-center" style="bottom: 0px; z-index: 99999; padding: 10px">
+{#                <span id="statusMsg" class="text-white">송출대기</span>#}
             </div>
         </div>
-        <div class="col-8"></div>
     </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -40,8 +37,11 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@remotemonster/sdk/remon.min.js"></script>
 <script>
+    const broadcastId = '{{ broadcast.id }}'
     const channelId = '{{ broadcast.channel_id }}'
+    let isConnect = false
     var viewer
+
     const remonConfig = {
         credential: {
             serviceId: '{{ remon_credential.serviceId }}',
@@ -51,7 +51,7 @@
             recvonly: true
         },
         view: {
-            remote: '#remoteVideoFirst'
+            remote: '#remoteVideo'
         }
     }
 
@@ -73,6 +73,7 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
+        joinCast()
     })
 
 </script>

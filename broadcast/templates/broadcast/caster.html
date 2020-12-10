@@ -18,7 +18,8 @@
         <div class="col-12">
             <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
                 <button type="button" class="btn btn-danger" id="stopCastBtn" hidden onclick="closeCast()">송출종료</button>
-                <button type="button" class="btn btn-secondary" id="changeMediaBtn" onclick="showMediaModal()">장치선택</button>
+                <button type="button" class="btn btn-secondary" id="changeMediaBtn" onclick="showMediaModal()">장치선택
+                </button>
             </div>
             <video id="localVideo" autoplay muted style="width: 100vw !important;"></video>
             <div class="position-fixed text-center" style="bottom: 0px; z-index: 99999; padding: 10px">
@@ -143,10 +144,24 @@
             statusMsg.innerText = `송출상태 ${statusString}`
         },
         onError(error) {
-            if (error === '"2030"') {
+            var cleanedError = error.replaceAll('"', '')
+            if (cleanedError === "2030") {
                 alert('이미 진행중이거나 비정상적으로 종료된 방송입니다.\n방송이 비정상적으로 종료된 경우 잠시 후(2~3초)에 다시 시도하세요.')
-            } else {
-                alert(JSON.stringify(error))
+            } else if (["4181", "4182"].includes(cleanedError)) {
+                closeCast(voluntary = false)
+                alert("카메라 또는 마이크를 이용할 수 없습니다. 방송을 종료합니다.")
+            } else if (["4201", "4203", "4204", "4205"].includes(cleanedError)) {
+                closeCast(voluntary = false)
+                alert("초기화 오류. 방송을 종료합니다. 잠시 후에 다시 시도하세요.")
+            } else if (["4211"].includes(cleanedError)) {
+                closeCast(voluntary = false)
+                alert("장비가 네트워크에 연결되지 않았습니다. 방송을 종료합니다.")
+            } else if (["4241", "4341", "4342", "4343"].includes(cleanedError)) {
+                closeCast(voluntary = false)
+                alert("네트워크 매우 불안정합니다. 방송을 종료합니다.")
+            } else if (["4230", "4231", "4232", "4244", "4245", "4246"].includes(cleanedError)) {
+                closeCast(voluntary = false)
+                alert("영상송출 서버 연결이 불안정합니다. 방송을 종료합니다.")
             }
         },
         onClose() {
@@ -162,7 +177,7 @@
     }
 
     function showMediaModal() {
-        getDevices(successCallback=function (videoInputList, audioInputList) {
+        getDevices(successCallback = function (videoInputList, audioInputList) {
             videoInputSelector.innerHTML = ''
             audioInputSelector.innerHTML = ''
             videoInputList.forEach(function (elem) {
@@ -213,7 +228,7 @@
         caster.createCast(channelId)
     }
 
-    function closeCast(voluntary=true) {
+    function closeCast(voluntary = true) {
         isConnect = !voluntary
         caster.close()
     }

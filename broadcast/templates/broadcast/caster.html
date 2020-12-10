@@ -136,7 +136,8 @@
         },
         onStat(report) {
             console.log(report)
-            statusMsg.innerText = `송출상태 ${JSON.stringify(report)}`
+            //statusMsg.innerText = `송출상태 ${JSON.stringify(report)}`
+            alert(`송출상태 ${JSON.stringify(report)}`)
         },
         onError(error) {
             alert(error)

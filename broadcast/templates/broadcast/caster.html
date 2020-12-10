@@ -144,15 +144,11 @@
         },
         onError(error) {
             alert(error)
+        },
+        onClose() {
+            stopCastBtn.hidden = true
+            statusMsg.innerText = "송출이 중지되었습니다."
         }
-    }
-
-    function startCast() {
-        caster = new Remon({
-            listener: remonListener,
-            config: remonConfig
-        })
-        caster.createCast(channelId)
     }
 
     function showMediaModal() {
@@ -199,8 +195,17 @@
         currentAudio = audioInputSelector.value
     }
 
-    document.addEventListener('DOMContentLoaded', function (event) {
-    })
+    function startCast() {
+        caster = new Remon({
+            listener: remonListener,
+            config: remonConfig
+        })
+        caster.createCast(channelId)
+    }
+
+    function closeCast() {
+        caster.close()
+    }
 
 </script>
 

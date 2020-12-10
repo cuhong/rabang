@@ -16,6 +16,7 @@ class SerialMixin(models.Model):
     serial = models.CharField(max_length=100, null=True, blank=True, verbose_name='일련번호', editable=False)
 
     @classmethod
+    @transaction.atomic
     def _get_serial(cls):
         with transaction.atomic():
             _sequence = get_next_value(f"{cls._meta.app_label}__{cls._meta.model_name}")
@@ -25,7 +26,7 @@ class SerialMixin(models.Model):
     @transaction.atomic
     def set_serial(self):
         if self.serial:
-            raise Exception('이미 시리얼이 부여되었습니다.')
+            return self.serial
         self.serial = self._get_serial()
         self.save()
         return self.serial

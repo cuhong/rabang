@@ -1,0 +1,122 @@
+{% extends 'customer_base.html' %}
+{% block title %}카드등록{% endblock %}
+{% block container %}
+    <div class="row">
+        <div class="col-12 text-white">
+            <ul>
+                {% for paymethod in paymethod_list %}
+                    <li>{{ paymethod.card_name }} {{ paymethod.card_nickname|default_if_none:"미지정" }}
+                        <button type="button" class="btn btn-danger btn-sm" data-uid="{{ paymethod.id }}"
+                                onclick="unregisterCard(this.dataset.uid)">삭제
+                        </button>
+                    </li>
+                {% endfor %}
+            </ul>
+            <input type="text" class="form-control" id="payNickname" placeholder="카드별칭">
+            <button class="btn btn-primary" onclick="requestPayTemp()" type="button">카드등록</button>
+        </div>
+    </div>
+{% endblock %}
+{% block extrascript %}
+    <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+    <script>
+        var data
+
+        function registerKey(uid, card_name, successCallback, errorCallback) {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'payment:register' %}",
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    'action': 'registerPaymethod',
+                    'uid': uid,
+                    'card_name': card_name
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.result) {
+                        successCallback()
+                    } else {
+                        errorCallback(response.msg)
+                    }
+                },
+                error: function (request, status, error) {
+                    errorCallback('결제정보 등록에 실패했습니다.')
+                },
+            });
+        }
+
+        function requestPay(payNickname, successCallback, errorCallback) {
+            var param = {
+                pg: "danal_tpay",
+                pay_method: "card",
+                merchant_uid: null,
+                customer_uid: null,
+                name: "카드등록",
+                amount: 0,
+                buyer_email: "{{ request.user.email }}",
+                buyer_name: "{{ request.user.name }}",
+                buyer_tel: "{{ request.user.cellhone }}",
+            }
+            $.ajax({
+                type: "POST",
+                url: "{% url 'payment:register' %}",
+                data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'action': 'getUID', 'payNickname': payNickname},
+                dataType: "json",
+                success: function (uidResponse) {
+                    var IMP = window.IMP
+                    IMP.init(uidResponse.imp_code)
+                    param.merchant_uid = uidResponse.uid
+                    param.customer_uid = uidResponse.uid
+                    IMP.request_pay(param, function (response) {
+                        data = response
+                        if (response.success) {
+                            registerKey(uidResponse.uid, response.card_name, successCallback, errorCallback)
+                        } else {
+                            errorCallback('결제정보 등록에 실패했습니다.')
+                        }
+                    })
+                },
+                error: function (request, status, error) {
+                    alert('네트워크 오류')
+                },
+            });
+        }
+
+        function requestPayTemp() {
+            requestPay(document.getElementById('payNickname').value, function () {
+                alert('결제정보 등록 성공')
+            }, function (msg) {
+                alert(msg)
+            })
+        }
+
+        function unregisterCard(uid, successCallback=null, errorCallback=null) {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'payment:register' %}",
+                data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'action': 'unregister', 'uid': uid},
+                dataType: "json",
+                success: function (response) {
+                    if (response.result) {
+                        if (successCallback) {
+                            successCallback()
+                        } else {
+                            alert('결제수단이 삭제되었습니다.')
+                        }
+                    } else {
+                        if (errorCallback.errorCallback) {
+                            errorCallback()
+                        } else {
+                            alert(response.msg)
+                        }
+                    }
+                },
+                error: function (request, status, error) {
+                    alert('네트워크 오류')
+                },
+            });
+        }
+
+    </script>
+{% endblock %}

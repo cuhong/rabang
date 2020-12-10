@@ -1,77 +1,60 @@
-<!DOCTYPE html>
-<html lang="ko" style="height: 100%; background-color: black; overscroll-behavior: none">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{{ broadcast.title }}</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
-<body style="background-color: black">
-<div class="container-fluid p-0" style="overscroll-behavior: none; overflow: hidden; background-color: black; max-width: 800px">
+{% extends 'customer_base.html' %}
+{% block title %}{{ broadcast.title }}{% endblock %}
+{% block container %}
     <div class="row">
         <div class="col-12">
             <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
             </div>
-            <video id="remoteVideo" autoplay style="width: 100% !important;" poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
+            <video id="remoteVideo" autoplay style="width: 100% !important;"
+                   poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
             <div class="position-fixed text-center" style="bottom: 0px; z-index: 99999; padding: 10px">
-{#                <span id="statusMsg" class="text-white">송출대기</span>#}
+                {#                <span id="statusMsg" class="text-white">송출대기</span>#}
             </div>
         </div>
     </div>
-</div>
+{% endblock %}
+{% block extrascript %}
+    <script src="https://cdn.jsdelivr.net/npm/@remotemonster/sdk/remon.min.js"></script>
+    <script>
+        const broadcastId = '{{ broadcast.id }}'
+        const channelId = '{{ broadcast.channel_id }}'
+        let isConnect = false
+        var viewer
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/@remotemonster/sdk/remon.min.js"></script>
-<script>
-    const broadcastId = '{{ broadcast.id }}'
-    const channelId = '{{ broadcast.channel_id }}'
-    let isConnect = false
-    var viewer
-
-    const remonConfig = {
-        credential: {
-            serviceId: '{{ remon_credential.serviceId }}',
-            key: '{{ remon_credential.key }}'
-        },
-        media: {
-            recvonly: true
-        },
-        view: {
-            remote: '#remoteVideo'
+        const remonConfig = {
+            credential: {
+                serviceId: '{{ remon_credential.serviceId }}',
+                key: '{{ remon_credential.key }}'
+            },
+            media: {
+                recvonly: true
+            },
+            view: {
+                remote: '#remoteVideo'
+            }
         }
-    }
 
-    const remonListener = {
-        onJoin() {
-            // alert('입장')
-        },
-        onError(error) {
-            alert(error)
+        const remonListener = {
+            onJoin() {
+                // alert('입장')
+            },
+            onError(error) {
+                alert(error)
+            }
         }
-    }
 
-    function joinCast() {
-        viewer = new Remon({
-            listener: remonListener,
-            config: remonConfig
+        function joinCast() {
+            viewer = new Remon({
+                listener: remonListener,
+                config: remonConfig
+            })
+            viewer.joinCast(channelId)
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            joinCast()
         })
-        viewer.joinCast(channelId)
-    }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        joinCast()
-    })
+    </script>
 
-</script>
-
-</body>
-</html>
+{% endblock %}

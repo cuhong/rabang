@@ -81,3 +81,9 @@ class Vendor(DateTimeMixin, models.Model):
     name = models.CharField(max_length=200, null=False, blank=False, unique=False, verbose_name='판매사명')
     description = models.CharField(max_length=5000, null=False, blank=False, verbose_name='설명')
 
+
+class UserFkMixin(models.Model):
+    class Meta:
+        abstract = True
+
+    user = models.ForeignKey(User, null=False, blank=False, verbose_name='사용자', on_delete=models.PROTECT)

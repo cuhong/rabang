@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{{ broadcast.title }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<!-- As a link -->
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <span class="navbar-brand">{{ broadcast.title }}</span>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <video id="localVideo" autoplay muted></video>
+        </div>
+        <div class="col-8"></div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@remotemonster/sdk/remon.min.js"></script>
+<script>
+    let videoInputList = []
+    let audioInputList = []
+
+    function getDevices(successCallback = null) {
+        navigator.mediaDevices.getUserMedia({audio: true, video: true}).then(function (stream) {
+            navigator.mediaDevices.enumerateDevices().then(function (devices) {
+                videoInputList = []
+                audioInputList = []
+                for (let i = 0; i < devices.length; i++) {
+                    let device = devices[i];
+                    if (device.kind === 'videoinput') {
+                        videoInput = {
+                            value: device.deviceId,
+                            text: device.label ? device.label : ("Device " + device.deviceId)
+                        }
+                        videoInputList.push(videoInput)
+                    } else if (device.kind === 'audioinput') {
+                        audioInput = {
+                            value: device.deviceId,
+                            text: device.label ? device.label : ("Device " + device.deviceId)
+                        }
+                        audioInputList.push(audioInput)
+                    }
+                }
+                if (successCallback) {
+                    successCallback(videoInputList, audioInputList)
+                }
+            })
+        })
+    }
+
+    const channelId = '{{ broadcast.channel_id }}'
+    const remonConfig = {
+        credential: {
+            serviceId: '{{ remon_credential.serviceId }}',
+            key: '{{ remon_credential.key }}'
+        },
+        view: {
+            local: '#localVideo'
+        }
+    }
+
+    const remonListener = {
+        onCreate(channelId) {
+            console.log(channelId)
+        }
+    }
+
+    function startCast() {
+        const caster = new Remon({
+            listener: remonListener,
+            config: remonConfig
+        })
+        caster.createCast(channelId)
+    }
+
+    document.addEventListener('DOMContentLoaded', function (event) {
+        getDevices()
+    })
+
+</script>
+
+</body>
+</html>

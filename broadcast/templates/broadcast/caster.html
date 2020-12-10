@@ -146,7 +146,7 @@
             if (error == "2030") {
                 alert('이미 진행중이거나 비정상적으로 종료된 방송입니다.\n방송이 비정상적으로 종료된 경우 잠시 후(2~3초)에 다시 시도하세요.')
             } else {
-                alert(error)
+                alert(JSON.stringify(error))
             }
         },
         onClose() {

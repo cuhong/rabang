@@ -12,10 +12,40 @@
 <!--
 <div class="container-fluid p-0" style="height: 100vh !important; overscroll-behavior: none; overflow: hidden; background-color: black">
 -->
+<input hidden id="isConnected" value="false">
 <div class="container-fluid p-0" style="overscroll-behavior: none; overflow: hidden; background-color: black">
     <div class="row">
         <div class="col-12">
+            <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
+                <button type="button" class="btn btn-danger" id="stopCastBtn" hidden>송출종료</button>
+                <button type="button" class="btn btn-secondary" id="changeMediaBtn" onclick="showMediaModal()">장치선택</button>
+            </div>
             <video id="localVideo" autoplay muted style="width: 100vw !important;"></video>
+            <div class="position-fixed text-center" style="bottom: 0px; z-index: 99999; padding: 10px">
+                <span id="statusMsg" class="text-white">송출대기</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediaModalLabel">장치 선택</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select class="form-control mb-1" id="videoInputSelector" name="videoInputSelector"></select>
+                <select class="form-control" id="audioInputSelector" name="audioInputSelector"></select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary" onclick="selectMedia()">송출시작</button>
+            </div>
         </div>
     </div>
 </div>
@@ -32,6 +62,13 @@
 <script>
     const broadcastId = '{{ broadcast.id }}'
     const channelId = '{{ broadcast.channel_id }}'
+    const statusMsg = document.getElementById('statusMsg')
+    const stopCastBtn = document.getElementById('stopCastBtn')
+    const changeMediaBtn = document.getElementById('changeMediaBtn')
+    const videoInputSelector = document.getElementById('videoInputSelector')
+    const audioInputSelector = document.getElementById('audioInputSelector')
+    let isConnect = false
+    let currentVideo, currentAudio
     let videoInputList = []
     let audioInputList = []
 
@@ -79,7 +116,7 @@
             video: {
                 facingMode: 'environment',
                 width: {ideal: '2048'},
-                aspectRatio: 3/2,
+                aspectRatio: 3 / 2,
                 codec: 'h264',
                 minBandwidth: 7000,
                 maxBandwidth: 7000
@@ -92,8 +129,13 @@
 
     const remonListener = {
         onCreate(channelId) {
-            //console.log(channelId)
-            alert(channelId)
+            stopCastBtn.hidden = false
+            statusMsg.innerText = '송출중입니다'
+            isConnect = true
+            $('#mediaModal').modal('hide')
+        },
+        onStat(report) {
+            statusMsg.innerText = `송출상태 ${report}`
         },
         onError(error) {
             alert(error)
@@ -108,10 +150,41 @@
         caster.createCast(channelId)
     }
 
-    document.addEventListener('DOMContentLoaded', function (event) {
-        getDevices(successCallback=function (a, b) {
-            startCast()
+    function showMediaModal() {
+        getDevices(successCallback=function (videoInputList, audioInputList) {
+            videoInputSelector.innerHTML = ''
+            audioInputSelector.innerHTML = ''
+            videoInputList.forEach(function (elem) {
+                var option = document.createElement('option')
+                option.value = elem.value
+                option.innerText = elem.text
+                if (elem.value === currentVideo) {
+                    option.selected = true
+                }
+                videoInputSelector.appendChild(option)
+            })
+            audioInputList.forEach(function (elem) {
+                var option = document.createElement('option')
+                option.value = elem.value
+                option.innerText = elem.text
+                if (elem.value === currentAudio) {
+                    option.selected = true
+                }
+                audioInputSelector.appendChild(option)
+            })
+            $('#mediaModal').modal('show')
         })
+    }
+
+    function selectMedia() {
+        if (isConnect === false) {
+            remonConfig.media.video.deviceId = videoInputSelector.value
+            remonConfig.media.audio.deviceId = audioInputSelector.value
+            startCast()
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function (event) {
     })
 
 </script>

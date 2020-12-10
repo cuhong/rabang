@@ -137,7 +137,16 @@
         onStat(report) {
             console.log(report)
             //statusMsg.innerText = `송출상태 ${JSON.stringify(report)}`
-            alert(`송출상태 ${JSON.stringify(report)}`)
+            var tempStatus = report.rating
+            var statusString
+            switch (report) {
+                case 1: statusString = "매우좋음";
+                case 2: statusString = "좋음";
+                case 3: statusString = "나쁨";
+                case 4: statusString = "매우 나쁨";
+                case 5: statusString = "방송 불능";
+            }
+            alert(`송출상태 ${statusString}`)
         },
         onError(error) {
             alert(error)

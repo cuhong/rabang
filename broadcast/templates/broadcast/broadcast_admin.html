@@ -17,7 +17,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-            <video id="remoteVideo1" autoplay muted></video>
+            <video id="remoteVideoFirst" autoplay muted></video>
         </div>
         <div class="col-8"></div>
     </div>
@@ -41,7 +41,7 @@
             key: '{{ remon_credential.key }}'
         },
         view: {
-            remote: '#remoteVideo1'
+            remote: '#remoteVideoFirst'
         },
         media: {
             recvonly: true
@@ -51,6 +51,9 @@
     const remonListener = {
         onJoin() {
             alert('입장')
+        },
+        onError(error) {
+            alert(error)
         }
     }
 

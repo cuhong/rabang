@@ -9,17 +9,11 @@
 </head>
 <body>
 <!-- As a link -->
-<nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-        <span class="navbar-brand">{{ broadcast.title }}</span>
-    </div>
-</nav>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-12">
             <video id="localVideo" autoplay muted></video>
         </div>
-        <div class="col-8"></div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -70,6 +64,23 @@
             serviceId: '{{ remon_credential.serviceId }}',
             key: '{{ remon_credential.key }}'
         },
+        media: {
+            audio: {
+                channelCount: 2,
+                maxBandwidth: 128,
+                autoGainControl: true,
+                echoCancellation: true,
+                noiseSuppression: true,
+            },
+            video: {
+                facingMode: 'environment',
+                width: {ideal: '2048'},
+                aspectRatio: 3/2,
+                codec: 'h264',
+                minBandwidth: 7000,
+                maxBandwidth: 7000
+            }
+        },
         view: {
             local: '#localVideo'
         }
@@ -77,7 +88,8 @@
 
     const remonListener = {
         onCreate(channelId) {
-            console.log(channelId)
+            //console.log(channelId)
+            alert(channelId)
         }
     }
 
@@ -91,6 +103,7 @@
 
     document.addEventListener('DOMContentLoaded', function (event) {
         getDevices()
+        startCast()
     })
 
 </script>

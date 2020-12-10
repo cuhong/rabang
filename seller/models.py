@@ -47,6 +47,9 @@ class Seller(UUIDPkMixin, DateTimeMixin, models.Model):
     logistic_contact = models.CharField(max_length=100, null=False, blank=False, verbose_name='배송담당자 연락처')
     logistic_email = models.CharField(max_length=100, null=False, blank=False, verbose_name='배송담당자 이메일')
 
+    def __str__(self):
+        return self.name
+
 
 class SellerFkMixin(models.Model):
     class Meta:

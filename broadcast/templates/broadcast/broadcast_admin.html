@@ -54,11 +54,11 @@
     }
 
     function joinCast() {
-        const caster = new Remon({
+        var viewer = new Remon({
             listener: remonListener,
             config: remonConfig
         })
-        caster.joinCast(channelId)
+        viewer.joinRoom(channelId)
     }
 
     document.addEventListener('DOMContentLoaded', function (event) {

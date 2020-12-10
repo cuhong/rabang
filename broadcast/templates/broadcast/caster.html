@@ -137,9 +137,8 @@
         onStat(report) {
             console.log(report)
             //statusMsg.innerText = `송출상태 ${JSON.stringify(report)}`
-            var tempStatus = report.rating
             var statusString
-            switch (report) {
+            switch (report.rating) {
                 case 1: statusString = "매우좋음";
                 case 2: statusString = "좋음";
                 case 3: statusString = "나쁨";

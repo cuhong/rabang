@@ -193,6 +193,7 @@
             if (currentAudio !== audioInputSelector.value) {
                 caster.setAudioDevice(audioInputSelector.value)
             }
+            $('#mediaModal').modal('hide')
         }
         currentVideo = videoInputSelector.value
         currentAudio = audioInputSelector.value

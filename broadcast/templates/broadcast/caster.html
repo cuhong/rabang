@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" style="height: 100%">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,7 +9,10 @@
 </head>
 <body>
 <!-- As a link -->
+<!--
 <div class="container-fluid p-0" style="height: 100vh !important; overscroll-behavior: none; overflow: hidden; background-color: black">
+-->
+<div class="container-fluid p-0" style="overscroll-behavior: none; overflow: hidden; background-color: black">
     <div class="row">
         <div class="col-12">
             <video id="localVideo" autoplay muted style="width: 100vw !important;"></video>
@@ -27,6 +30,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@remotemonster/sdk/remon.min.js"></script>
 <script>
+    const broadcastId = '{{ broadcast.id }}'
     let videoInputList = []
     let audioInputList = []
 

@@ -135,7 +135,8 @@
             $('#mediaModal').modal('hide')
         },
         onStat(report) {
-            statusMsg.innerText = `송출상태 ${report}`
+            console.log(report)
+            statusMsg.innerText = `송출상태 ${JSON.stringify(report)}`
         },
         onError(error) {
             alert(error)

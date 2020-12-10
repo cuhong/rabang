@@ -31,6 +31,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@remotemonster/sdk/remon.min.js"></script>
 <script>
     const broadcastId = '{{ broadcast.id }}'
+    const channelId = '{{ broadcast.channel_id }}'
     let videoInputList = []
     let audioInputList = []
 
@@ -62,7 +63,6 @@
         })
     }
 
-    const channelId = '{{ broadcast.channel_id }}'
     const remonConfig = {
         credential: {
             serviceId: '{{ remon_credential.serviceId }}',
@@ -106,8 +106,9 @@
     }
 
     document.addEventListener('DOMContentLoaded', function (event) {
-        getDevices()
-        startCast()
+        getDevices(successCallback=function (a, b) {
+            startCast()
+        })
     })
 
 </script>

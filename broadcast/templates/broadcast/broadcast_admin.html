@@ -9,7 +9,7 @@
 </head>
 <body>
 <!-- As a link -->
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light mb-1">
     <div class="container-fluid">
         <span class="navbar-brand">{{ broadcast.title }}</span>
     </div>
@@ -17,8 +17,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-4">
-            <button type="button" onclick="joinCast()">시청시작</button>
-            <video id="remoteVideoFirst" autoplay playsinline></video>
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" onclick="joinCast()">시청시작</button>
+                </div>
+                <div class="card-body">
+                    <video id="remoteVideoFirst" autoplay playsinline style="width: 100%"></video>
+                </div>
+            </div>
         </div>
         <div class="col-8"></div>
     </div>

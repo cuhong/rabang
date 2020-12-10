@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-12">
             <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
-                <button type="button" class="btn btn-danger" id="stopCastBtn" hidden>송출종료</button>
+                <button type="button" class="btn btn-danger" id="stopCastBtn" hidden onclick="closeCast()">송출종료</button>
                 <button type="button" class="btn btn-secondary" id="changeMediaBtn" onclick="showMediaModal()">장치선택</button>
             </div>
             <video id="localVideo" autoplay muted style="width: 100vw !important;"></video>
@@ -204,6 +204,7 @@
     }
 
     function closeCast() {
+        isConnect = false
         caster.close()
     }
 

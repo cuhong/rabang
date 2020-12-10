@@ -150,6 +150,7 @@
                 statusMsg.innerText = "송출을 중지하였습니다."
             } else {
                 statusMsg.innerText = "오류로 송출이 중지되었습니다."
+                isConnect = false
             }
             stopCastBtn.hidden = true
 
@@ -208,8 +209,8 @@
         caster.createCast(channelId)
     }
 
-    function closeCast() {
-        isConnect = false
+    function closeCast(voluntary=true) {
+        isConnect = !voluntary
         caster.close()
     }
 

@@ -40,11 +40,11 @@
             serviceId: '{{ remon_credential.serviceId }}',
             key: '{{ remon_credential.key }}'
         },
-        view: {
-            remote: '#remoteVideoFirst'
-        },
         media: {
             recvonly: true
+        },
+        view: {
+            local: '#remoteVideoFirst'
         }
     }
 

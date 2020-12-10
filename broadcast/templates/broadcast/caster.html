@@ -146,8 +146,13 @@
             alert(error)
         },
         onClose() {
+            if (isConnect === false) {
+                statusMsg.innerText = "송출을 중지하였습니다."
+            } else {
+                statusMsg.innerText = "오류로 송출이 중지되었습니다."
+            }
             stopCastBtn.hidden = true
-            statusMsg.innerText = "송출이 중지되었습니다."
+
         }
     }
 

@@ -17,7 +17,10 @@ var auth = {
                 },
                 dataType: "json",
                 success: function (response) {
-                    for (var [k, v] of Object.entries(response)) {
+                    for (var i = 0; i < Object.entries(response).length; i++){
+                        var item = Object.entries(response)[i];
+                        var k = item[0];
+                        var v = item[1];
                         if (k === "key") {
                             window.localStorage.setItem("rabangToken", v);
                         } else {

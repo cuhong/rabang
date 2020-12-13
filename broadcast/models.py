@@ -52,7 +52,16 @@ class BroadCast(SellerFkMixin, UUIDPkMixin, DateTimeMixin, models.Model):
         null=False, blank=False,
         upload_to=broadcast_thumbnail_upload_to,
         storage=PublicFileStorage(),
-        verbose_name='썸네일'
+        verbose_name='썸네일',
+        help_text='방송 리스트에 보일 가로로 긴 이미지(800x600 규격)'
+    )
+
+    poster = models.ImageField(
+        null=False, blank=False,
+        upload_to=broadcast_thumbnail_upload_to,
+        storage=PublicFileStorage(),
+        verbose_name='포스터',
+        help_text='영상재생 대기중 보여질 세로가 긴 이미지(800x1360 규격)'
     )
     start_at = models.DateTimeField(null=False, blank=False, verbose_name='시작일시')
     end_at = models.DateTimeField(null=False, blank=False, verbose_name='종료일시')

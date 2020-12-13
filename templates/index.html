@@ -150,7 +150,7 @@ text-decoration:line-through">159,000원</span></p>
         const playIcon = document.getElementById('playIcon')
         const liveBroadCastTitle = document.getElementById('liveBroadCastTitle')
         const liveBroadCastBtn = document.getElementById('liveBroadCastBtn')
-        var viewer
+        var viewer = null
         let remonConfig = {
             media: {
                 recvonly: true
@@ -171,6 +171,7 @@ text-decoration:line-through">159,000원</span></p>
                 console.log(error)
             },
             onClose() {
+                alert('close')
                 playIcon.setAttribute('visibility', 'visible')
             }
         }
@@ -235,6 +236,11 @@ text-decoration:line-through">159,000원</span></p>
 
         document.addEventListener('DOMContentLoaded', function (event) {
             showLiveChannel()
+            setInterval(function () {
+                if (liveChannelId && liveChannelConnect === false && viewer !== null) {
+
+                }
+            })
         })
     </script>
 {% endblock %}

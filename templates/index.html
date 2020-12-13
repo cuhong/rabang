@@ -88,7 +88,7 @@
             -->
             <div class="videoOverlay text-center"
                  style="position: absolute; top: 0; left: 0;width: 100% !important; height: 140vw; max-height: 1000px; background: rgb(50,50,50); background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(50,50,50,1) 2%, rgba(255,255,255,0) 100%); z-index: 9000;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30.212" class="playIcon" id="playIcon" height="30.357"
+                <svg xmlns="http://www.w3.org/2000/svg" width="30.212" class="playIcon" id="playIcon" height="30.357"
                      style="position: relative; top:50%"
                      viewBox="0 0 30.212 35.357">
                     <path id="Triangle"
@@ -97,10 +97,13 @@
                 </svg>
                 <div class="w-100 text-center" style="position: absolute; bottom: 0px">
                     <div class="pl-5 pr-5 mt-3 mb-3">
-                        <span style="font-size: 32px; font-weight: bolder; color: white; line-height: 32px" id="liveBroadCastTitle"></span>
+                        <span style="font-size: 32px; font-weight: bolder; color: white; line-height: 32px"
+                              id="liveBroadCastTitle"></span>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-rabang text-bolder" id="liveBroadCastBtn" data-broadcast-id="" onclick="toShow(this.dataset.broadcastId)">지금 구매하기</button>
+                        <button type="button" class="btn btn-rabang text-bolder" id="liveBroadCastBtn"
+                                data-broadcast-id="" onclick="toShow(this.dataset.broadcastId)">지금 구매하기
+                        </button>
                     </div>
                 </div>
             </div>
@@ -165,6 +168,7 @@ text-decoration:line-through">159,000원</span></p>
         const remonListener = {
             onJoin() {
                 liveChannelConnect = true
+                clearInterval(timer)
                 playIcon.setAttribute('visibility', 'hidden')
             },
             onError(error) {
@@ -174,6 +178,7 @@ text-decoration:line-through">159,000원</span></p>
                 liveChannelConnect = false
                 viewer = null
                 playIcon.setAttribute('visibility', 'visible')
+                timer = timerFunction()
             }
         }
 
@@ -234,14 +239,19 @@ text-decoration:line-through">159,000원</span></p>
         function toShow(broadcastId) {
             window.location = `/broadcast/show/${broadcastId}/`
         }
+        var timer
 
-        document.addEventListener('DOMContentLoaded', function (event) {
-            showLiveChannel()
+        function timerFunction() {
             setInterval(function () {
                 if (liveChannelId && liveChannelConnect === false && viewer !== null) {
                     viewer.joinCast(liveChannelId)
                 }
             }, 1000)
+        }
+
+        document.addEventListener('DOMContentLoaded', function (event) {
+            showLiveChannel()
+            timer = timerFunction()
         })
     </script>
 {% endblock %}

@@ -168,7 +168,6 @@ text-decoration:line-through">159,000원</span></p>
         const remonListener = {
             onJoin() {
                 liveChannelConnect = true
-                clearInterval(timer)
                 playIcon.setAttribute('visibility', 'hidden')
             },
             onError(error) {
@@ -178,7 +177,6 @@ text-decoration:line-through">159,000원</span></p>
                 liveChannelConnect = false
                 viewer = null
                 playIcon.setAttribute('visibility', 'visible')
-                timer = timerFunction()
             }
         }
 
@@ -239,19 +237,14 @@ text-decoration:line-through">159,000원</span></p>
         function toShow(broadcastId) {
             window.location = `/broadcast/show/${broadcastId}/`
         }
-        var timer
 
-        function timerFunction() {
+        document.addEventListener('DOMContentLoaded', function (event) {
+            showLiveChannel()
             setInterval(function () {
                 if (liveChannelId && liveChannelConnect === false && viewer !== null) {
                     viewer.joinCast(liveChannelId)
                 }
             }, 1000)
-        }
-
-        document.addEventListener('DOMContentLoaded', function (event) {
-            showLiveChannel()
-            timer = timerFunction()
         })
     </script>
 {% endblock %}

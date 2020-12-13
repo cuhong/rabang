@@ -138,7 +138,7 @@
     const remonListener = {
         onCreate(channelId) {
             stopCastBtn.hidden = false
-            statusMsg.innerText = '송출중입니다'
+            statusMsg.innerText = `송출중입니다[${remonConfig.video.codec}]`
             isConnect = true
             $('#mediaModal').modal('hide')
         },
@@ -147,7 +147,7 @@
             //statusMsg.innerText = `송출상태 ${JSON.stringify(report)}`
             var statusStringList = ["매우좋음", "좋음", "나쁨", "매우 나쁨", "방송 불능"]
             var statusString = statusStringList[report.rating - 1]
-            statusMsg.innerText = `송출상태 ${statusString}`
+            statusMsg.innerText = `송출상태 ${statusString} [${remonConfig.video.codec}]`
         },
         onError(error) {
             var cleanedError = error.replaceAll('"', '')

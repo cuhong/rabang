@@ -1,15 +1,91 @@
 {% extends 'customer_base.html' %}
 {% block title %}라방!{% endblock %}
 {% load static %}
+
+{% block extrastyle %}
+    <style>
+        .playIcon path {
+            -webkit-transition: all 0.5s; /* Safari */
+            transition: all 0.5s;
+        }
+
+        .playIcon:hover path {
+            fill: #00B9EF;
+        }
+    </style>
+{% endblock %}
 {% block container %}
     <div class="row">
         <div class="col-12">
-            <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
-            </div>
-            <video id="liveBroadCast" muted playsinline autoplay style="width: 100% !important;"
-                   src="{% static 'sampleVideo.mp4' %}"
-                   poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
-            <div class="position-fixed text-center" style="bottom: 0px; z-index: 99999; padding: 10px">
+            <nav class="navbar navbar-transparent bg-transparent position-absolute w-100">
+                <a class="navbar-brand" href="#">
+                    <svg id="Group_19" data-name="Group 19" xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" width="79.949" height="26.747"
+                         viewBox="0 0 79.949 26.747">
+                        <defs>
+                            <clipPath id="clip-path">
+                                <path id="Clip_2" data-name="Clip 2" d="M0,0H16.371V16.312H0Z" fill="none"/>
+                            </clipPath>
+                            <clipPath id="clip-path-2">
+                                <path id="Clip_17" data-name="Clip 17" d="M0,0H15.261V18.72H0Z" fill="none"/>
+                            </clipPath>
+                        </defs>
+                        <g id="Group_3" data-name="Group 3" transform="translate(63.578 10.434)">
+                            <path id="Clip_2-2" data-name="Clip 2" d="M0,0H16.371V16.312H0Z" transform="translate(0 0)"
+                                  fill="none"/>
+                            <g id="Group_3-2" data-name="Group 3" transform="translate(0 0)"
+                               clip-path="url(#clip-path)">
+                                <path id="Fill_1" data-name="Fill 1"
+                                      d="M8.186,16.313a8.156,8.156,0,1,1,8.185-8.156A8.18,8.18,0,0,1,8.186,16.313Zm0-11.766a3.609,3.609,0,1,0,3.622,3.609A3.62,3.62,0,0,0,8.186,4.547Z"
+                                      transform="translate(0 0)" fill="#fff"/>
+                            </g>
+                        </g>
+                        <path id="Combined_Shape" data-name="Combined Shape"
+                              d="M8.205,18.72a8.21,8.21,0,0,1-7.56-4.993A8.1,8.1,0,0,1,0,10.544V0H5.157V4.695h6.1V0H16.41V10.544A8.189,8.189,0,0,1,11.4,18.078,8.179,8.179,0,0,1,8.205,18.72Zm0-11.228a3.411,3.411,0,1,0,2.417,1A3.4,3.4,0,0,0,8.205,7.492Z"
+                              transform="translate(32.711 7.886)" fill="#fff"/>
+                        <path id="Fill_8" data-name="Fill 8"
+                              d="M2.246,1.119A1.123,1.123,0,1,1,1.124,0,1.121,1.121,0,0,1,2.246,1.119"
+                              transform="translate(38.669 16.545)" fill="#fff"/>
+                        <path id="Fill_10" data-name="Fill 10" d="M6.176,8.944H1.613L0,0H7.789Z"
+                              transform="translate(67.869)" fill="#ff8f1c"/>
+                        <path id="Fill_12" data-name="Fill 12" d="M5.047,0H0V19.594H5.047v-7.44H9.832V7.545H5.047Z"
+                              transform="translate(19.536 4.295)" fill="#fff"/>
+                        <path id="Fill_14" data-name="Fill 14" d="M5.047,0H0V19.594H5.047v-7.44H9.832V7.545H5.047Z"
+                              transform="translate(52.76 4.295)" fill="#fff"/>
+                        <g id="Group_18" data-name="Group 18" transform="translate(0 7.886)">
+                            <path id="Clip_17-2" data-name="Clip 17" d="M0,0H15.261V18.72H0Z" transform="translate(0 0)"
+                                  fill="none"/>
+                            <g id="Group_18-2" data-name="Group 18" transform="translate(0 0)"
+                               clip-path="url(#clip-path-2)">
+                                <path id="Fill_16" data-name="Fill 16"
+                                      d="M15.187,18.72H0V7.087H10.7V4.547H.037V0H15.261V11.633H4.563v2.54H15.187Z"
+                                      transform="translate(0)" fill="#fff"/>
+                            </g>
+                        </g>
+                    </svg>
+
+                </a>
+            </nav>
+            {#            <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">#}
+            {#                test#}
+            {#            </div>#}
+            {#            <video id="liveBroadCast" muted playsinline autoplay style="width: 100% !important;"#}
+            {#                   poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>#}
+            <video id="liveBroadCast" muted autoplay loop
+                   style="width: 100% !important; max-height: 100vmin; object-fit: cover;"
+                   src="{% static 'Screen_Recording_20201213-185130_Grip.mp4' %}"
+                   poster="https://via.placeholder.com/2048x3481.png?text=Waiting...">
+            </video>
+            <div class="position-fixed w-100 text-center" style="left: 0px;top: 40vw; z-index: 99999; padding: 10px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30.212" class="playIcon" height="30.357"
+                     viewBox="0 0 30.212 35.357">
+                    <path id="Triangle"
+                          d="M17.434,4.233a3,3,0,0,1,5.131,0L37.239,28.445A3,3,0,0,1,34.674,33H5.326a3,3,0,0,1-2.566-4.555Z"
+                          transform="translate(33 -2.321) rotate(90)" fill="#fff"/>
+                </svg>
+                <div>
+                    <span class="" style="font-size: 32px; font-weight: normal; color: white">아디다스 덕 다운 패딩 1+1</span>
+                </div>
             </div>
         </div>
     </div>

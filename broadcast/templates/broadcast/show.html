@@ -60,8 +60,16 @@
 
         async function toPip() {
             pipButton.disabled = true
-            await remoteVideo.requestPictureInPicture()
-            pipButton.disabled = false
+            try {
+                await remoteVideo.requestPictureInPicture()
+            }
+            catch (e) {
+                pipButton.hidden = true
+                alert(e)
+            }
+            finally {
+                pipButton.disabled = false
+            }
         }
     </script>
 

@@ -57,23 +57,24 @@
         document.addEventListener('DOMContentLoaded', function () {
             joinCast()
             if (!('pictureInPictureEnabled' in document)) {
-  alert('The Picture-in-Picture Web API is not available.');
-}
-else if (!document.pictureInPictureEnabled) {
-  alert('The Picture-in-Picture Web API is disabled.');
-}
+                pipButton.disabled = true
+                pipButton.hidden = true
+                console.log('The Picture-in-Picture Web API is not available.');
+            } else if (!document.pictureInPictureEnabled) {
+                pipButton.disabled = true
+                pipButton.hidden = true
+                console.log('The Picture-in-Picture Web API is disabled.');
+            }
         })
 
         async function toPip() {
             pipButton.disabled = true
             try {
                 await remoteVideo.requestPictureInPicture()
-            }
-            catch (e) {
+            } catch (e) {
                 pipButton.hidden = true
                 alert(e)
-            }
-            finally {
+            } finally {
                 pipButton.disabled = false
             }
         }

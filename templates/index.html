@@ -97,10 +97,10 @@
                 </svg>
                 <div class="w-100 text-center" style="position: absolute; bottom: 0px">
                     <div class="pl-5 pr-5 mt-3 mb-3">
-                        <span style="font-size: 32px; font-weight: bolder; color: white; line-height: 32px">아디다스 덕 다운 패딩 1+1</span>
+                        <span style="font-size: 32px; font-weight: bolder; color: white; line-height: 32px" id="liveBroadCastTitle"></span>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-rabang text-bolder">지금 구매하기</button>
+                        <button type="button" class="btn btn-rabang text-bolder" id="liveBroadCastBtn" data-broadcast-id="">지금 구매하기</button>
                     </div>
                 </div>
             </div>
@@ -148,6 +148,8 @@ text-decoration:line-through">159,000원</span></p>
     <script>
         const liveBroadCast = document.getElementById('liveBroadCast')
         const playIcon = document.getElementById('playIcon')
+        const liveBroadCastTitle = document.getElementById('liveBroadCastTitle')
+        const liveBroadCastBtn = document.getElementById('liveBroadCastBtn')
         var viewer
         let remonConfig = {
             media: {
@@ -198,6 +200,9 @@ text-decoration:line-through">159,000원</span></p>
                         console.log(response)
                         liveBroadCast.poster = response.broadcast.thumbnail
                         liveChannelId = response.broadcast.channel
+                        liveBroadCastTitle.innerText = response.broadcast.title
+                        liveBroadCastBtn.dataset.broadcastId = response.broadcast.id
+                        liveBroadCast.poster = response.broadcast.thumbnail
                         successCallback()
                     } else {
 
@@ -225,7 +230,6 @@ text-decoration:line-through">159,000원</span></p>
         }
 
         document.addEventListener('DOMContentLoaded', function (event) {
-            {#liveBroadCast.play()#}
             showLiveChannel()
         })
     </script>

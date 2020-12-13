@@ -11,30 +11,9 @@
 {% endblock %}
 {% block extrascript %}
     <script>
-        function login(username, password, successCallback, errorCallback, next=null) {
-            $.ajax({
-                type: "POST",
-                url: "{% url 'account_api:login' %}",
-                data: {
-                    'username': username,
-                    'password': password,
-                    'next': next
-                },
-                dataType: "json",
-                success: function (response) {
-                    for (var [k, v] of Object.entries(response)) {
-                        window.localStorage.setItem(k, v)
-                    }
-                    successCallback(response)
-                },
-                error: function (response, status, error) {
-                    errorCallback()
-                },
-            });
-        }
 
         function loginThisPage() {
-            login(
+            auth.login(
                 document.getElementById('username').value, document.getElementById('password').value,
                 function (response) {
                     console.log(response)

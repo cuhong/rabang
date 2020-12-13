@@ -147,6 +147,7 @@ text-decoration:line-through">159,000원</span></p>
     <script src="https://cdn.jsdelivr.net/npm/@remotemonster/sdk/remon.min.js"></script>
     <script>
         const liveBroadCast = document.getElementById('liveBroadCast')
+        const playIcon = document.getElementById('playIcon')
         var viewer
         let remonConfig = {
             media: {
@@ -162,9 +163,13 @@ text-decoration:line-through">159,000원</span></p>
         const remonListener = {
             onJoin() {
                 liveChannelConnect = true
+                playIcon.hidden = true
             },
             onError(error) {
                 console.log(error)
+            },
+            onClose() {
+                playIcon.hidden = false
             }
         }
 

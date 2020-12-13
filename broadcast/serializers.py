@@ -56,6 +56,6 @@ class BroadCastSerializer(serializers.ModelSerializer):
     class Meta:
         model = BroadCast
         fields = [
-            'id', 'thumbnail', 'start_at', 'end_at', 'sell_end_at', 'title', 'notice', 'channel',
+            'id', 'thumbnail', 'thumbnail', 'start_at', 'end_at', 'sell_end_at', 'title', 'notice', 'channel',
             'sale_threshold_1', 'sale_threshold_2', 'sale_threshold_3', 'sale_rate_1', 'sale_rate_2', 'sale_rate_3'
         ]

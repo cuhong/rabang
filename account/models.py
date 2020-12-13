@@ -5,6 +5,7 @@ import uuid
 
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from rest_framework.authtoken.models import Token
 
 from common.models import DateTimeMixin
 
@@ -22,6 +23,7 @@ class UserManager(BaseUserManager):
 
         user.set_password(password)
         user.save(using=self._db)
+        token = Token.objects.create(user=user)
         return user
 
     def create_superuser(self, email, name, cellphone, password=None):

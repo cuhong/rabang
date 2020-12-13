@@ -20,7 +20,42 @@
 {% block extrascript %}
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
     <script>
-        var data
+        function getPayMethod() {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'payment_api:paymethod' %}",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response)
+                },
+                error: function (request, status, error) {
+                    console.log(request)
+                },
+            });
+        }
+
+        function paymethodRegister(uid, card_name, successCallback, errorCallback) {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'payment_api:paymethod' %}",
+                data: {
+                    'action': 'paymethodRegister',
+                    'uid': uid,
+                    'card_name': card_name
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response.result) {
+                        successCallback(response)
+                    } else {
+                        errorCallback(response.msg)
+                    }
+                },
+                error: function (request, status, error) {
+                    errorCallback(request)
+                },
+            });
+        }
 
         function registerKey(uid, card_name, successCallback, errorCallback) {
             $.ajax({
@@ -46,7 +81,7 @@
             });
         }
 
-        function requestPay(payNickname, successCallback, errorCallback) {
+        function callRegisterWindow(payNickname, email, name, cellphone, successCallback, errorCallback) {
             var param = {
                 pg: "danal_tpay",
                 pay_method: "card",
@@ -54,14 +89,14 @@
                 customer_uid: null,
                 name: "카드등록",
                 amount: 0,
-                buyer_email: "{{ request.user.email }}",
-                buyer_name: "{{ request.user.name }}",
-                buyer_tel: "{{ request.user.cellhone }}",
+                buyer_email: email,
+                buyer_name: name,
+                buyer_tel: cellphone,
             }
             $.ajax({
                 type: "POST",
-                url: "{% url 'payment:register' %}",
-                data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'action': 'getUID', 'payNickname': payNickname},
+                url: "{% url 'payment_api:paymethod' %}",
+                data: {'action': 'getUID', 'payNickname': payNickname},
                 dataType: "json",
                 success: function (uidResponse) {
                     var IMP = window.IMP
@@ -78,20 +113,21 @@
                     })
                 },
                 error: function (request, status, error) {
+                    console.log(request)
                     alert('네트워크 오류')
                 },
             });
         }
 
         function requestPayTemp() {
-            requestPay(document.getElementById('payNickname').value, function () {
+            registerPaymethod(document.getElementById('payNickname').value, "cuhong@itechs.io", "홍찬의", "01024846313", function () {
                 alert('결제정보 등록 성공')
             }, function (msg) {
                 alert(msg)
             })
         }
 
-        function unregisterCard(uid, successCallback=null, errorCallback=null) {
+        function unregisterCard(uid, successCallback = null, errorCallback = null) {
             $.ajax({
                 type: "POST",
                 url: "{% url 'payment:register' %}",

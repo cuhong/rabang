@@ -1,0 +1,102 @@
+<script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+<script>
+    function getPayMethod() {
+        $.ajax({
+            type: "GET",
+            url: "{% url 'payment_api:paymethod' %}",
+            dataType: "json",
+            success: function (response) {
+                console.log(response)
+            },
+            error: function (request, status, error) {
+                errorCallback('결제정보 등록에 실패했습니다.')
+            },
+        });
+    }
+
+    function registerPaymethod(payNickname, email, name, cellphone, successCallback, errorCallback) {
+        var param = {
+            pg: "danal_tpay",
+            pay_method: "card",
+            merchant_uid: null,
+            customer_uid: null,
+            name: "카드등록",
+            amount: 0,
+            buyer_email: email,
+            buyer_name: name,
+            buyer_tel: cellphone,
+        }
+        $.ajax({
+            type: "POST",
+            url: "{% url 'payment_api:paymethod' %}",
+            data: {'action': 'getUID', 'payNickname': payNickname},
+            dataType: "json",
+            success: function (uidResponse) {
+                var IMP = window.IMP
+                IMP.init(uidResponse.imp_code)
+                param.merchant_uid = uidResponse.uid
+                param.customer_uid = uidResponse.uid
+                IMP.request_pay(param, function (response) {
+                    data = response
+                    if (response.success) {
+                        registerKey(uidResponse.uid, response.card_name, successCallback, errorCallback)
+                    } else {
+                        errorCallback('결제정보 등록에 실패했습니다.')
+                    }
+                })
+            },
+            error: function (request, status, error) {
+                alert('네트워크 오류')
+            },
+        });
+    }
+
+    function requestPayTemp() {
+        requestPay(document.getElementById('payNickname').value, function () {
+            alert('결제정보 등록 성공')
+        }, function (msg) {
+            alert(msg)
+        })
+    }
+
+    function unregisterCard(uid, successCallback = null, errorCallback = null) {
+        $.ajax({
+            type: "POST",
+            url: "{% url 'payment:register' %}",
+            data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'action': 'unregister', 'uid': uid},
+            dataType: "json",
+            success: function (response) {
+                if (response.result) {
+                    if (successCallback) {
+                        successCallback()
+                    } else {
+                        alert('결제수단이 삭제되었습니다.')
+                    }
+                } else {
+                    if (errorCallback.errorCallback) {
+                        errorCallback()
+                    } else {
+                        alert(response.msg)
+                    }
+                }
+            },
+            error: function (request, status, error) {
+                alert('네트워크 오류')
+            },
+        });
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "http://127.0.0.1:8000/api/payment/",
+        data: {'action': 'getUID', 'payNickname': "treset"},
+        dataType: "json",
+        success: function (uidResponse) {
+            console.log(uidResponse)
+        },
+        error: function (request, status, error) {
+            console.log(request)
+        },
+    });
+
+</script>

@@ -1,0 +1,95 @@
+{% extends 'customer_base.html' %}
+{% block title %}라방!{% endblock %}
+{% block container %}
+    <div class="row">
+        <div class="col-12">
+            <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
+            </div>
+            <video id="liveBroadCast" muted style="width: 100% !important;"
+                   poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
+            <div class="position-fixed text-center" style="bottom: 0px; z-index: 99999; padding: 10px">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extrascript %}
+    <script src="https://cdn.jsdelivr.net/npm/@remotemonster/sdk/remon.min.js"></script>
+    <script>
+        const liveBroadCast = document.getElementById('liveBroadCast')
+        var viewer
+        let remonConfig = {
+            media: {
+                recvonly: true
+            },
+            view: {
+                remote: '#liveBroadCast'
+            }
+        }
+        var liveChannelId
+        let liveChannelConnect = false
+
+        const remonListener = {
+            onJoin() {
+                liveChannelConnect = true
+                liveBroadCast.play()
+            },
+            onError(error) {
+                console.log(error)
+            }
+        }
+
+        function getRemonCredential(successCallback, errorCallback) {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'broadcast_api:remon' %}",
+                dataType: "json",
+                success: function (response) {
+                    remonConfig.credential = response
+                    successCallback()
+                },
+                error: function (request, status, error) {
+                    alert('네트워크 오류')
+                },
+            });
+        }
+
+        function patchLiveVideo(successCallback, errorCallback) {
+            $.ajax({
+                type: "GET",
+                url: "{% url 'broadcast_api:live' %}",
+                dataType: "json",
+                success: function (response) {
+                    if (response.result) {
+                        console.log(response)
+                        liveBroadCast.poster = response.broadcast.thumbnail
+                        liveChannelId = response.broadcast.channel
+                        successCallback()
+                    } else {
+
+                    }
+                },
+                error: function (request, status, error) {
+                    alert('네트워크 오류')
+                },
+            });
+        }
+
+        function showLiveChannel() {
+            getRemonCredential(function () {
+                patchLiveVideo(
+                    function () {
+                        viewer = new Remon({
+                            listener: remonListener,
+                            config: remonConfig
+                        })
+                        viewer.joinCast(liveChannelId)
+                    }
+                )
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded', function (event) {
+            showLiveChannel()
+        })
+    </script>
+{% endblock %}

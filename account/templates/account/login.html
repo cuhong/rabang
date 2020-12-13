@@ -1,0 +1,47 @@
+{% extends 'customer_base.html' %}
+{% block title %}카드등록{% endblock %}
+{% block container %}
+    <div class="row">
+        <div class="col-12 text-white">
+            <input type="text" class="form-control" id="username" placeholder="이메일">
+            <input type="password" class="form-control" id="password" placeholder="비밀번호">
+            <button class="btn btn-primary" onclick="loginThisPage()" type="button">로그인</button>
+        </div>
+    </div>
+{% endblock %}
+{% block extrascript %}
+    <script>
+        function login(username, password, successCallback, errorCallback, next=null) {
+            $.ajax({
+                type: "POST",
+                url: "{% url 'account_api:login' %}",
+                data: {
+                    'username': username,
+                    'password': password,
+                    'next': next
+                },
+                dataType: "json",
+                success: function (response) {
+                    for (var [k, v] of Object.entries(response)) {
+                        window.localStorage.setItem(k, v)
+                    }
+                    successCallback(response)
+                },
+                error: function (response, status, error) {
+                    errorCallback()
+                },
+            });
+        }
+
+        function loginThisPage() {
+            login(
+                document.getElementById('username').value, document.getElementById('password').value,
+                function (response) {
+                    console.log(response)
+                }, function () {
+                    alert('아이디와 비밀번호를 확인하세요.')
+                }
+            )
+        }
+    </script>
+{% endblock %}

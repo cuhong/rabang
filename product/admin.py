@@ -1,18 +1,22 @@
 from django.contrib import admin
 
-from product.models import Product, ProductOption, ProductOptionDetail
+from product.models import Product, ProductOption, ProductImage
 
+
+class ProductOptionInline(admin.TabularInline):
+    model = ProductOption
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ['registered_at', 'serial', 'name']
+    inlines = [ProductOptionInline]
 
 
 @admin.register(ProductOption)
-class ProductOptionDetailAdmin(admin.ModelAdmin):
+class ProductOptionAdmin(admin.ModelAdmin):
     list_display = ['product', 'original_price', 'sale_price']
 
 
-@admin.register(ProductOptionDetail)
-class ProductOptionDetailAdmin(admin.ModelAdmin):
-    list_display = ['name', 'value']
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    pass

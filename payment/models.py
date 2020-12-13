@@ -123,7 +123,7 @@ class Paymethod(UUIDPkMixin, DateTimeMixin, models.Model):
                 ledger.payment_fail(message, response_data)
                 raise PaymentError(f"결제 실패 : {message}")
         else:
-            ledger.payment_error(message, data=response_data)
+            ledger.payment_fail(message, data=response_data)
             raise PaymentError(f"결제 오류 : {message}")
 
 
@@ -133,15 +133,18 @@ class PayLedger(UUIDPkMixin, DateTimeMixin, models.Model):
         verbose_name_plural = verbose_name
         ordering = ('-registered_at',)
 
-    user = models.ForeignKey(User, null=False, blank=False, verbose_name='사용자', on_delete=models.PROTECT, editable=False)
-    paymethod = models.ForeignKey(Paymethod, null=False, blank=False, verbose_name='결제수단', on_delete=models.PROTECT, editable=False)
+    user = models.ForeignKey(User, null=False, blank=False, verbose_name='사용자', on_delete=models.PROTECT,
+                             editable=False)
+    paymethod = models.ForeignKey(Paymethod, null=False, blank=False, verbose_name='결제수단', on_delete=models.PROTECT,
+                                  editable=False)
     amount = models.IntegerField(null=False, blank=False, verbose_name='총결제금액', editable=False)
     tax_free = models.IntegerField(null=False, blank=False, verbose_name='면세대상액', editable=False)
     uid = models.TextField(null=False, blank=False, verbose_name='결제 식별자', editable=False)
     imp_uid = models.TextField(null=True, blank=True, verbose_name='아임포트 결제 식별자', editable=False)
     pay_title = models.TextField(null=False, blank=False, verbose_name='결제 적요', editable=False)
     status = models.IntegerField(
-        choices=((0, '대기'), (1, '결제성공'), (2, '결제실패'), (3, '오류')), default=0, null=False, blank=False, verbose_name='상태', editable=False
+        choices=((0, '대기'), (1, '결제성공'), (2, '결제실패'), (3, '오류')), default=0, null=False, blank=False, verbose_name='상태',
+        editable=False
     )
     data = models.JSONField(null=True, blank=True, verbose_name='응답', editable=False)
     error = models.TextField(null=True, blank=True, verbose_name='결제 실패/오류사유', editable=False)
@@ -157,7 +160,16 @@ class PayLedger(UUIDPkMixin, DateTimeMixin, models.Model):
         self.data = data
         self.save()
 
+    def payment_fail(self, msg, data):
+        if self.status != 0:
+            raise PaymentError('요청건이 대기 상태가 아닙니다.')
+        self.status = 2
+        self.error = msg
+        self.data = data
+        self.save()
+
     def payment_error(self, msg, data=None):
+        # 통신 오류 등 기술적 문제
         if self.status != 0:
             raise PaymentError('요청건이 대기 상태가 아닙니다.')
         self.status = 3
@@ -165,10 +177,93 @@ class PayLedger(UUIDPkMixin, DateTimeMixin, models.Model):
         self.data = data
         self.save()
 
-    def payment_fail(self, msg, data):
+    def cancel_payment(self, amount, tax_free, pay_title, reason, uid):
+        cancel_ledger = PayLedgerCancel.objects.create(
+            payment=self,
+            amount=amount,
+            uid=uid,
+            tax_free=tax_free,
+            pay_title=pay_title,
+            reason=reason,
+            status=0
+        )
+        token = IMPConfig.imp_auth()
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": token
+        }
+        data = {
+            "reason": reason,
+            "imp_uid": self.imp_uid,
+            "amount": amount,
+            "tax_free": tax_free
+        }
+        response = requests.post(
+            url="https://api.iamport.kr/payments/cancel",
+            json=data,
+            headers=headers
+        )
+        if response.status_code != 200:
+            cancel_ledger.cancel_error('아임포트 인증에 실패했습니다.')
+            raise PaymentError('아임포트 인증에 실패했습니다.')
+        response_data = response.json()
+        code = response_data['code']
+        message = response_data['message']
+        if code == 0:
+            pay_result = response_data['response']
+            if pay_result['status'] == 'cancelled':
+                cancel_ledger.cancel_success(response_data)
+                return cancel_ledger
+            else:
+                cancel_ledger.cancel_fail(message, response_data)
+                raise PaymentError(f"취소 실패 : {message}")
+        else:
+            cancel_ledger.cancel_fail(message, data=response_data)
+            raise PaymentError(f"취소 실패 : {message}")
+
+
+class PayLedgerCancel(UUIDPkMixin, DateTimeMixin, models.Model):
+    class Meta:
+        verbose_name = '결제 취소기록'
+        verbose_name_plural = verbose_name
+        ordering = ('-registered_at',)
+
+    payment = models.ForeignKey(PayLedger, null=True, blank=True, verbose_name='결제', on_delete=models.PROTECT)
+    amount = models.IntegerField(null=False, blank=False, verbose_name='총취소금액', editable=False)
+    tax_free = models.IntegerField(null=False, blank=False, verbose_name='면세대상액', editable=False)
+    uid = models.TextField(null=False, blank=False, verbose_name='취소 식별자', editable=False)
+    imp_uid = models.TextField(null=True, blank=True, verbose_name='아임포트 취소 식별자', editable=False)
+    pay_title = models.TextField(null=False, blank=False, verbose_name='취소 적요', editable=False)
+    reason = models.TextField(max_length=1000, null=False, blank=False, verbose_name='취소 사유')
+    status = models.IntegerField(
+        choices=((0, '대기'), (1, '취소성공'), (2, '취소실패'), (3, '오류')), default=0, null=False, blank=False, verbose_name='상태',
+        editable=False
+    )
+    data = models.JSONField(null=True, blank=True, verbose_name='응답', editable=False)
+    error = models.TextField(null=True, blank=True, verbose_name='취소 실패/오류사유', editable=False)
+    memo = models.TextField(null=True, blank=True, verbose_name='운영메모')
+
+    def cancel_success(self, data):
+        if self.status != 0:
+            raise PaymentError('요청건이 대기 상태가 아닙니다.')
+        self.status = 1
+        self.imp_uid = data['response']['imp_uid']
+        self.data = data
+        self.save()
+
+    def cancel_fail(self, msg, data):
         if self.status != 0:
             raise PaymentError('요청건이 대기 상태가 아닙니다.')
         self.status = 2
+        self.error = msg
+        self.data = data
+        self.save()
+
+    def cancel_error(self, msg, data=None):
+        # 통신 오류 등 기술적 문제
+        if self.status != 0:
+            raise PaymentError('요청건이 대기 상태가 아닙니다.')
+        self.status = 3
         self.error = msg
         self.data = data
         self.save()

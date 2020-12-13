@@ -35,6 +35,9 @@ INSTALLED_APPS = [
     'simple_history',
     'ordered_model',
     'solo',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
     'sequences.apps.SequencesConfig',
     'seller.apps.SellerConfig',
     'common.apps.CommonConfig',
@@ -44,6 +47,12 @@ INSTALLED_APPS = [
     'payment.apps.PaymentConfig',
     'mall.apps.MallConfig'
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication'
+    ]
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

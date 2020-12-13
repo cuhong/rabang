@@ -6,6 +6,14 @@ from common.models import SerialMixin, UUIDPkMixin, DateTimeMixin, PublicImageMi
 from seller.models import SellerFkMixin
 
 
+class ProductError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+    def __str__(self):
+        return self.msg
+
+
 class ProductImage(SellerFkMixin, UUIDPkMixin, DateTimeMixin, PublicImageMixin, models.Model):
     class Meta:
         verbose_name = '상품이미지'
@@ -24,6 +32,7 @@ class Product(SellerFkMixin, SerialMixin, UUIDPkMixin, DateTimeMixin, models.Mod
     SERIAL_PREFIX = "PRD"
     name = models.CharField(max_length=300, null=False, blank=False, unique=True, verbose_name='상품명')
     thumbnail = models.ForeignKey(ProductImage, null=False, blank=False, verbose_name='썸네일', on_delete=models.PROTECT)
+    simple_description = models.CharField(max_length=2000, null=False, blank=False, verbose_name='간단설명')
     description = models.TextField(null=False, blank=False, verbose_name='상세설명')
 
     def __str__(self):
@@ -49,25 +58,10 @@ class ProductOption(SerialMixin, UUIDPkMixin, DateTimeMixin, models.Model):
 
     SERIAL_PREFIX = "SO"
     product = models.ForeignKey(Product, null=False, blank=False, verbose_name='상품', on_delete=models.PROTECT)
+    name = models.CharField(max_length=300, null=False, blank=False, unique=True, verbose_name='옵션명')
     original_price = models.IntegerField(null=True, blank=True, verbose_name='정가')
     sale_price = models.IntegerField(null=False, blank=False, verbose_name='기본 판매가')
     is_default = models.BooleanField(default=False, verbose_name='기본상품')
 
     def __str__(self):
-        option_dict = ProductOptionDetail.objects.values('name', 'value').filter(product_option=self)
-        return "/".join([f"{k}: {v}" for k, v in option_dict.items()])
-
-
-class ProductOptionDetail(models.Model):
-    class Meta:
-        verbose_name = '상품옵션상세'
-        verbose_name_plural = verbose_name
-        ordering = ('name', 'value')
-
-    product_option = models.ForeignKey(ProductOption, null=False, blank=False, verbose_name='상품옵션',
-                                       on_delete=models.PROTECT)
-    name = models.CharField(max_length=100, null=False, blank=False, verbose_name='이름')
-    value = models.CharField(max_length=100, null=False, blank=False, verbose_name='값')
-
-    def __str__(self):
-        return f"{self.name}: {self.value}"
+        return self.name

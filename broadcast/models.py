@@ -55,7 +55,6 @@ class BroadCast(SellerFkMixin, UUIDPkMixin, DateTimeMixin, models.Model):
         verbose_name='썸네일',
         help_text='방송 리스트에 보일 가로로 긴 이미지(800x600 규격)'
     )
-
     poster = models.ImageField(
         null=False, blank=False,
         upload_to=broadcast_thumbnail_upload_to,

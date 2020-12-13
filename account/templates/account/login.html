@@ -22,5 +22,19 @@
                 }
             )
         }
+
+        function loginThisPage() {
+            auth.login(
+                "cuhong@itechs.io", "0claudia",
+                function (response) {
+                    console.log(response)
+                }, function () {
+                    alert('아이디와 비밀번호를 확인하세요.')
+                }
+            )
+        }
+
+
+        loginThisPage()
     </script>
 {% endblock %}

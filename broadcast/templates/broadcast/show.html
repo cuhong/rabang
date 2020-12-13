@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-12">
             <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
-                <button class="btn btn-primary" type="button" onclick="toPip()">PIP 테스트</button>
+                <button class="btn btn-primary" type="button" onclick="toPip()" id="pipButton">PIP 테스트</button>
             </div>
             <video id="remoteVideo" autoplay playsinline muted style="width: 100% !important;"
                    poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
@@ -20,6 +20,7 @@
         const broadcastId = '{{ broadcast.id }}'
         const channelId = '{{ broadcast.channel_id }}'
         const remoteVideo = document.getElementById('remoteVideo')
+        const pipButton = document.getElementById('pipButton')
         let isConnect = false
         var viewer
 
@@ -57,8 +58,10 @@
             joinCast()
         })
 
-        function toPip() {
-            remoteVideo.requestPictureInPicture()
+        async function toPip() {
+            pipButton.disabled = true
+            await remoteVideo.requestPictureInPicture()
+            pipButton.disabled = false
         }
     </script>
 

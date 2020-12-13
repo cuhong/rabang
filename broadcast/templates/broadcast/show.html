@@ -18,6 +18,7 @@
     <script>
         const broadcastId = '{{ broadcast.id }}'
         const channelId = '{{ broadcast.channel_id }}'
+        const remoteVideo = document.getElementById('remoteVideo')
         let isConnect = false
         var viewer
 
@@ -54,7 +55,9 @@
         document.addEventListener('DOMContentLoaded', function () {
             joinCast()
         })
-
+        window.onbeforeunload = function () {
+            remoteVideo.requestPictureInPicture()
+        };
     </script>
 
 {% endblock %}

@@ -7,7 +7,7 @@
                 <button class="btn btn-primary" type="button" onclick="toPip()" id="pipButton">PIP 테스트</button>
             </div>
             <video id="remoteVideo" autoplay playsinline muted style="width: 100% !important;"
-                   poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
+                   poster="{{ broadcast.thumbnail.url }}"></video>
             <div class="position-fixed text-center" style="bottom: 0px; z-index: 99999; padding: 10px">
                 {#                <span id="statusMsg" class="text-white">송출대기</span>#}
             </div>

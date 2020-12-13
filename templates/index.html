@@ -163,13 +163,13 @@ text-decoration:line-through">159,000원</span></p>
         const remonListener = {
             onJoin() {
                 liveChannelConnect = true
-                playIcon.visibility = 'hidden'
+                playIcon.display = 'none'
             },
             onError(error) {
                 console.log(error)
             },
             onClose() {
-                playIcon.visibility = 'visible'
+                playIcon.display = 'block'
             }
         }
 

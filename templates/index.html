@@ -171,7 +171,8 @@ text-decoration:line-through">159,000원</span></p>
                 console.log(error)
             },
             onClose() {
-                alert('close')
+                liveChannelConnect = false
+                viewer = null
                 playIcon.setAttribute('visibility', 'visible')
             }
         }
@@ -223,7 +224,7 @@ text-decoration:line-through">159,000원</span></p>
                             listener: remonListener,
                             config: remonConfig
                         })
-                        viewer.joinCast(liveChannelId)
+                        //viewer.joinCast(liveChannelId)
                         //liveBroadCast.play()
                     }
                 )
@@ -238,7 +239,7 @@ text-decoration:line-through">159,000원</span></p>
             showLiveChannel()
             setInterval(function () {
                 if (liveChannelId && liveChannelConnect === false && viewer !== null) {
-
+                    viewer.joinCast(liveChannelId)
                 }
             })
         })

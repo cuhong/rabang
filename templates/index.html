@@ -1,11 +1,13 @@
 {% extends 'customer_base.html' %}
 {% block title %}라방!{% endblock %}
+{% load static %}
 {% block container %}
     <div class="row">
         <div class="col-12">
             <div class="position-fixed" style="top: 0px; z-index: 99999; padding: 10px">
             </div>
             <video id="liveBroadCast" muted playsinline autoplay style="width: 100% !important;"
+                   src="{% static 'sampleVideo.mp4' %}"
                    poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>
             <div class="position-fixed text-center" style="bottom: 0px; z-index: 99999; padding: 10px">
             </div>
@@ -88,7 +90,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function (event) {
-            showLiveChannel()
+            // showLiveChannel()
         })
     </script>
 {% endblock %}

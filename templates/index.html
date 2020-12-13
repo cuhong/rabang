@@ -80,25 +80,19 @@
             {#                   poster="https://via.placeholder.com/2048x3481.png?text=Waiting..."></video>#}
 
             <video id="liveBroadCast" muted autoplay loop
-                   style="width: 100% !important; height: 120vw; object-fit: cover; z-index: 8000"
+                   style="width: 100% !important; height: 140vw; max-height: 1000px; object-fit: cover; z-index: 8000"
                    src="{% static 'Screen_Recording_20201213-185130_Grip.mp4' %}"
                    poster="https://via.placeholder.com/2048x3481.png?text=Waiting...">
             </video>
-            <div class="videoOverlay"
-                 style="position: absolute; top: 0; left: 0;width: 100% !important; height: 120vw; background: rgb(50,50,50); background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(50,50,50,1) 2%, rgba(255,255,255,0) 100%); z-index: 9000;"></div>
-
-            <div class="w-100 text-center"
-                 style="position: absolute; left: 0px; top: 40vw; z-index: 99999; padding: 10px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30.212" class="playIcon" height="30.357"
+            <div class="videoOverlay text-center"
+                 style="position: absolute; top: 0; left: 0;width: 100% !important; height: 140vw; max-height: 1000px; background: rgb(50,50,50); background: linear-gradient(0deg, rgba(50,50,50,1) 0%, rgba(50,50,50,1) 2%, rgba(255,255,255,0) 100%); z-index: 9000;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30.212" class="playIcon" height="30.357" style="position: relative; top:50%"
                      viewBox="0 0 30.212 35.357">
                     <path id="Triangle"
                           d="M17.434,4.233a3,3,0,0,1,5.131,0L37.239,28.445A3,3,0,0,1,34.674,33H5.326a3,3,0,0,1-2.566-4.555Z"
                           transform="translate(33 -2.321) rotate(90)" fill="#fff"/>
                 </svg>
-{#            </div>#}
-{#            <div class="w-100 text-center"#}
-{#                 style="position: absolute; left: 0px; top: 70vw; z-index: 99999; padding: 10px;">#}
-                <div class="w-100 text-center" style="position: relative; bottom: 0px">
+                <div class="w-100 text-center" style="position: absolute; bottom: 0px">
                     <div class="pl-5 pr-5 mt-3 mb-3">
                         <span style="font-size: 32px; font-weight: bold; color: white; line-height: 32px">아디다스 덕 다운 패딩 1+1</span>
                     </div>
@@ -107,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="pl-3 pr-3 mb-0">
+            <div class="pl-3 pr-3 mb-0 mt-4">
                 <span style="color: #ee3050; font-size: 18px; font-weight: bold">라이브 편성표</span>
             </div>
             <div class="p-3">

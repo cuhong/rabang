@@ -1,3 +1,5 @@
+from django.shortcuts import render
+from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import serializers, status
 from rest_framework.response import Response
@@ -13,9 +15,21 @@ class PaymethodSerializers(serializers.ModelSerializer):
         read_only_fields = ['id']
 
 
+class PaymentTestView(View):
+    def get(self, request):
+        from rest_framework.authtoken.models import Token
+        paymethod_list = Paymethod.objects.values('id', 'card_nickname').filter(
+            user=request.user,
+            status=1,
+        )
+        context = {
+            "token": Token.objects.get(user=request.user).key,
+            "paymethod_list": paymethod_list
+        }
+        return render(request, 'payment/register.html', context)
+
+
 class PaymethodView(APIView):
-
-
     def get(self, request):
         paymethod_list = Paymethod.objects.filter(
             user=request.user,

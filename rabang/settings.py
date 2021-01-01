@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'simple_history',
     'ordered_model',
     'solo',
+    'corsheaders',
+    'channels',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -45,8 +47,11 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'broadcast.apps.BroadcastConfig',
     'payment.apps.PaymentConfig',
-    'mall.apps.MallConfig'
+    'mall.apps.MallConfig',
+    'chat.apps.ChatConfig'
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -57,6 +62,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -84,6 +90,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'rabang.wsgi.application'
+ASGI_APPLICATION = 'chat.asgi.application'
+
+CHANNEL_LAYERS = env.CHANNEL_LAYERS
 
 DATABASES = env.DATABASES
 CACHES = env.CACHES

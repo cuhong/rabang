@@ -13,26 +13,42 @@
                 {% endfor %}
             </ul>
             <input type="text" class="form-control" id="payNickname" placeholder="카드별칭">
+            <input type="text" class="form-control" id="Token" value="{{ token }}" disabled>
             <button class="btn btn-primary" onclick="requestPayTemp()" type="button">카드등록</button>
         </div>
     </div>
 {% endblock %}
 {% block extrascript %}
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-        function getPayMethod() {
-            $.ajax({
-                type: "GET",
-                url: "{% url 'payment_api:paymethod' %}",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response)
-                },
-                error: function (request, status, error) {
-                    console.log(request)
-                },
-            });
+        const Token = document.getElementById('Token').value
+        const axiosInstance = axios.create({
+            headers: {
+                'Authorization': `Token ${Token}`,
+                'Content-Type': 'application/json'
+            }
+        })
+
+        function getPayMethod(successCallback, errorCallback) {
+            axiosInstance.get(
+                url = "/api/paym11ent/"
+            ).then((response) => {
+                successCallback(response)
+            }).catch((error) => {
+                console.log(error)
+                errorCallback(error)
+            })
         }
+
+        getPayMethod(
+            function (response) {
+                console.log(response.status)
+                console.log(response)
+            }, function (error) {
+                console.log(error.status)
+            }
+        )
 
         function paymethodRegister(uid, card_name, successCallback, errorCallback) {
             $.ajax({

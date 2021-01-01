@@ -5,4 +5,5 @@ from payment import api_views as views
 
 urlpatterns = [
     path('', views.PaymethodView.as_view(), name='paymethod'),
+    path('test', views.PaymentTestView.as_view(), name='paymethod_test'),
 ]

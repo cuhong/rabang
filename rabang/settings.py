@@ -90,7 +90,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'rabang.wsgi.application'
-ASGI_APPLICATION = 'chat.asgi.application'
+ASGI_APPLICATION = 'rabang.asgi.application'
 
 CHANNEL_LAYERS = env.CHANNEL_LAYERS
 

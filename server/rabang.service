@@ -6,8 +6,7 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/rabang
-ExecStart=/home/ubuntu/rabang/.env/bin/gunicorn --workers 4 --timeout 600 --threads 4 --reload --bind unix:/home/ubuntu/rabang/server/rabang.sock rabang.asgi:application -k uvicorn.workers.UvicornWorker --access-logfile /home/ubuntu/rabang/server/log/gunicorn-access.log --error-logfile /home/ubuntu/rabang/server/log/gunicorn-error.log
-
+ExecStart=/home/ubuntu/rabang/.env/bin/gunicorn --workers 4 --timeout 600 --threads 4 --reload --bind unix:/home/ubuntu/rabang/server/rabang.sock rabang.wsgi:application --access-logfile /home/ubuntu/rabang/server/log/gunicorn-access.log --error-logfile /home/ubuntu/rabang/server/log/gunicorn-error.log
 [Install]
 WantedBy=multi-user.target
 

@@ -14,8 +14,9 @@ class LoginApiView(LoginView):
 
     def get_response(self):
         serializer_class = self.get_response_serializer()
-        serializer = serializer_class(instance=self.token,
-                                      context={'request': self.request})
+        serializer = serializer_class(
+            instance=self.token, context={'request': self.request}
+        )
         response_data = serializer.data
         user_serializer = UserSerializer(self.user)
         for k, v in user_serializer.data.items():

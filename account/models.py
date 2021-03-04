@@ -74,15 +74,6 @@ class User(PermissionsMixin, AbstractBaseUser):
         return self.is_admin
 
 
-class Vendor(DateTimeMixin, models.Model):
-    class Meta:
-        verbose_name = '판매사'
-        verbose_name_plural = verbose_name
-        ordering = ('-registered_at',)
-
-    name = models.CharField(max_length=200, null=False, blank=False, unique=False, verbose_name='판매사명')
-    description = models.CharField(max_length=5000, null=False, blank=False, verbose_name='설명')
-
 
 class UserFkMixin(models.Model):
     class Meta:

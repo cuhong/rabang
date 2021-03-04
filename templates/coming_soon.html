@@ -1,20 +1,25 @@
+
 <!doctype html>
 <html lang="ko">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap CSS -->
-    <style type="text/css" media="screen and (max-width: 640px)" rel="stylesheet">
+    <style type="text/css" media="screen and (max-width: 630px)" rel="stylesheet">
       html, body {
-        height: 100%;
+        height: 100vh;
+        width: 100vh;
+        max-height: -webkit-fill-available;
+        max-width: -webkit-fill-available;
       }
       body {
       background-color: #00B9EF;}
 
       .wrap-container {
-        z-index: -99999;
+        max-height: -webkit-fill-available;
+        max-width: -webkit-fill-available;
         text-align: center;
         margin: 0 auto;
         position: relative;
@@ -22,11 +27,18 @@
 
       .container {
         position: absolute;
+        height: 60%;
         margin: auto;
         top: 0;
         bottom: 0;
         left: 0;
         right: 0;
+      }
+      #cali {
+        z-index: -99;
+        position: absolute;
+        right: -40px;
+        bottom: -10px;
       }
     </style>
     <style type='text/css'>

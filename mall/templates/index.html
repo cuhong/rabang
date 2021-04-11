@@ -7,6 +7,7 @@
     <div class="wrap-container">
         <!-- Main Contents Start-->
         {% with show=show_list.first %}
+            {% if show %}
             <div class="container">
                 <a href="#"><img class="logo-white" src="{% static 'assets/rabang_white.svg' %}" alt=""/></a>
                 <div class="img-main"></div>
@@ -44,6 +45,7 @@
 
                 </div>
             </div>
+            {% endif %}
         {% endwith %}
         <!-- Main Contents End-->
 

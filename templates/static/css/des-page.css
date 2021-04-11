@@ -1,0 +1,61 @@
+body {
+  text-align: center;
+}
+
+.wrap-txt {
+  margin-top: 1rem;
+  padding: 0 1rem;
+  display: flex;
+  flex: row nowrap;
+  justify-content: space-between;
+}
+
+.right-img .txt-caption {
+  font-weight: normal;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.img-alert {
+  width: 24px;
+  height: 24px;
+}
+
+
+.txt-price {
+  text-align: left;
+  margin-top: 1rem;
+  padding: 0 1rem;
+  font-weight: bold;
+}
+
+.txt-price .txt-caption, .tb-menu .txt-caption {
+  font-weight: normal;
+
+}
+
+.txt-h {
+  text-align: center;
+  font-size: 1.13rem;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.txtl {
+  padding: 1.5rem 1rem 4rem 1rem;
+}
+
+
+.chev-top {
+  float: right;
+}
+
+
+.detail-menu:active {
+  border-bottom: 4px solid #00B9EF;
+  color: #00B9EF;
+}
+.detail-menu:hover {
+  border-bottom: 4px solid #00B9EF;
+  color: #00B9EF;
+}

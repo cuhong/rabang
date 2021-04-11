@@ -32,11 +32,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'channels',
     'simple_history',
     'ordered_model',
     'solo',
     'corsheaders',
+    'ckeditor',
+    'ckeditor_uploader',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
@@ -45,11 +48,12 @@ INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'product.apps.ProductConfig',
     'account.apps.AccountConfig',
-    'broadcast.apps.BroadcastConfig',
     'payment.apps.PaymentConfig',
     'mall.apps.MallConfig',
-    'chat.apps.ChatConfig'
+    'show.apps.ShowConfig'
 ]
+
+CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -154,3 +158,8 @@ elif STAGE == 'local':
 
 
 SOLO_CACHE = 'default'
+
+VIMEO_KEY = "3ba1dba19ed2ca15d45a2f325cb5a3eaec9e6284"
+VIMEO_SECRET = "RWbI0ee1w19l3nTiDAwa94Gxdyhfzsvcpwg6MOu53636y+CulfitrK3qJ+fa2JLOt50mxpoL22MtThG5pKVdD+1kL1Xaf9hTFumYV6/y98ebvWJaCUj59RKIWdc9yGG9"
+VIMEO_AUTH_URL = "https://api.vimeo.com/oauth/authorize"
+VIMEO_ACCESS_TOKEN_URL = "https://api.vimeo.com/oauth/access_token"

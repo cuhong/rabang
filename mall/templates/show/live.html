@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block pagestyle %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/video-page.css' %}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="wrap-container">
+        <video id="my_video_1" width="auto" height="100%" poster="{{ show.poster.url }}" autoplay muted playsinline></video>
+        <div class="header flex row" style="position: absolute; top:0">
+            <div class="wrap-left flex row">
+                <img class="img-oval imgm" src="{{ show.product.seller.profile.file.url }}" alt=""/>
+                <div class="wrap-txt txtl ml12">
+                    <p class="txtbold txt-title">{{ show.title_display }}<i class="iconw icon-live-b"></i></p>
+                    <div class="light-gray flex row txt-caption txtnorm">
+                        <p class="txt-subs">{{ show.product.seller.name }}</p>
+                        <p class="ml12"><img class="imgxs" src="{% static 'assets/visibility.svg' %}" alt=""> 1,203</p>
+                    </div>
+                </div>
+            </div>
+            <div class="wrap-right flex row">
+                <a href="#"><i class="icon icon-upload"></i></a>
+                <a href="{% url 'mall:show' show_id=show.id %}" class="ml24"><i class="icon icon-big-close"></i></a>
+            </div>
+        </div>
+        <div class="wrap-chatlist pl16 pr16" style="position: absolute; bottom: 0">
+            <div class="wrap-chat">
+                {#          <ul class="flex row mb16">#}
+                {#            <li id="chat-name">알롱이</li>#}
+                {#            <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
+                {#          </ul>#}
+                {#          <ul class="flex row mb16">#}
+                {#            <li id="chat-name">알롱이</li>#}
+                {#            <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
+                {#          </ul>#}
+            </div>
+            <div class="flex row mt24 pb16 a-center">
+                <input class="input-chat" type="text" placeholder="메세지를 입력해주세요."/>
+                <a href="#" class="ml16"><i class="icon icon-heart"></i></a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+<!-- 로그인 팝업
+
+    <div class="popup-bottom">
+      <div class="wrap-title flex row f-between">
+        <p class="popup-title">로그인</p>
+        <img class="middle" src="./assets/close.svg" />
+      </div>
+      <div class="popup-list mt24">
+        <div class="wrap-input ">
+          <input class="" type="text" placeholder="hogne@gmail.com" />
+          <input class=" mt16" type="password" placeholder="●●●●●●●●●●●●" />
+        </div>
+        <a class="btn btn-blue mt16" href="#">로그인</a>
+        <a class="btn btn-kakao mt16" href="#">카카오로 로그인하기</a>
+
+        <p class="mt24">아이디가 없다면? <a class="blue underline" href="#">회원가입</a> 하기</p>
+      </div>
+    </div>
+    -->
+<!--장바구니
+    <div class="full-popup txtl">
+      <div class="wrap-title flex row">
+        <p class="popup-title">상품목록 <span>3</span></p>
+        <p class="popup-title ml24 blue">장바구니</p>
+      </div>
+      <hr class="mt24 mb24"/>
+      <div class="a-left col w-100">
+        <a class="chbx f-left" href="#"><i class="icon icon-check mr5"></i>전체선택(<span>1</span>/<span>1</span>)</a>
+        <div class="wrap-list mt32">
+          <p class="sub-title">스파오 블랙프라이데이</p>
+          <hr class="bor-gray"/>
+          <div class="order-list flex row">
+            <i class="icon icon-check mr8"></i>
+            <img class="imgm img-border-rect mr16" alt="" src="./assets/img2.jpeg" />
+            <div class="flex-2 flex col ">
+              <div class="price flex row f-between txtbold">
+                <p class="">상품 금액</p>
+                <p class="">20,000원</p>
+              </div>
+              <div class="price flex row f-between mt4">
+                <p class="">배송비</p>
+                <p class="">2,000원</p>
+              </div>
+              <div class="price flex row f-between mt16">
+                <div class="spinning flex row">
+                  <p class="bor-lightgray pa4">-</p><p class="bor-lightgray pa4 pr12 pl12">1</p><p class="bor-lightgray pa4">+</p>
+                </div>
+                <div class="wrap-btn">
+                  <a class="bor-lightgray pa4">삭제</a>
+                  <a class="bor-blue pa4 ml16 blue">바로구매</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <hr class="bor-lightgray mt24 mb16" />
+          <div class="all-price txt-caption lgray flex row">
+            <p>29,000원 + 배송비 3,000원 = 32,000원</p>
+          </div>
+          <hr class="bor-gray mt16 mb32" />
+          <div class="wrap-contents mt16 pt24 pb24 pl16 pr16">
+            <p class="txt-title">최종 결제금액</p>
+            <div class="flex row f-between mt16">
+              <p>총 주문 금액</p>
+              <p class="txtbold">29,000원</p>
+            </div>
+            <div class="flex row f-between mt16">
+              <p>총 배송비</p>
+              <p class="txtbold">3,000원</p>
+            </div>
+            <div class="flex row f-between mt16 mb72">
+              <p>총 결제금액</p>
+              <p class="txtbold red">32,000원</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="btn-order flex row w-100">
+        <a class="btn btn-rect btn-selc" href="#">선택구매</a>
+        <a class="btn btn-rect btn-all" href="#">전체구매</a>
+      </div>
+    </div>-->
+
+<!--상품목록
+<div class="full-popup txtl" style="position:absolute; bottom: 30px">
+    <div class="wrap-title flex row">
+        <p class="popup-title blue">상품목록 <span>3</span></p>
+        <p class="popup-title ml24">장바구니</p>
+    </div>
+    <hr class="mt24 mb24"/>
+
+    <div class="item-list">
+        <div class="wrap-item flex row w-100 mb72">
+            <img class="imgm img-border-rect" alt="" src="./assets/img5.png"/>
+            <div class="flex-2 flex col ml16">
+                <p class="">스파오 블랙프라이데이</p>
+                <p class="red txtbold">3,0000원</p>
+            </div>
+            <i class="icon icon-check a-center"></i>
+        </div>
+        <div class="btn-order flex row w-100">
+            <a class="btn btn-rect btn-selc" href="#">선택구매</a>
+            <a class="btn btn-rect btn-all" href="#">전체구매</a>
+        </div>
+    </div>
+</div>
+    -->
+<div class="full-popup txtl" style="position:absolute; bottom: 30px">
+    <div class="wrap-title flex row">
+        <p class="popup-title blue">상품목록 <span>3</span></p>
+        <p class="popup-title ml24">장바구니</p>
+    </div>
+    <hr class="mt24 mb24"/>
+
+    <div class="item-list">
+        <div class="wrap-item flex row w-100 mb72">
+            <img class="imgm img-border-rect" alt="" src="./assets/img5.png"/>
+            <div class="flex-2 flex col ml16">
+                <p class="">스파오 블랙프라이데이</p>
+                <p class="red txtbold">3,0000원</p>
+            </div>
+            <i class="icon icon-check a-center"></i>
+        </div>
+        <div class="btn-order flex row w-100">
+            <a class="btn btn-rect btn-selc" href="#">선택구매</a>
+            <a class="btn btn-rect btn-all" href="#">전체구매</a>
+        </div>
+    </div>
+</div>
+
+{% block extrascript %}
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        var video = document.getElementById('my_video_1');
+        {#var videoSrc = 'https://cdn3.wowza.com/1/MDhpNzl6R2pYMElD/eXU2M2du/hls/live/playlist.m3u8';#}
+        var videoSrc = 'https://cdn3.wowza.com/1/aDg3SDN6U0NUaUYx/aGQ0NHlK/hls/live/playlist.m3u8';
+        if (Hls.isSupported()) {
+            var hls = new Hls({capLevelToPlayerSize: true});
+            hls.loadSource(videoSrc);
+            hls.attachMedia(video);
+        }
+    </script>
+{% endblock %}

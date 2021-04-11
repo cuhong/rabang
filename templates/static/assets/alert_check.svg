@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="52px" height="52px" viewBox="0 0 52 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Notification / Alt 2</title>
+    <defs>
+        <filter x="-7.4%" y="-10.9%" width="114.7%" height="121.7%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.3 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <filter id="filter-2">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0.000000 0 0 0 0 0.725490 0 0 0 0 0.937255 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="팝업" transform="translate(-410.000000, -295.000000)">
+            <g id="Group-19-Copy" filter="url(#filter-1)" transform="translate(300.000000, 267.000000)">
+                <g id="Notification-/-Alt-2" transform="translate(116.000000, 32.000000)" filter="url(#filter-2)">
+                    <g id="validation-check" transform="translate(1.666667, 1.666667)" fill="#000000" fill-rule="nonzero">
+                        <path d="M18.3333333,36.6666667 C8.20811292,36.6666667 0,28.4585537 0,18.3333333 C0,8.20811292 8.20811292,0 18.3333333,0 C28.4585537,0 36.6666667,8.20811292 36.6666667,18.3333333 C36.6666667,23.1956356 34.7351246,27.8587907 31.2969577,31.2969577 C27.8587907,34.7351246 23.1956356,36.6666667 18.3333333,36.6666667 Z M18.3333333,3.33333333 C10.0490621,3.33333333 3.33333333,10.0490621 3.33333333,18.3333333 C3.33333333,26.6176046 10.0490621,33.3333333 18.3333333,33.3333333 C26.6176046,33.3333333 33.3333333,26.6176046 33.3333333,18.3333333 C33.3333333,10.0490621 26.6176046,3.33333333 18.3333333,3.33333333 Z" id="Shape"></path>
+                        <path d="M15,26.6666946 C14.556995,26.6692279 14.1311981,26.4953109 13.8166667,26.1833333 L8.81666667,21.1833333 C8.16312975,20.5297964 8.16312976,19.4702036 8.8166667,18.8166667 C9.47020364,18.1631298 10.5297964,18.1631297 11.1833333,18.8166667 L15,22.65 L24.65,12.9833333 C25.303537,12.3297964 26.3631297,12.3297964 27.0166667,12.9833333 C27.6702036,13.6368703 27.6702036,14.696463 27.0166667,15.35 L16.1833333,26.1833333 C15.8688019,26.4953109 15.443005,26.6692279 15,26.6666946 Z" id="Path"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

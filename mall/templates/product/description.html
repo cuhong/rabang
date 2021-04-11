@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block pagestyle %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/des-page.css' %}"/>
+{% endblock %}
+{% block header %}
+    <div class="header">
+        <a href="#" onclick="goBack()" class="f-left"><i class="icon icon-chevron-left"></i></a>
+        <a href="{% url 'mall:index' %}" class="f-right"><i class="icon icon-close"></i></a>
+        <p class="h-title">제품 상세정보</p>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="wrap-container">
+        <!-- Main Image Start -->
+        <div class="container">
+            <div class="wrap-content">
+                {% if show.poster_video %}
+                    <video width="100%" height="auto" controls autoplay muted playsinline style="text-align: center">
+                        <source src="{{ show.poster_video.url }}">
+                    </video>
+                    {#                    <video id="my_video_1" width="100%" height="100%" controls autoplay muted playsinline></video>#}
+                {% else %}
+                    <img class="imgfull" src="{{ show.poster.url }}"/>
+                {% endif %}
+                <div class="wrap-txt">
+                    <div class="left-txt">
+                        <p class="txt-title">{{ show.title_display }}</p>
+                        <p class="txt-caption blue">{{ show.start_at|date:"Y년 m월 d일 h시 i분" }} 방송 예정</p>
+                    </div>
+                    <a class="right-img" href="#">
+                        <i class="icon icon-alert"></i>
+                        <p class="txt-caption blue mt4">알림받기</p>
+                    </a>
+                </div>
+                <div class="txt-price">
+                    {{ show.product.sale_price|intcomma }}원 <span class="txt-caption">
+                    {% with delivery_type=show.product.delivery_type %}
+                        {% if delivery_type == 0 %}
+                            (무료배송)
+                        {% elif delivery_type == 1 %}
+                            (배송비 {{ show.product.delivery_fee|intcomma }}원)
+                        {% elif delivery_type == 2 %}
+                            (배송비 {{ show.product.delivery_fee|intcomma }}원/개)
+                        {% endif %}
+                    {% endwith %}
+                </span>
+                </div>
+                <div class="flex row mt32 txtbold">
+                    <a class="detail-menu flex-1 border-t-b pt16 pb16" href="#">상세정보</a>
+                    <a class="detail-menu flex-1 border-t-b pt16 pb16" href="#">기본정보</a>
+                    <a class="detail-menu flex-1 border-t-b pt16 pb16" href="#">제품문의<span
+                            class="txt-caption">(32)</span></a>
+                </div>
+            </div>
+        </div>
+        <!-- Main Image End -->
+
+        <!-- Detail Image Start -->
+        <div class="container">
+            {% autoescape off %}
+                {{ show.product.description }}
+            {% endautoescape %}
+            {#            <p class="txt-h mt72 mb72">프라우반 2단트레이 접시스탠드</p>#}
+            {#            <div class="wrap-content">#}
+            {#                <img class="imgfull" src="{% static 'assets/img4.png' %}"/>#}
+            {#                <div class="txtl">#}
+            {#                    <p class="txt-subs-title">프라우반 2단트레이 접시스탠드</p>#}
+            {#                    <p class="mt16">#}
+            {#                        주변 분위기나 용도에 따라 접시를 바꾸어 가며 다양하게 활용할 수 있는 우드 핸들 2단 트레이 스탠드를 소개합니다. 매트한 무광 블랙 철재 바디에 천연 원목으로 만든 우드#}
+            {#                        손잡이로 중심을 잡아 절제미와 세련미를 동시에 갖추었습니다. 일반 그릇뿐만 아니라 구성품인 다용도 바스켓을 결합하여 다양한 식재료나 소품을 넣어두기 좋습니다. 평상시에는#}
+            {#                        그냥 놓아 두기만 해도 좁은 공간을 효과적으로 꾸밀 수 있어 인테리어 소품으로 손색이 없습니다.#}
+            {#                    </p>#}
+            {#                </div>#}
+            {#            </div>#}
+            {##}
+            {#            <div class="wrap-content">#}
+            {#                <img class="imgfull" src="{% static 'assets/img5.png' %}"/>#}
+            {#                <div class="txtl">#}
+            {#                    <p class="txt-subs-title">프라우반 2단트레이 접시스탠드</p>#}
+            {#                    <p class="mt16">#}
+            {#                        주변 분위기나 용도에 따라 접시를 바꾸어 가며 다양하게 활용할 수 있는 우드 핸들 2단 트레이 스탠드를 소개합니다. 매트한 무광 블랙 철재 바디에 천연 원목으로 만든 우드#}
+            {#                        손잡이로 중심을 잡아 절제미와 세련미를 동시에 갖추었습니다. 일반 그릇뿐만 아니라 구성품인 다용도 바스켓을 결합하여 다양한 식재료나 소품을 넣어두기 좋습니다. 평상시에는#}
+            {#                        그냥 놓아 두기만 해도 좁은 공간을 효과적으로 꾸밀 수 있어 인테리어 소품으로 손색이 없습니다.#}
+            {#                    </p>#}
+            {#                </div>#}
+            {#            </div>#}
+            {##}
+            {#            <div class="wrap-content">#}
+            {#                <img class="imgfull" src="{% static 'assets/img6.png' %}"/>#}
+            {#                <div class="txtl pa16">#}
+            {#                    <p class="txt-subs-title">프라우반 2단트레이 접시스탠드</p>#}
+            {#                    <p class="mt16">#}
+            {#                        주변 분위기나 용도에 따라 접시를 바꾸어 가며 다양하게 활용할 수 있는 우드 핸들 2단 트레이 스탠드를 소개합니다. 매트한 무광 블랙 철재 바디에 천연 원목으로 만든 우드#}
+            {#                        손잡이로 중심을 잡아 절제미와 세련미를 동시에 갖추었습니다. 일반 그릇뿐만 아니라 구성품인 다용도 바스켓을 결합하여 다양한 식재료나 소품을 넣어두기 좋습니다. 평상시에는#}
+            {#                        그냥 놓아 두기만 해도 좁은 공간을 효과적으로 꾸밀 수 있어 인테리어 소품으로 손색이 없습니다.#}
+            {#                    </p>#}
+            {#                </div>#}
+            {#            </div>#}
+
+        </div>
+        <!-- Detail Image End -->
+
+        <!--How to Start-->
+        <div class="container">
+            <div class="border-t-b">
+                <div class="txt-h pa16">
+                    <span>배송/취소/교환/반품 정책</span>
+                    <a class="chev-top" href="#"><i class="icon icon-chevron-top"></i></a>
+                </div>
+                <div class="txtl pa16">
+                    <strong class="txt-subs">배송/취소/환불 정책</strong>
+                    <p class="mt16 gray pb16">
+                        라방의 모든 제품은 주문기간 내 주문 취소가 가능합니다.<br/>
+                        조기매진으로 인해 주문기간이 변경되면, 주문 취소 가능 기간 역시 변경됩니다.<br/>
+                        맞춤형 주문제작 제품 및 식품은 주문 종료 후 단순 변심으로 인한 주문 취소/교환/반품이 불가합니다.<br/>
+                        일반 제품의 경우 주문 종료 후 제작 중/배송 준비 중/배송 중 상태에서는 주문 취소/교환/환불이 불가합니다.<br/>
+                        일반 제품의 경우 단순변심으로 인한 교환/반품은 제품 수령일로부터 7일 이내 가능합니다.<br/>
+                        수령하신 제품의 내용이 표시, 광고 내용과 다르거나 계약 내용과 다르게 이행된 때에는 당해 제품을 공급받은 날부터 3개월 이내, 그 사실을 안 날 또는 알 수 있었던 날부터
+                        30일 이내에 청약철회 등을 할 수 있습니다.<br/>
+                        단순변심 반품의 경우 추가 배송비가 부담되며, 제품 및 포장 상태는 재판매가 가능하여야 합니다.수령하신 제품이 불량인 경우, 확인이 가능하도록 사진을 포함하여 고객센터로
+                        연락주시면 확인 후 신속한 답변 드리겠습니다.<br/>
+                        식품의 경우도 파손이나 변질로 인한 제품의 섭취가 어려운 경우 사진을 포함하여 고객센터로 문의바랍니다.<br/>
+                        배송정보(연락처/주소)가 올바르게 기재되지 않을 경우 배송이 지연되거나 반송될 수 있으므로 정확한 정보를 기재해 주시기 바라며, 이로 인한 반송의 경우 배송비가 부과될 수
+                        있습니다.<br/>
+                        제품의 특성에 따라 제주 및 도서 산간 지역의 경우 배송이 불가할 수 있으며 결제 이후 자동 주문 취소 처리가 될 수 있습니다.<br/>
+                        제품 파손, 오배송 등의 제작사 귀책 사유로 교환/반품이 필요한 경우 교환 반품 배송비는 제작사에서 부담합니다.<br/>
+                        사이즈 색상변경 등 구매자 변심 사유로 교환/반품이 가능한 경우, 구매하신 분은 다음의 배송비를 부담하시게 됩니다. 단, 무료 배송인 제품을 반품하실 경우, 왕복 배송비
+                        부담이 필요합니다. (일반지역: 왕복배송비, 제주/도서산간 지역: 왕복 배송 실비)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--How to End-->
+    </div>
+{% endblock %}
+

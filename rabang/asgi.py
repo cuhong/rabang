@@ -9,11 +9,9 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.asgi import get_asgi_application
 from rest_framework.authtoken.models import Token
 
-import chat.routing
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'rabang.settings')
 
-User = get_user_model()
 
 
 class TokenAuthMiddleware:
@@ -50,6 +48,5 @@ class TokenAuthMiddleware:
 
 
 application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    "websocket": TokenAuthMiddleware(URLRouter(chat.routing.websocket_urlpatterns))
+    "http": get_asgi_application()
 })

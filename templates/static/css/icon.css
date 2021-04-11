@@ -1,0 +1,85 @@
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.iconw {
+  height: 24px;
+  width: 37px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.icon-heart {
+  background: url('../assets/heart_outline.svg') no-repeat;
+}
+
+.icon-big-close {
+  background: url('../assets/big_close.svg') no-repeat;
+}
+
+.icon-close {
+  background: url('../assets/close.svg') no-repeat;
+}
+
+.icon-upload {
+  background: url('../assets/upload.svg') no-repeat;
+}
+
+.icon-visibility {
+  background: url('../assets/visibility.svg') no-repeat;
+}
+
+.icon-chevron-left {
+  background: url('../assets/chevron_left.svg') no-repeat;
+}
+
+.icon-chevron-right {
+  background: url('../assets/chevron_right.svg') no-repeat;
+}
+
+.icon-chevron-top {
+  background: url('../assets/chevron_top.svg') no-repeat;
+}
+
+.icon-alert {
+  background: url('../assets/alert.svg') no-repeat;
+}
+
+.icon-live-b {
+  background: url('../assets/live_img_blue.svg') no-repeat;
+}
+
+.icon-live-w {
+  background: url('../assets/live_img.svg') no-repeat;
+}
+
+.icon-volume-off {
+  background: url('../assets/volume_off.svg') no-repeat;
+}
+
+.icon-volume-up {
+  background: url('../assets/volume_up.svg') no-repeat;
+}
+
+.icon-check{
+  background: url('../assets/check.svg') no-repeat;
+}
+
+.icon-check-b{
+  background: url('../assets/check_blue.svg') no-repeat;
+}
+
+.icon-alt-check {
+  background: url('../assets/alert_check.svg') no-repeat;
+}
+
+.icon-alt-quest {
+  background: url('../assets/alert_quest.svg') no-repeat;
+}
+
+.icon-setting {
+  background: url('../assets/settings.svg') no-repeat;
+}

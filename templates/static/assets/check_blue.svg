@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>basic / circle_check_outline copy 2</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="24" height="24"></rect>
+    </defs>
+    <g id="basic-/-circle_check_outline-copy-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="basic-/-circle_check_outline">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <g id="basic-/-circle_check_outline-(Background/Mask)"></g>
+            <path d="M12,2 C6.48000002,2 2,6.48000002 2,12 C2,17.5200005 6.48000002,22 12,22 C17.5200005,22 22,17.5200005 22,12 C22,6.48000002 17.5200005,2 12,2 C8.32000001,2 8.32000001,2 12,2 Z M12,20 C7.59000015,20 4,16.4099998 4,12 C4,7.59000015 7.59000015,4 12,4 C16.4099998,4 20,7.59000015 20,12 C20,16.4099998 16.4099998,20 12,20 C9.0600001,20 9.0600001,20 12,20 Z M10,14.1700172 L16.5900002,7.58001709 L18,9.00001717 L10,17.0000172 L6,13.0000172 L7.40999985,11.5900173 L10,14.1700172 L10,14.1700172 Z" fill="#00B9EF" mask="url(#mask-2)"></path>
+        </g>
+    </g>
+</svg>

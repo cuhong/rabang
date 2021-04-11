@@ -1,0 +1,88 @@
+body {
+  color: #fff;
+  background-color: #000;
+}
+.header {
+  position: relative;
+  background-color: transparent;
+  color: #fff;
+  z-index: 99999;
+  justify-content: space-between;
+}
+
+.wrap-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  max-width: 650px;
+  overflow: hidden;
+}
+
+.backVideo {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  z-index: -99999;
+  object-fit: cover;
+}
+
+.i-video {
+   height: 100%;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   position: absolute;
+   top: 0;
+   width: 100%;
+   max-width: 650px;
+   object-fit: cover;
+}
+
+.backgroundvideo {
+  position: absolute;
+  width: 100%;
+  max-width: 650px;
+  height: 100%;
+  overflow: hidden;
+  left:0;
+  top: 0;
+  object-fit: cover;
+  z-index: -99999;
+}
+
+.wrap-chatlist {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.input-chat {
+  background: transparent;
+  border-radius: 26px !important;
+  color: #fff !important;
+
+}
+
+.input-chat::placeholder {
+  color: #fff;
+  font-weight: normal;
+  opacity: .6;
+}
+
+
+.all-price {
+  justify-content:flex-end;
+}
+
+.btn-order {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.btn-selc {
+  border-top: 1px solid #FF8F1C;
+  color: #FF8F1C !important;
+  background: #fff;
+}

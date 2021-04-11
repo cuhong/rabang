@@ -1,0 +1,22 @@
+body {
+  background-color: #F3F3F3;
+}
+
+.wrap-contents {
+  background-color: #fff;
+}
+
+.wrap-img {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+
+.txt-caption {
+  font-weight: normal;
+}
+
+.receip {
+  color: #9B9B9B !important;
+  font-weight: normal;
+}

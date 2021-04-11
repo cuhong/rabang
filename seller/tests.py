@@ -32,3 +32,6 @@ def create_seller(user):
         logistic_contact="01000000000",
     )
     return seller
+
+user = create_user()
+seller = create_seller(user)

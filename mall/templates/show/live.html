@@ -185,6 +185,8 @@
             var hls = new Hls({capLevelToPlayerSize: true});
             hls.loadSource(videoSrc);
             hls.attachMedia(video);
+        } else {
+            video.src = videoSrc
         }
     </script>
 {% endblock %}

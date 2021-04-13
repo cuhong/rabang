@@ -220,7 +220,7 @@
         var video = document.getElementById('my_video_1');
         {#var videoSrc = 'https://cdn3.wowza.com/1/MDhpNzl6R2pYMElD/eXU2M2du/hls/live/playlist.m3u8';#}
         {#var videoSrc = 'https://cdn3.wowza.com/1/aDg3SDN6U0NUaUYx/aGQ0NHlK/hls/live/playlist.m3u8';#}
-        var videoSrc = '{{ show_list.first.htl_path }}';
+        var videoSrc = '{{ show_list.first.hts_path }}';
         if (Hls.isSupported()) {
             var hls = new Hls({capLevelToPlayerSize: true});
             hls.loadSource(videoSrc);

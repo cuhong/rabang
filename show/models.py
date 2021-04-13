@@ -41,6 +41,7 @@ class Show(SerialMixin, DateTimeMixin, UUIDPkMixin, models.Model):
     product = models.ForeignKey(Product, null=True, blank=False, verbose_name='상품', on_delete=models.PROTECT)
     is_visible = models.BooleanField(default=True, null=False, blank=False, verbose_name='노출')
     notification_group = models.ManyToManyField(User, blank=True, verbose_name='알림 그룹')
+    hls_path = models.TextField(null=True, blank=True, verbose_name='HLS 경로')
 
     @property
     def is_live(self):

@@ -12,12 +12,6 @@
                 <a href="#"><img class="logo-white" src="{% static 'assets/rabang_white.svg' %}" alt=""/></a>
                 <div class="img-main"></div>
                 <video id="my_video_1" width="100%" height="auto" poster="{{ show.poster.url }}" autoplay muted playsinline></video>
-{#                {% if show.poster_video %}#}
-{#                    <video width="100%" height="auto" controls src="{{ show.poster_video.url }}" autoplay muted style="text-align: center"></video>#}
-{#                    <video width="100%" height="auto" controls src="{% static 'Screen_Recording_20201213-185130_Grip.mp4' %}" autoplay muted style="text-align: center"></video>#}
-{#                {% else %}#}
-{#                    <img class="img-main-under" src="{{ show.poster.url }}" alt=""/>#}
-{#                {% endif %}#}
                 <div class="txt-contents">
                     <p class="txt-title ml16">{{ show.title_display }}</p>
                     <div class="wrap-btn pl16 pr16">
@@ -225,7 +219,8 @@
     <script>
         var video = document.getElementById('my_video_1');
         {#var videoSrc = 'https://cdn3.wowza.com/1/MDhpNzl6R2pYMElD/eXU2M2du/hls/live/playlist.m3u8';#}
-        var videoSrc = 'https://cdn3.wowza.com/1/aDg3SDN6U0NUaUYx/aGQ0NHlK/hls/live/playlist.m3u8';
+        {#var videoSrc = 'https://cdn3.wowza.com/1/aDg3SDN6U0NUaUYx/aGQ0NHlK/hls/live/playlist.m3u8';#}
+        var videoSrc = '{{ show_list.first.htl_path }}';
         if (Hls.isSupported()) {
             var hls = new Hls({capLevelToPlayerSize: true});
             hls.loadSource(videoSrc);

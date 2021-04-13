@@ -26,7 +26,7 @@
 
 
         <div class="backVideo">
-            <video class="i-video" id="my_video_1"
+            <video class="i-video" id="showLive"
                    poster="{{ show.poster.url }}"
                    autoplay="" muted="" playsinline=""></video>
         </div>
@@ -191,7 +191,7 @@
 {% block extrascript %}
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
-        var video = document.getElementById('my_video_1');
+        var video = document.getElementById('showLive');
         {#var videoSrc = 'https://cdn3.wowza.com/1/MDhpNzl6R2pYMElD/eXU2M2du/hls/live/playlist.m3u8';#}
         {#var videoSrc = 'https://cdn3.wowza.com/1/aDg3SDN6U0NUaUYx/aGQ0NHlK/hls/live/playlist.m3u8';#}
         var videoSrc = '{{ show.hls_path }}'

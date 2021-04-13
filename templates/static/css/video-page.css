@@ -15,7 +15,8 @@ body {
   position: relative;
   min-width: 360px;
   min-height: 640px;
-  width: calc(100vh * 0.5625);
+  /*width: calc(100vh * 0.5625);*/
+  width: 100vw;
   height: 100vh;
   overflow: hidden;
 }

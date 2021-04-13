@@ -11,51 +11,50 @@ body {
 }
 
 .wrap-container {
+  margin: 0 auto;
   position: relative;
+  min-width: 360px;
+  min-height: 640px;
+  width: calc(100vh * 0.5625);
   height: 100vh;
-  width: 100%;
-  max-width: 650px;
   overflow: hidden;
 }
 
 .backVideo {
   position: absolute;
-  display: block;
   top: 0;
-  left: 0;
   z-index: -99999;
-  object-fit: cover;
+  height: 100vh;
+  width: 100%;
 }
 
 .i-video {
    height: 100%;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   position: absolute;
-   top: 0;
    width: 100%;
-   max-width: 650px;
-   object-fit: cover;
 }
 
-.backgroundvideo {
+.wrap-heart {
   position: absolute;
-  width: 100%;
-  max-width: 650px;
-  height: 100%;
-  overflow: hidden;
-  left:0;
-  top: 0;
-  object-fit: cover;
-  z-index: -99999;
+  bottom: 240px;
+  right: 1rem;
+  padding:0.3rem;
+  border-radius: 70%;
+  background-color: rgba( 50, 50,  50, 1);
+
 }
 
-.wrap-chatlist {
+.wrap-input-bottom {
   bottom: 0;
   position: absolute;
-  width: 100%;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 94%;
+  max-height: 320px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 .input-chat {
   background: transparent;
@@ -70,11 +69,6 @@ body {
   opacity: .6;
 }
 
-
-.all-price {
-  justify-content:flex-end;
-}
-
 .btn-order {
   position: absolute;
   bottom: 0;
@@ -85,4 +79,16 @@ body {
   border-top: 1px solid #FF8F1C;
   color: #FF8F1C !important;
   background: #fff;
+}
+
+
+.wrap-profile {
+  position: relative;
+}
+
+.iconw {
+  width: 16px;
+  position: absolute;
+  left: 14px;
+  top: 24px;
 }

@@ -7,39 +7,52 @@
 
 {% block content %}
     <div class="wrap-container">
-        <video id="my_video_1" width="auto" height="100%" poster="{{ show.poster.url }}" autoplay muted playsinline></video>
-        <div class="header flex row" style="position: absolute; top:0">
-            <div class="wrap-left flex row">
-                <img class="img-oval imgm" src="{{ show.product.seller.profile.file.url }}" alt=""/>
-                <div class="wrap-txt txtl ml12">
-                    <p class="txtbold txt-title">{{ show.title_display }}<i class="iconw icon-live-b"></i></p>
+        <div class="header row flex">
+            <div class="row flex">
+                <div class="wrap-profile">
+                    <img class="img-oval imgr" src="{{ show.product.seller.profile.file.url }}"/>
+                    <i class="iconw icon-live-b"></i>
+                </div>
+                <div class="wrap-profile-txt pl16">
+                    <p class="txtbold txt-title">{{ show.title_display }}</p>
                     <div class="light-gray flex row txt-caption txtnorm">
                         <p class="txt-subs">{{ show.product.seller.name }}</p>
-                        <p class="ml12"><img class="imgxs" src="{% static 'assets/visibility.svg' %}" alt=""> 1,203</p>
+                        <p class="ml12"><img class="imgxs" src="{% static 'assets/visibility.svg' %}" alt=""> 2</p>
                     </div>
                 </div>
             </div>
-            <div class="wrap-right flex row">
-                <a href="#"><i class="icon icon-upload"></i></a>
-                <a href="{% url 'mall:show' show_id=show.id %}" class="ml24"><i class="icon icon-big-close"></i></a>
-            </div>
+            <i class="icon icon-big-close"></i>
         </div>
-        <div class="wrap-chatlist pl16 pr16" style="position: absolute; bottom: 0">
+
+
+        <div class="backVideo">
+            <video class="i-video" id="my_video_1"
+                   poster="{{ show.poster.url }}"
+                   autoplay="" muted="" playsinline=""></video>
+        </div>
+
+        <div class="wrap-heart">
+            <a href="#"><i class="icon icon-heart"></i></a>
+        </div>
+
+        <div class="wrap-input-bottom">
+
             <div class="wrap-chat">
-                {#          <ul class="flex row mb16">#}
-                {#            <li id="chat-name">알롱이</li>#}
-                {#            <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-                {#          </ul>#}
-                {#          <ul class="flex row mb16">#}
-                {#            <li id="chat-name">알롱이</li>#}
-                {#            <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-                {#          </ul>#}
+                <ul class="flex row mb16">
+                    <li id="chat-name">알롱이</li>
+                    <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
+                </ul>
+                <ul class="flex row mb16">
+                    <li id="chat-name">알롱이</li>
+                    <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
+                </ul>
             </div>
-            <div class="flex row mt24 pb16 a-center">
+
+            <div class="input">
                 <input class="input-chat" type="text" placeholder="메세지를 입력해주세요."/>
-                <a href="#" class="ml16"><i class="icon icon-heart"></i></a>
             </div>
         </div>
+
 
     </div>
 {% endblock %}

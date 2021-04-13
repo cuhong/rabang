@@ -47,11 +47,12 @@ class Cart(UserFkMixin, DateTimeMixin, models.Model):
             raise MallError('상품과 옵션이 매칭되지 않습니다.')
         # 다른 방송 상품을 담은게 있는지 확인하고
         # 수량이 추가된다.
-        cart, created = cls.objects.get_or_create(
-            user=user, product=product, option=option, defaults={"quantity": quantity}
-        )
-        if not created:
-            cart.quantity = F('quantity') + quantity
+        try:
+            cart = cls.objects.get(user=user, product=product, option=option)
+        except cls.DoesNotExist:
+            cart = cls.objects.create(user=user, product=product, option=option, quantity=quantity)
+        else:
+            cart.quantity = cart.quantity + quantity
             cart.save()
         return cart
 
@@ -60,22 +61,27 @@ class OrderSheet(SerialMixin, UserFkMixin, UUIDPkMixin, DateTimeMixin, models.Mo
     """
     주문취소는 결제 발생 전 취소한 것
     """
-
     class Meta:
         verbose_name = '주문'
         verbose_name_plural = verbose_name
         ordering = ('-registered_at',)
 
     SERIAL_LENGTH = 10
-    product = models.ForeignKey(Product, null=False, blank=False, verbose_name='상품', on_delete=models.PROTECT)
-    option = models.ForeignKey(ProductOption, null=True, blank=True, verbose_name='상품옵션', on_delete=models.PROTECT)
-    quantity = models.PositiveIntegerField(null=False, blank=False, verbose_name='최초 구매수량')
-    original_price = models.PositiveIntegerField(null=False, blank=False, verbose_name='정가 계')  # 표시용 정가
-    sale_price = models.PositiveIntegerField(null=False, blank=False, verbose_name='기본 판매가 계')  # 판매시 표시금액
-    benefit_price = models.PositiveIntegerField(null=True, blank=True, verbose_name='할인 판매가 계')  # 결제시 금액
-    paymethod = models.ForeignKey(Paymethod, null=False, blank=False, verbose_name='결제수단', on_delete=models.PROTECT)
     status = models.IntegerField(
         choices=((0, '결제대기'), (1, '결제성공'), (2, '결제실패'), (3, '주문취소')), null=False, blank=False,
         default=0, verbose_name='상태'
     )
     payment_ledger = models.ForeignKey(PayLedger, null=True, blank=True, verbose_name='결제', on_delete=models.PROTECT)
+
+
+class OrderSheetItem(UUIDPkMixin, models.Model):
+    class Meta:
+        verbose_name = '주문 아이템'
+        verbose_name_plural = verbose_name
+        ordering = ('-registered_at',)
+
+    ordersheet = models.ForeignKey(OrderSheet, null=False, blank=False, verbose_name='주문서', on_delete=models.PROTECT)
+    cart = models.ForeignKey(Cart, null=False, blank=False, verbose_name='카트', on_delete=models.PROTECT)
+    delivery_fee = models.IntegerField(default=0, null=False, blank=False, verbose_name='배송비')
+    amount_fee = models.IntegerField(default=0, null=False, blank=False, verbose_name='상품가')
+    grand_total = models.IntegerField(default=0, null=False, blank=False, verbose_name='총계')

@@ -6,6 +6,7 @@
   height: 680px;
   background: linear-gradient(0deg, #000 5%, transparent, transparent), rgba( 0, 0, 0, 30%);
   object-fit: cover;
+  bottom: 0;
 }
 
 .img-main-under {

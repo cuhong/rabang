@@ -197,4 +197,4 @@ PWA_APP_SPLASH_SCREEN = [
 ]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'ko-KR'
-PWA_SERVICE_WORKER_PATH = 'https://rabang-s3.s3.amazonaws.com/local/static/js/serviceworker.js'
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'templates/static/js/serviceworker.js')

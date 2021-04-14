@@ -6,9 +6,11 @@
 {% endblock %}
 
 {% block content %}
-    <div class="wrap-container">
-        <div class="header row flex">
-            <div class="row flex">
+    <div class="container">
+    <video class="i-video" id="showLive" poster="{{ show.poster.url }}" autoplay="" muted="" playsinline=""></video>
+
+        <div class="header row flex f-between">
+            <div class="row flex ahw">
                 <div class="wrap-profile">
                     <img class="img-oval imgr" src="{{ show.product.seller.profile.file.url }}"/>
                     <i class="iconw icon-live-b"></i>
@@ -22,13 +24,6 @@
                 </div>
             </div>
             <i class="icon icon-big-close" onclick="goProduct('{{ show.product_id }}')"></i>
-        </div>
-
-
-        <div class="backVideo">
-            <video class="i-video" id="showLive"
-                   poster="{{ show.poster.url }}"
-                   autoplay="" muted="" playsinline=""></video>
         </div>
 
         <div class="wrap-heart">

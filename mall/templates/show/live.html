@@ -75,7 +75,7 @@
                         <li class="ml16 txtbold" id="chat-des">인간 승리네요.</li>
                     </ul>
 
-                    <div class="itemDetail flex row a-center">
+                    <div class="itemDetail flex row a-center showProduct">
                         <img class="imgm" src="{{ show.product.thumbnail.file.url }}"/>
                         <div class="itemTxt">
                             <p class="itemTitle">{{ show.product.name }}</p>
@@ -298,9 +298,9 @@
 {% block extrascript %}
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
-    $('.trigger, .slider').click(function() {
-  $('.slider').toggleClass('close');
-});
+        $('.showProduct, .slider').click(function () {
+            $('.slider').toggleClass('close');
+        });
         var video = document.getElementById('showLive');
         {#var videoSrc = 'https://cdn3.wowza.com/1/MDhpNzl6R2pYMElD/eXU2M2du/hls/live/playlist.m3u8';#}
         {#var videoSrc = 'https://cdn3.wowza.com/1/aDg3SDN6U0NUaUYx/aGQ0NHlK/hls/live/playlist.m3u8';#}

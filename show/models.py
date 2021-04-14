@@ -49,3 +49,14 @@ class Show(SerialMixin, DateTimeMixin, UUIDPkMixin, models.Model):
             return False
         now = timezone.now()
         return all([self.start_at <= now, self.end_at >= now])
+
+
+class Chat(DateTimeMixin, models.Model):
+    class Meta:
+        verbose_name = '채팅'
+        verbose_name_plural = verbose_name
+        ordering = ('registered_at',)
+
+    show = models.ForeignKey(Show, null=False, blank=False, on_delete=models.PROTECT, verbose_name='쇼')
+    msg = models.CharField(max_length=1000, null=False, blank=False, verbose_name='메시지')
+

@@ -50,8 +50,8 @@
                     {% endwith %}
                 </span>
                     <div class="btn-order flex row w-100" style="margin-top: 1rem">
-                        <a class="btn btn-rect btn-selc" href="#">장바구니</a>
-                        <a class="btn btn-rect btn-all" href="#">바로구매</a>
+                        <a class="btn btn-rect btn-selc" href="#" onclick="a()">장바구니</a>
+                        <a class="btn btn-rect btn-all" href="#" onclick="a()">바로구매</a>
                     </div>
                 </div>
                 <div class="flex row mt32 txtbold">
@@ -143,3 +143,10 @@
     </div>
 {% endblock %}
 
+{% block extrascript %}
+    <script>
+    const a = () => {
+        alert('MaxRecursionError;')
+    }
+    </script>
+{% endblock %}

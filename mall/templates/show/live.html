@@ -389,8 +389,8 @@
 
         document.addEventListener('DOMContentLoaded', function (event) {
             fetchChat()
-            setTimeout(fetchChat(), 1000)
         })
+        setInterval(fetchChat(), 1000)
 
     </script>
 {% endblock %}

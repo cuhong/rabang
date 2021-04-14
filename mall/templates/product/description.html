@@ -5,11 +5,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/des-page.css' %}"/>
 {% endblock %}
 {% block header %}
+    {% if hide_header is False %}
     <div class="header">
         <a href="#" onclick="goBack()" class="f-left"><i class="icon icon-chevron-left"></i></a>
         <a href="{% url 'mall:index' %}" class="f-right"><i class="icon icon-close"></i></a>
         <p class="h-title">제품 상세정보</p>
     </div>
+    {% endif %}
 {% endblock %}
 
 {% block content %}

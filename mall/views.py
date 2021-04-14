@@ -14,7 +14,8 @@ class MallIndexView(View):
 class ShowView(View):
     def get(self, request, show_id):
         show = get_object_or_404(Show.objects.select_related('product'), id=show_id)
-        return render(request, 'product/description.html', {"show": show})
+        hide_header = request.GET.get('hideHeader', 'false') == 'true'
+        return render(request, 'product/description.html', {"show": show, 'hide_header': hide_header})
 
 
 class ShowLiveView(View):

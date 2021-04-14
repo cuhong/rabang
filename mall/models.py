@@ -74,7 +74,7 @@ class OrderSheet(SerialMixin, UserFkMixin, UUIDPkMixin, DateTimeMixin, models.Mo
     payment_ledger = models.ForeignKey(PayLedger, null=True, blank=True, verbose_name='결제', on_delete=models.PROTECT)
 
 
-class OrderSheetItem(UUIDPkMixin, models.Model):
+class OrderSheetItem(UUIDPkMixin, DateTimeMixin, models.Model):
     class Meta:
         verbose_name = '주문 아이템'
         verbose_name_plural = verbose_name

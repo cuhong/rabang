@@ -84,7 +84,8 @@
 
                 <div class="wrap-input">
                     <a href="#"><i class="icon icon-chevron-up"></i></a>
-                    <input class="input-chat" id="chatMsg" type="text" placeholder="메세지를 입력해주세요." onkeyup="enterkey();"/>
+                    <input class="input-chat" id="chatMsg" type="text" placeholder="메세지를 입력해주세요."
+                           onkeyup="enterkey();"/>
                 </div>
             </div>
         </div>
@@ -301,7 +302,10 @@
                         <li id="chat-name">나</li>
                         <li class="ml16 txtbold" id="chat-des">${msg}</li>
                     </ul>`
-            $("#chatList").prepend(chatBody)
+            if (document.getElementById('chatList').children.length > 5) {
+                document.getElementById('chatList').children[0].remove()
+            }
+            $("#chatList").append(chatBody)
         }
 
         function enterkey() {
@@ -311,9 +315,10 @@
                 chatMsg.value = ''
             }
         }
-            $('.showProduct, .slider').click(function () {
-                $('.slider').toggleClass('close');
-            });
+
+        $('.showProduct, .slider').click(function () {
+            $('.slider').toggleClass('close');
+        });
         var video = document.getElementById('showLive');
         {#var videoSrc = 'https://cdn3.wowza.com/1/MDhpNzl6R2pYMElD/eXU2M2du/hls/live/playlist.m3u8';#}
         {#var videoSrc = 'https://cdn3.wowza.com/1/aDg3SDN6U0NUaUYx/aGQ0NHlK/hls/live/playlist.m3u8';#}

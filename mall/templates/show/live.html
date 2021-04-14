@@ -353,7 +353,11 @@
                 dataType: "json",
                 success: function (response) {
                     console.log(response)
-                    {#lenderChat(msg, true)#}
+                    var chat_list = response.chat_list
+                    chat_list.forEach(function (chat) {
+                        lenderChat(chat.msg)
+                        lastSeenChat = chat.id
+                    })
                 },
                 error: function (request, status, error) {
                 },

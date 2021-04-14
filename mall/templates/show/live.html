@@ -387,5 +387,10 @@
             video.src = videoSrc
         }
 
+        document.addEventListener('DOMContentLoaded', function (event) {
+            fetchChat()
+            setTimeout(fetchChat(), 1000)
+        })
+
     </script>
 {% endblock %}

@@ -348,9 +348,8 @@
 
         const fetchChat = () => {
             $.ajax({
-                type: "POST",
+                type: "GET",
                 url: `{% url 'mall:show_chat' show_id=show.id %}?lastSeen=${lastSeenChat}`,
-                data: {'msg': msg, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
                 dataType: "json",
                 success: function (response) {
                     console.log(response)

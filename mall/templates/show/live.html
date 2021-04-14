@@ -23,7 +23,8 @@
 
 {% block content %}
     <div class="container">
-        <video class="i-video" id="showLive" poster="{{ show.poster.url }}" autoplay="" muted="" playsinline="" style="max-width: 100vw"></video>
+        <video class="i-video" id="showLive" poster="{{ show.poster.url }}" autoplay="" muted="" playsinline=""
+               style="max-width: 100vw"></video>
 
         <div class="header row flex f-between">
             <div class="row flex ahw">
@@ -51,26 +52,26 @@
             <div class="wrap-input-bottom">
 
                 <div class="wrap-chat">
-{#                    <ul class="flex row mb16">#}
-{#                        <li id="chat-name">알롱이</li>#}
-{#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-{#                    </ul>#}
-{#                    <ul class="flex row mb16">#}
-{#                        <li id="chat-name">알롱이</li>#}
-{#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-{#                    </ul>#}
-{#                    <ul class="flex row mb16">#}
-{#                        <li id="chat-name">알롱이</li>#}
-{#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-{#                    </ul>#}
-{#                    <ul class="flex row mb16">#}
-{#                        <li id="chat-name">알롱이</li>#}
-{#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-{#                    </ul>#}
-                    <ul class="flex row mb16">
-                        <li id="chat-name">알롱이</li>
-                        <li class="ml16 txtbold" id="chat-des">와... 시간이 벌써 이렇게 되다니</li>
-                    </ul>
+                    {#                    <ul class="flex row mb16">#}
+                    {#                        <li id="chat-name">알롱이</li>#}
+                    {#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
+                    {#                    </ul>#}
+                    {#                    <ul class="flex row mb16">#}
+                    {#                        <li id="chat-name">알롱이</li>#}
+                    {#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
+                    {#                    </ul>#}
+                    {#                    <ul class="flex row mb16">#}
+                    {#                        <li id="chat-name">알롱이</li>#}
+                    {#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
+                    {#                    </ul>#}
+                    {#                    <ul class="flex row mb16">#}
+                    {#                        <li id="chat-name">알롱이</li>#}
+                    {#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
+                    {#                    </ul>#}
+                    {#                    <ul class="flex row mb16">#}
+                    {#                        <li id="chat-name">알롱이</li>#}
+                    {#                        <li class="ml16 txtbold" id="chat-des">와... 시간이 벌써 이렇게 되다니</li>#}
+                    {#                    </ul>#}
                     <ul class="flex row mb16">
                         <li id="chat-name">알롱이</li>
                         <li class="ml16 txtbold" id="chat-des">인간 승리네요.</li>
@@ -299,6 +300,13 @@
 {% block extrascript %}
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
+        const postChat = (msg) => {
+        var chatBody = `<ul class="flex row mb16">
+                        <li id="chat-name">나</li>
+                        <li class="ml16 txtbold" id="chat-des">${msg}</li>
+                    </ul>`
+            var chat = $(".wrap-chat")[0].prepend(chatBody)
+        }
         $('.showProduct, .slider').click(function () {
             $('.slider').toggleClass('close');
         });
@@ -313,5 +321,6 @@
         } else {
             video.src = videoSrc
         }
+
     </script>
 {% endblock %}

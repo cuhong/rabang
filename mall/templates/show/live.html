@@ -76,6 +76,9 @@
                         <li id="chat-name">알롱이</li>
                         <li class="ml16 txtbold" id="chat-des">인간 승리네요.</li>
                     </ul>
+                    <div id="chatList">
+
+                    </div>
 
                     <div class="itemDetail flex row a-center showProduct">
                         <img class="imgm" src="{{ show.product.thumbnail.file.url }}"/>
@@ -301,11 +304,11 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
         const postChat = (msg) => {
-        var chatBody = `<ul class="flex row mb16">
+            var chatBody = `<ul class="flex row mb16">
                         <li id="chat-name">나</li>
                         <li class="ml16 txtbold" id="chat-des">${msg}</li>
                     </ul>`
-            var chat = $(".wrap-chat")[0].prepend(chatBody)
+            var chat = $("#chatList").prepend(chatBody)
         }
         $('.showProduct, .slider').click(function () {
             $('.slider').toggleClass('close');

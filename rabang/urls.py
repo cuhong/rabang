@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/mall/', include('mall.api_urls', namespace='mall_api')),
     path('api/product/', include('product.api_urls', namespace='product_api')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('', include('pwa.urls'))
 ]
 
 admin.site.site_header = "라방"

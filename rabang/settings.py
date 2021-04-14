@@ -163,3 +163,5 @@ VIMEO_KEY = "3ba1dba19ed2ca15d45a2f325cb5a3eaec9e6284"
 VIMEO_SECRET = "RWbI0ee1w19l3nTiDAwa94Gxdyhfzsvcpwg6MOu53636y+CulfitrK3qJ+fa2JLOt50mxpoL22MtThG5pKVdD+1kL1Xaf9hTFumYV6/y98ebvWJaCUj59RKIWdc9yGG9"
 VIMEO_AUTH_URL = "https://api.vimeo.com/oauth/authorize"
 VIMEO_ACCESS_TOKEN_URL = "https://api.vimeo.com/oauth/access_token"
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'

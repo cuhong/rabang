@@ -344,17 +344,6 @@
                 document.getElementById('chatList').children[0].remove()
             }
             $("#chatList").append(chatBody)
-            $.ajax({
-                type: "POST",
-                url: "{% url 'mall:show_chat' show_id=show.id %}",
-                data: {'msg': msg, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
-                dataType: "json",
-                success: function (response) {
-                    lenderChat(msg, true)
-                },
-                error: function (request, status, error) {
-                },
-            });
         }
 
         const fetchChat = () => {

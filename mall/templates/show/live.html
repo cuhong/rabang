@@ -43,7 +43,7 @@
             </div>
 
                 <div class="wrap-profile-txt">
-                    <button>음소거 해제</button>
+                    <button id="muteToggleBtn" onclick="toggleMute()">음소거 해제</button>
                 </div>
             <i class="icon icon-big-close" onclick="goProduct('{{ show.product_id }}')"></i>
         </div>
@@ -302,6 +302,18 @@
 {% block extrascript %}
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
+
+    const toggleMute = () => {
+        var muteToggleBtn = document.getElementById('muteToggleBtn')
+        var showVideo = document.getElementById('showLive')
+        var currentState = showVideo.muted
+        if (currentState === true) {
+            muteToggleBtn.innerText = '음소거'
+        } else {
+            muteToggleBtn.innerText = '음소거 해제'
+        }
+        showVideo.muted = !currentState
+    }
         const postChat = (msg) => {
             var chatBody = `<ul class="flex row mb16">
                         <li id="chat-name">나</li>

@@ -3,6 +3,21 @@
 {% load humanize %}
 {% block pagestyle %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/video-page.css' %}"/>
+    <style>
+        .slider {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            height: 100%;
+            overflow: hidden;
+            transition: all 1s;
+        }
+
+        .slider.close {
+            top: 100%;
+            height: 0;
+        }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -76,7 +91,7 @@
             </div>
         </div>
 
-        <div class="popup-bottom" style="display: none">
+        <div class="popup-bottom slider close">
             <i class="icon icon-close f-right"></i>
             <iframe class="wrap-des" src="{% url 'mall:show' show.id %}"></iframe>
         </div>
@@ -283,6 +298,9 @@
 {% block extrascript %}
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
+    $('.trigger, .slider').click(function() {
+  $('.slider').toggleClass('close');
+});
         var video = document.getElementById('showLive');
         {#var videoSrc = 'https://cdn3.wowza.com/1/MDhpNzl6R2pYMElD/eXU2M2du/hls/live/playlist.m3u8';#}
         {#var videoSrc = 'https://cdn3.wowza.com/1/aDg3SDN6U0NUaUYx/aGQ0NHlK/hls/live/playlist.m3u8';#}

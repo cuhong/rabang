@@ -191,10 +191,10 @@ PWA_APP_ICONS_APPLE = [
 ]
 PWA_APP_SPLASH_SCREEN = [
     {
-        'src': 'https://rabang-s3.s3.amazonaws.com/local/static/brand/icon.png',
+        'src': 'https://rabang-s3.s3.amazonaws.com/dev/static/brand/icon.png',
         'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
     }
 ]
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'ko-KR'
-PWA_SERVICE_WORKER_PATH = 'https://rabang-s3.s3.amazonaws.com/dev/static/js/serviceworker.js'
+PWA_SERVICE_WORKER_PATH = 'https://rabang-s3.s3.amazonaws.com/local/static/js/serviceworker.js'

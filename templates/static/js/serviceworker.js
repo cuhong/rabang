@@ -1,26 +1,41 @@
-var staticCacheName = 'rabangpwa-v1';
+var staticCacheName = "rabang-pwa-v" + new Date().getTime();
+var filesToCache = [
+];
 
-self.addEventListener('install', function (event) {
+// Cache on install
+self.addEventListener("install", event => {
+    this.skipWaiting();
     event.waitUntil(
-        caches.open(staticCacheName).then(function (cache) {
-            return cache.addAll([
-                '/base_layout'
-            ]);
+        caches.open(staticCacheName)
+            .then(cache => {
+                return cache.addAll(filesToCache);
+            })
+    )
+});
+
+// Clear cache on activate
+self.addEventListener('activate', event => {
+    event.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(
+                cacheNames
+                    .filter(cacheName => (cacheName.startsWith("rabang-pwa-")))
+                    .filter(cacheName => (cacheName !== staticCacheName))
+                    .map(cacheName => caches.delete(cacheName))
+            );
         })
     );
 });
 
-self.addEventListener('fetch', function (event) {
-    var requestUrl = new URL(event.request.url);
-    if (requestUrl.origin === location.origin) {
-        if ((requestUrl.pathname === '/')) {
-            event.respondWith(caches.match('/base_layout'));
-            return;
-        }
-    }
+// Serve from Cache
+self.addEventListener("fetch", event => {
     event.respondWith(
-        caches.match(event.request).then(function (response) {
-            return response || fetch(event.request);
-        })
-    );
+        caches.match(event.request)
+            .then(response => {
+                return response || fetch(event.request);
+            })
+            .catch(() => {
+                return caches.match('offline');
+            })
+    )
 });

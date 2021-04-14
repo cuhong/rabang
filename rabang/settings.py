@@ -181,12 +181,20 @@ PWA_APP_ICONS = [
     {
         'src': 'https://rabang-s3.s3.amazonaws.com/dev/static/brand/maskable_icon_x512.png',
         'sizes': '512x512'
+    },
+    {
+        'src': 'https://rabang-s3.s3.amazonaws.com/dev/static/brand/maskable_icon_x192.png',
+        'sizes': '192x192'
     }
 ]
 PWA_APP_ICONS_APPLE = [
     {
         'src': 'https://rabang-s3.s3.amazonaws.com/dev/static/brand/maskable_icon_x512.png',
         'sizes': '512x512'
+    },
+    {
+        'src': 'https://rabang-s3.s3.amazonaws.com/dev/static/brand/maskable_icon_x192.png',
+        'sizes': '192x192'
     }
 ]
 PWA_APP_SPLASH_SCREEN = [

@@ -1,0 +1,468 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+html, body {
+    height: 100%;
+    background-color: white;
+    font-family: "Noto Sans KR", sans-serif !important;
+}
+
+.overlay {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.spinner {
+    position: fixed;
+    z-index: 1031; /* High z-index so it is on top of the page */
+    top: calc(50% - (32px / 2));
+    right: calc(50% - (32px / 2)); /* or: left: 50%; */
+}
+
+.container-ton {
+    margin: 0 auto;
+    background-color: #ffffff;
+    max-width: 600px;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.container-title {
+    font-size: 24px;
+    color: #242529;
+    font-weight: bold;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+.bottom-btn-area {
+    width: 100%;
+    max-width: 600px;
+    position: fixed;
+    bottom: 0;
+}
+
+.bottom-btn-area button {
+    border: 0;
+    color: #ffffff;
+    padding: 13px 0 10px;
+}
+
+.pb-6 {
+    padding-bottom: 4rem !important;
+}
+
+.py-3-5 {
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
+}
+
+.info-small-text {
+    font-size: 12px;
+    color: #242529;
+}
+
+.info-large-text {
+    font-size: 15px;
+    color: #242529;
+}
+
+.info-bigger-text {
+    font-size: 25px;
+    color: #242529;
+}
+
+.gray-text {
+    color: #848A94;
+}
+
+.blue-text {
+    color: #037EF3;
+}
+
+.white-text {
+    color: #ffffff;
+}
+
+.text-shadow {
+    text-shadow: 0 0 5px #333;
+}
+
+a:link.blue-text, a:visited.blue-text, a:hover.blue-text, a:active.blue-text {
+    color: #037EF3;
+    text-decoration: none;
+}
+
+button:hover,button:focus,button:active,button:after,
+button:active:focus:not(:disabled):not(.disabled) {
+    box-shadow: none!important;
+    outline: 0;
+}
+
+.btn-outline-primary:hover,.btn-outline-primary:focus,
+.btn-outline-primary:active,.btn-outline-primary:after,
+.btn-outline-primary:active:focus:not(:disabled):not(.disabled) {
+    box-shadow: none!important;
+    outline: 0;
+    color: #007bff;
+    border-color: #007bff;
+    background-color: unset;
+}
+
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary:after,
+.btn-primary:active:focus:not(:disabled):not(.disabled) {
+    box-shadow: none!important;
+    outline: 0;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-secondary:hover,.btn-secondary:focus,.btn-secondary:active,.btn-secondary:after,
+.btn-secondary:active:focus:not(:disabled):not(.disabled) {
+    box-shadow: none!important;
+    outline: 0;
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.modal-header {
+    border: none;
+}
+
+.modal-content {
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+/* -------------- step01 -------------- */
+.bg-gray {
+    background-color: #848A94;
+}
+
+.certification-area {
+    background-color: #ffffff;
+    border-radius: 30px 30px 0 0;
+    text-align: center;
+    max-width: 600px;
+    position: fixed;
+    bottom: 0;
+}
+
+.certification-header {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: #F3F4F7;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.dot:last-child {
+    margin-right: 0;
+}
+
+.dot.active {
+    background-color: #037EF3;
+}
+
+.certification-warn {
+    font-size: 13px;
+    color: #F74022;
+    height: 20px;
+}
+
+.certification-warn span {
+    display: none;
+}
+
+.certification-warn.active span {
+    display: inline-block;
+}
+
+.certification-number-area {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.certification-number {
+    display: inline-block;
+    margin: 15px 0;
+    padding: 0;
+    font-size: 35px;
+}
+
+.certification-number button, .certification-icon button {
+    border: none;
+    background: none;
+}
+
+.certification-icon {
+    display: inline-block;
+    margin: 14px 0 15px;
+    padding: 0;
+}
+
+.certification-icon .bi-backspace {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    top: 11px;
+    left: 9px;
+}
+
+.certification-footer {
+    color: #848A94;
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+/* -------------- step01 end -------------- */
+
+/* -------------- step02 -------------- */
+
+.show-img {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.show-content {
+    background-color: #ffffff;
+    padding-top: 20px;
+}
+
+.show-content-info {
+    margin: 0;
+}
+
+/*.show-content-desc {*/
+/*    font-size: 14px;*/
+/*    color: #242529;*/
+/*}*/
+
+/* -------------- step02 end -------------- */
+
+/* -------------- step03 -------------- */
+
+.show-item {
+    box-sizing: border-box;
+}
+
+.show-item-img {
+    display: inline-block;
+    text-align: center;
+    vertical-align: top;
+}
+
+.show-item-img img{
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+}
+
+.item-checked {
+    display: none;
+    position: absolute;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    background: #037EF365;
+}
+
+.item-checked svg {
+    width: 60px;
+    height: 60px;
+    margin-top: 16px;
+    color: #fff;
+}
+
+.show-item-img.active .item-checked {
+    display: inline-block;
+}
+
+.show-item-info {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.item-info-nickname {
+    font-size: 14px;
+    color: #848A94;
+    word-break: keep-all;
+}
+
+.item-info-name {
+    font-size: 18px;
+    color: #242529;
+    font-weight: bold;
+}
+
+.item-info-datetime {
+    font-size: 14px;
+    color: #242529;
+}
+
+.show-item-btn {
+    display: inline-block;
+}
+
+.show-item-btn button {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+/* -------------- step03 end -------------- */
+
+/* -------------- step04 -------------- */
+
+/*.back-btn {*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*    margin: 10px 0 0;*/
+/*}*/
+
+/*!*.seat-info {*!*/
+/*!*    font-size: 12px;*!*/
+/*!*}*!*/
+
+/*.seat-info div {*/
+/*    width: fit-content;*/
+/*    display: inline-block;*/
+/*}*/
+
+/*.box-info {*/
+/*    padding: 20px;*/
+/*}*/
+
+/*.box-info span{*/
+/*    color: #848A94;*/
+/*    font-size: 15px;*/
+/*}*/
+
+/*.box-row {*/
+/*    margin: 10px 0;*/
+/*}*/
+
+/*.small-box {*/
+/*    width: 16px;*/
+/*    height: 16px;*/
+/*    padding: 0;*/
+/*}*/
+
+/*.large-box {*/
+/*    width: 12%;*/
+/*    height: 40px;*/
+/*    margin: 0 1px;*/
+/*    font-size: 12px;*/
+/*}*/
+
+/*.span-box{*/
+/*    width: 14%;*/
+/*    height: 40px;*/
+/*    border: none;*/
+/*    font-size: 12px;*/
+/*    padding: 0;*/
+/*}*/
+
+/*.span-box:hover, .small-box.disable-box:hover, .large-box.disable-box:hover {*/
+/*    cursor: default !important;*/
+/*}*/
+
+/*.small-box.disable-box, .large-box.disable-box {*/
+/*    background-color: #F3F4F7;*/
+/*    border: 1px solid #F3F4F7;*/
+/*    color: #858A93;*/
+/*}*/
+
+/*.small-box.choose-box, .large-box.choose-box {*/
+/*    background-color: #037EF3;*/
+/*    color: #ffffff;*/
+/*}*/
+
+/*.small-box:disabled, .large-box:disabled {*/
+/*    opacity: 1 !important;*/
+/*}*/
+
+.profile-img {
+    height: 430px;
+    padding: 0;
+}
+
+.profile-img img {
+    width: 100%;
+    height: 430px;
+    object-fit: cover;
+}
+
+.cover-bottom {
+    position: absolute;
+    bottom: 0;
+    padding: 15px;
+}
+
+.personnel-select {
+    border: 1px solid #D6D8DB;
+    border-radius: .25rem;
+}
+
+.personnel-select button {
+    border: none;
+    background-color: unset;
+}
+
+#completeModal .modal-body {
+    width: 90%;
+    margin: 0 auto;
+}
+
+/* -------------- step04 end -------------- */
+
+/* -------------- step05 -------------- */
+
+
+.passenger-item {
+    border: 1px solid #007bff;
+    border-radius: .25rem;
+}
+
+.passenger-item-input {
+    color: #848A94;
+    background-color: #F3F4F7;
+    border: 1px solid #D6D8DB;
+    font-size: 14px;
+    height: initial !important;
+}
+
+.custom-file-label.passenger-item-input:after {
+    height: initial;
+    padding: inherit;
+    content: "파일선택";
+    background-color: #848A94;
+    color: #F3F4F7;
+}
+
+.custom-file {
+    height: initial !important;
+}
+
+.personnelOperator {
+    cursor: pointer;
+}

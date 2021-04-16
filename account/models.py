@@ -73,6 +73,13 @@ class User(PermissionsMixin, AbstractBaseUser):
     def is_staff(self):
         return self.is_admin
 
+    @property
+    def is_seller(self):
+        if self.seller:
+            return True
+        else:
+            return False
+
 
 
 class UserFkMixin(models.Model):

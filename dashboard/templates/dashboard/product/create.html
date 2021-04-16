@@ -1,0 +1,104 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+    <style>
+        .table > thead > tr > th, td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+    <style href="{% static 'vendor/image-picker/image-picker.css' %}" rel="stylesheet"></style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Start Content-->
+    {#    <div class="container-xl">#}
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">상품추가</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {#                    {{ form.as_p }}#}
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}">상품명</label>
+                        <input class="form-control" type="text" id="{{ form.name.id_for_label }}"
+                               name="{{ form.name.name }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.simple_description.id_for_label }}">간단설명</label>
+                        <textarea class="form-control" rows="5" id="{{ form.simple_description.id_for_label }}"
+                                  name="{{ form.simple_description.name }}"></textarea>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class=" col-md-6">
+                            <div class="form-group">
+                                <label for="{{ form.thumbnail.id_for_label }}">썸네일</label>
+                                <input class="form-control" type="text" id="{{ form.thumbnail.id_for_label }}"
+                                       name="{{ form.thumbnail.name }}" hidden>
+                            </div>
+                            <div style="width: inherit">
+                                <img class="border border-blue mb-2"
+                                     src="{% static 'mall/product-image-placeholder.gif' %}" style="width: inherit"
+                                     alt="이미지를 선택하세요.">
+                                <button onclick="showImageSelectModal()" type="button"
+                                        class="btn btn-primary btn-block">이미지 선택
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="{{ form.original_price.id_for_label }}">정가</label>
+                                <input class="form-control" type="number" id="{{ form.original_price.id_for_label }}"
+                                       name="{{ form.original_price.name }}">
+                            </div>
+                            <div class="form-group ">
+                                <label for="{{ form.sale_price.id_for_label }}">판매가</label>
+                                <input class="form-control" type="number" id="{{ form.sale_price.id_for_label }}"
+                                       name="{{ form.sale_price.name }}">
+                            </div>
+                            <div class="form-group ">
+                                <label for="{{ form.delivery_type.id_for_label }}">배송비 타입</label>
+                                <select class="form-control" id="{{ form.delivery_type.id_for_label }}"
+                                        name="{{ form.delivery_type.name }}">
+                                    {% for k, v in form.fields.delivery_type.choices %}
+                                        <option value="{{ k }}">{{ v }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group ">
+                                <label for="{{ form.delivery_fee.id_for_label }}">배송비</label>
+                                <input class="form-control" type="number" id="{{ form.delivery_fee.id_for_label }}"
+                                       name="{{ form.delivery_fee.name }}" value="0">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}">상세</label>
+                    </div>
+                    {{ form.description }}
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'dashboard/partials/product_image.html' %}
+{% endblock %}
+
+{% block extra_javascript %}
+    <script src="{% static 'vendor/image-picker/image-picker.min.js' %}"></script>
+{% endblock %}

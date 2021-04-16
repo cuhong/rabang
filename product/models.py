@@ -40,6 +40,7 @@ class ProductOption(SerialMixin, UUIDPkMixin, DateTimeMixin, models.Model):
         null=True, blank=True, verbose_name='재고', help_text='입력하지 않을 경우 재고 무한'
     )
     sold_count = models.IntegerField(default=0, null=False, blank=False, verbose_name='누적 판매수량')
+    purchase_count = models.IntegerField(default=1, null=False, blank=False, verbose_name='표시용 판매수량')
 
     def __str__(self):
         return self.name

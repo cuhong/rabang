@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'channels',
     'simple_history',
+    'bootstrap_pagination',
     'ordered_model',
     'solo',
     'corsheaders',
@@ -51,7 +52,8 @@ INSTALLED_APPS = [
     'account.apps.AccountConfig',
     'payment.apps.PaymentConfig',
     'mall.apps.MallConfig',
-    'show.apps.ShowConfig'
+    'show.apps.ShowConfig',
+    'dashboard.apps.DashboardConfig'
 ]
 
 CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
@@ -134,28 +136,32 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'templates', 'static'), ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-AWS_ACCESS_KEY_ID = env.AWS_S3_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY = env.AWS_S3_SECRET_ACCESS_KEY
-DEFAULT_FILE_STORAGE = 'rabang.storages.MediaStorage'
-STATICFILES_STORAGE = 'rabang.storages.StaticStorage'
-AWS_STORAGE_BUCKET_NAME = "rabang-s3"
-AWS_LOCATION = 'ap-northeast-2'
-AWS_DEFAULT_ACL = None
-if STAGE == 'production':
-    MEDIAFILES_LOCATION = 'media'
-    STATICFILES_LOCATION = 'static'
-    PRIVATEFILE_LOCATION = 'private'
-    PUBLICFILES_LOCATION = 'public'
-elif STAGE == 'development':
-    MEDIAFILES_LOCATION = 'dev/media'
-    STATICFILES_LOCATION = 'dev/static'
-    PRIVATEFILE_LOCATION = 'dev/private'
-    PUBLICFILES_LOCATION = 'dev/public'
-elif STAGE == 'local':
-    MEDIAFILES_LOCATION = 'local/media'
-    STATICFILES_LOCATION = 'local/static'
-    PRIVATEFILE_LOCATION = 'local/private'
-    PUBLICFILES_LOCATION = 'local/public'
+# elif STAGE == 'local':
+#     MEDIAFILES_LOCATION = 'local/media'
+#     STATICFILES_LOCATION = 'local/static'
+#     PRIVATEFILE_LOCATION = 'local/private'
+#     PUBLICFILES_LOCATION = 'local/public'
+
+if STAGE == 'local':
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    AWS_ACCESS_KEY_ID = env.AWS_S3_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY = env.AWS_S3_SECRET_ACCESS_KEY
+    DEFAULT_FILE_STORAGE = 'rabang.storages.MediaStorage'
+    STATICFILES_STORAGE = 'rabang.storages.StaticStorage'
+    AWS_STORAGE_BUCKET_NAME = "rabang-s3"
+    AWS_LOCATION = 'ap-northeast-2'
+    AWS_DEFAULT_ACL = None
+    if STAGE == 'production':
+        MEDIAFILES_LOCATION = 'media'
+        STATICFILES_LOCATION = 'static'
+        PRIVATEFILE_LOCATION = 'private'
+        PUBLICFILES_LOCATION = 'public'
+    elif STAGE == 'development':
+        MEDIAFILES_LOCATION = 'dev/media'
+        STATICFILES_LOCATION = 'dev/static'
+        PRIVATEFILE_LOCATION = 'dev/private'
+        PUBLICFILES_LOCATION = 'dev/public'
 
 
 SOLO_CACHE = 'default'

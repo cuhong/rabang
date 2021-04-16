@@ -1,0 +1,49 @@
+<table class="table table-bordered">
+    <tbody>
+    <tr>
+        <th>상품</th>
+        <td>{{ order.broadcaster }}/{{ order.broadcaster }}<br>{{ order.title }}</td>
+    </tr>
+    <tr>
+        <th>홈쇼핑 주문</th>
+        <td>{{ order.purchase_no }}<br>{{ order.purchase_at|date:"Y-m-d H:M" }}</td>
+    </tr>
+    <tr>
+        <th>티오엔 주문번호</th>
+        <td>{{ order.serial }}</td>
+    </tr>
+    <tr>
+        <th>주문자</th>
+        <td>{{ order.orderer_name }}<br>{{ order.orderer_contact }}</td>
+    </tr>
+    <tr>
+        <th>수취인</th>
+        <td>{{ order.receiver_name }}<br>{{ order.receiver_contact }}</td>
+    </tr>
+    <tr>
+        <th>주문/반품 수량</th>
+        <td>{{ order.quantity }}/{{ order.return_quantity }}</td>
+    </tr>
+    <tr>
+        <th>예약권</th>
+        <td>
+            <ul>
+                {% for ticket in ticket_list %}
+                    {% if ticket.is_return %}
+                        <li>[반품] {{ ticket.serial }}</li>
+                    {% elif ticket.is_used_ticket %}
+                        <li>[사용] {{ ticket.serial }}</li>
+                    {% else %}
+                        <li>[사용가능] {{ ticket.serial }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<button type="button" class="btn btn-primary btn-block mt-2" onclick="goToReservationList()">예약조회</button>
+{% if request.user.ota_affiliate_user.is_admin %}
+    <button type="button" class="btn btn-secondary btn-block mt-2" onclick="sendReservationRequestMsg()">예약신청문자 재발송</button>
+{% endif %}

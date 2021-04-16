@@ -1,0 +1,172 @@
+{% extends "ota/affiliate/base.html" %}
+{% load humanize %}
+{% load bootstrap_pagination %}
+
+{% block extra_css %}
+    <style>
+        .table > thead > tr > th, td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+
+        .highlightedRow {
+            color: red !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Start Content-->
+    <div class="container-xl">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">주문</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="">
+                            <form class="form-inline" method="get" id="orderFilter">
+                                <div class="form-group mx-sm-1 mb-2">
+                                    <input type="text" class="form-control" id="orderQuery" name="query"
+                                           placeholder="" value="{{ search.query|default_if_none:'' }}">
+                                </div>
+                                <button type="submit" class="btn btn-primary mb-2">조회({{ paginator.count|intcomma }}건)
+                                </button>
+                                <button type="button" class="btn btn-secondary mb-2 ml-1" onclick="clearFilter()">
+                                    초기화
+                                </button>
+                            </form>
+                        </div>
+                        <div class="table-responsive mb-2" id="orderTableWrapper">
+                            <table class="table table-striped mb-0 display nowrap" style="width: 100%; font-size:12px;"
+                                   id="orderListTable">
+                                <thead>
+                                <tr>
+                                    <th>주문코드<br>홈쇼핑No</th>
+                                    <th>상품</th>
+                                    <th>수취인</th>
+                                    <th>주문자</th>
+                                    <th>주문수량</th>
+                                    <th>반품수량</th>
+                                    <th>자세히</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for order in object_list %}
+                                    <tr class="orderRow" data-order-id="{{ order.id }}" id="orderRow-{{ order.id }}">
+                                        <td>{{ order.serial }}<br>{{ order.purchase_no }}</td>
+                                        <td>{{ order.product.title_display }}</td>
+                                        <td>{{ order.receiver_name }}<br>{{ order.receiver_contact }}</td>
+                                        <td>{{ order.orderer_name }}<br>{{ order.orderer_contact }}</td>
+                                        <td>{{ order.quantity }}</td>
+                                        <td>{{ order.return_quantity }}</td>
+                                        <td>
+                                            <button type="button" data-order-id="{{ order.id }}"
+                                                    class="btn btn-primary btn-xs"
+                                                    onclick="getOrderDetail(this.dataset.orderId)"
+                                            >자세히
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            {% bootstrap_paginate page_obj range=10 extra_pagination_classes='justify-content-center' show_first_last='true' %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3" id="orderCard" style="">
+                <div class="card">
+                    <div class="card-body" id="orderDetail">
+                        <span class="card-title">주문을 선택하세요</span>
+                    </div>
+                </div>
+            </div> <!-- end col -->
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block extra_javascript %}
+    <script type="text/javascript">
+        let selectedOrderId = null
+        const orderQuery = document.getElementById('orderQuery')
+        const orderDetail = document.getElementById('orderDetail')
+
+        function clearFilter() {
+            orderQuery.value = ""
+            $("#orderFilter").submit()
+        }
+
+        function highlightRow() {
+            var rowList = document.getElementsByClassName('orderRow')
+            for (i = 0; i < rowList.length; i++) {
+                if (rowList[i].classList.contains('highlightedRow')) {
+                    rowList[i].classList.remove('highlightedRow')
+                }
+            }
+            document.getElementById(`orderRow-${selectedOrderId}`).classList.add('highlightedRow')
+        }
+
+        function getDetailUrl() {
+            return `/ota/affiliate/order/${selectedOrderId}/`
+        }
+
+        function goToReservationList() {
+            location.href = `/ota/affiliate/?orderId=${selectedOrderId}`
+        }
+
+        function getOrderDetail(orderId) {
+            selectedOrderId = orderId
+            $.ajax({
+                type: 'GET',
+                url: getDetailUrl(),
+                dataType: "json",
+                success: function (response) {
+                    orderDetail.innerHTML = response.html
+                    highlightRow()
+                    console.log(response)
+                },
+                error: function (response) {
+                    alert('서버 오류')
+                }
+            })
+        }
+
+        function sendReservationRequestMsg() {
+            if (confirm('예약문자가 재발송됩니다. 진행하시겠습니까?') === false) {
+                return false
+            }
+            $.ajax({
+                type: 'POST',
+                url: getDetailUrl(),
+                data: {'csrfmiddlewaretoken': '{{ csrf_token }}', 'action': 'sendReservationRequestMsg'},
+                dataType: "json",
+                success: function (response) {
+                    if (response.result === true) {
+                        alert('발송요청 되었습니다.')
+                    } else {
+                        alert(response.msg)
+                    }
+                },
+                error: function (response) {
+                    alert('서버 오류')
+                }
+            })
+        }
+
+
+    </script>
+{% endblock %}

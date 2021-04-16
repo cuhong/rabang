@@ -1,0 +1,142 @@
+{% extends "dashboard/base.html" %}
+{% load humanize %}
+{% load bootstrap_pagination %}
+
+{% block extra_css %}
+    <style>
+        .table > thead > tr > th, td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Start Content-->
+    {#    <div class="container-xl">#}
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">상품</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="card">
+            <div class="card-body">
+                    <a class="btn btn-primary mb-1" href="{% url 'seller:product_create' %}">상품추가</a>
+                {#                        <div class="">#}
+                {#                            <form class="form-inline " method="get" id="reservationFilter">#}
+                {#                                <input type="text" hidden value="{{ search.orderId|default_if_none:'' }}" name="orderId"#}
+                {#                                       id="orderId">#}
+                {#                                <div class="form-group mx-sm-1 mb-2">#}
+                {#                                    <input type="text" class="form-control" id="reservationQuery" name="query"#}
+                {#                                           placeholder="" value="{{ search.query|default_if_none:'' }}">#}
+                {#                                </div>#}
+                {##}
+                {#                                <div class="form-group mx-sm-1 mb-2">#}
+                {#                                    <select class="form-control" id="accommodationSelect" name="accommodation">#}
+                {#                                        <option value="">숙박</option>#}
+                {#                                    </select>#}
+                {#                                </div>#}
+                {#                                <div class="form-group mx-sm-1 mb-2">#}
+                {#                                    <select class="form-control" id="accommodationRoomSelect"#}
+                {#                                            name="accommodationRoom">#}
+                {#                                        <option value="">객실</option>#}
+                {#                                    </select>#}
+                {#                                </div>#}
+                {#                                <div class="form-group mx-sm-1 mb-2">#}
+                {#                                    <select class="form-control" id="reservationStatus" name="status">#}
+                {#                                        <option value="">상태</option>#}
+                {#                                        {% for status in status_choice %}#}
+                {#                                            <option value="{{ status.0 }}"#}
+                {#                                                    {% if search.status == status.0 %}selected="selected"{% endif %}>#}
+                {#                                                {{ status.1 }}#}
+                {#                                            </option>#}
+                {#                                        {% endfor %}#}
+                {#                                    </select>#}
+                {#                                </div>#}
+                {#                                <div class="form-group mx-sm-1 mb-2">#}
+                {#                                    <select class="form-control" id="reservationSort" name="sort">#}
+                {#                                        <option value="">정렬</option>#}
+                {#                                        <option value="check_in"#}
+                {#                                                {% if search.sort == "check_in" %}selected="selected"{% endif %}>#}
+                {#                                            체크인 오름차순#}
+                {#                                        </option>#}
+                {#                                        <option value="-check_in"#}
+                {#                                                {% if search.sort == "-startDate" %}selected="selected"{% endif %}>#}
+                {#                                            체크인 내림차순#}
+                {#                                        </option>#}
+                {#                                        <option value="check_out"#}
+                {#                                                {% if search.sort == "check_out" %}selected="selected"{% endif %}>#}
+                {#                                            체크아웃 오름차순#}
+                {#                                        </option>#}
+                {#                                        <option value="-check_out"#}
+                {#                                                {% if search.sort == "-check_out" %}selected="selected"{% endif %}>#}
+                {#                                            체크아웃 내림차순#}
+                {#                                        </option>#}
+                {#                                        <option value="updated_at"#}
+                {#                                                {% if search.sort == "updated_at" %}selected="selected"{% endif %}>#}
+                {#                                            과거 요청건부터#}
+                {#                                        </option>#}
+                {#                                        <option value="-updated_at"#}
+                {#                                                {% if search.sort == "-updated_at" %}selected="selected"{% endif %}>#}
+                {#                                            최근 요청건부터#}
+                {#                                        </option>#}
+                {#                                    </select>#}
+                {#                                </div>#}
+                {#                                <button type="submit" class="btn btn-primary mb-2">조회({{ paginator.count|intcomma }}건)#}
+                {#                                </button>#}
+                {#                                <button type="button" class="btn btn-secondary mb-2 ml-1" onclick="clearFilter()">#}
+                {#                                    초기화#}
+                {#                                </button>#}
+                {#                            </form>#}
+                {#                        </div>#}
+                <div class="table-responsive mb-2" id="reservationTableWrapper">
+                    <table class="table table-striped mb-0 display nowrap" style="width: 100%; font-size:12px;"
+                           id="reservationListTable">
+                        <thead>
+                        <tr>
+                            <th>썸네일</th>
+                            <th>상품명</th>
+                            <th>간단설명</th>
+                            <th>배송비타입</th>
+                            <th>배송비</th>
+                            <th>정가</th>
+                            <th>판매가</th>
+                            <th>자세히</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in object_list %}
+                            <tr class="productRow" data-product-id="{{ product.id }}"
+                                id="productRow-{{ product.id }}">
+                                <td><img src="{{ product.thumbnail.file.url }}" style="height: 50px"></td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.simple_description }}</td>
+                                <td>{{ product.get_delivery_type_display }}</td>
+                                <td>{{ product.delivery_fee|intcomma }}</td>
+                                <td>{{ product.original_price|intcomma }}</td>
+                                <td>{{ product.sale_price|intcomma }}</td>
+                                <td>
+                                    <button type="button" data-reservation-id="{{ reservation.id }}"
+                                            class="btn btn-primary btn-xs"
+                                            onclick="getReservationDetail(this.dataset.reservationId)">자세히
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    {% bootstrap_paginate page_obj range=10 extra_pagination_classes='justify-content-center' show_first_last='true' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

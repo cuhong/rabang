@@ -5,13 +5,33 @@
 {% block pagestyle %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/video-page.css' %}"/>
     <style>
-    body {
-        overflow-y: hidden;
-    }
+    * {
+	margin:0 auto;
+    padding: 0;
+}
+
+html {
+	widht:100%;
+	height:99.9%;
+    overflow:hidden;
+}
+
+body {
+	width:100%;
+	height:100%;
+    overflow:hidden;
+}
+
+#content-wrap {
+	width:100%;
+    height:100%;
+    overflow-x:hidden;
+    overflow-y:auto;
+}
     </style>
 {% endblock %}
 {% block content %}
-    <div class="container">
+    <div class="container" id="content-wrap">
         {#        <video class="i-video"#}
         {#               poster="https://rabang-s3.s3.amazonaws.com/local/public/show/poster/image/2021/04/11/KakaoTalk_Photo_2021-04-11-21-28-00.jpeg"#}
         {#               autoplay="" muted="" playsinline=""#}

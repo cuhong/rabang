@@ -12,7 +12,7 @@ body, html { max-width: none; background: #000; color: #fff;}
   z-index: 1;
   margin: 0 auto;
   max-height: 100%;
-  height: 100vh;
+  /* height: 100vh;*/
   object-fit: contain;
 }
 

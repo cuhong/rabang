@@ -4,6 +4,11 @@
 
 {% block pagestyle %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/video-page.css' %}"/>
+    <style>
+    body {
+        overflow-y: hidden;
+    }
+    </style>
 {% endblock %}
 {% block content %}
     <div class="container">
@@ -59,7 +64,8 @@
 
                 <div class="wrap-input">
                     <a href="#" onclick="postChat()"><i class="icon icon-chevron-up"></i></a>
-                    <input class="input-chat" id="chatMsg" type="text" placeholder="메세지를 입력해주세요." onkeyup="enterkey();"/>
+                    <input class="input-chat" id="chatMsg" type="text" placeholder="메세지를 입력해주세요."
+                           onkeyup="enterkey();"/>
                 </div>
             </div>
         </div>
@@ -78,13 +84,24 @@
 {% block extrascript %}
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
+        const showVideo = document.getElementById('showLive')
+        const setVideoRatio = () => {
+            var ih = window.innerHeight
+            var iw = window.innerWidth
+            if (iw > ih) {
+                // 데스크탑 등
+                showVideo.style.height = `${ih}px`
+            } else {
+                showVideo.style.width = `${iw}px`
+            }
+        }
+        setVideoRatio()
         var lastSeenChat = {{ last_chat_id }}
         const chatMsgInput = document.getElementById('chatMsg')
         const chatList = document.getElementById('chatList')
         const sellerName = "{{ show.product.seller.name }}"
         const toggleMute = () => {
             var muteToggleBtn = document.getElementById('muteToggleBtn')
-            var showVideo = document.getElementById('showLive')
             var currentState = showVideo.muted
             if (currentState === true) {
                 muteToggleBtn.innerText = '음소거'
@@ -160,7 +177,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            setInterval(() => {fetchChat()}, 1500)
+            setInterval(() => {
+                fetchChat()
+            }, 1500)
         })
     </script>
 {% endblock %}

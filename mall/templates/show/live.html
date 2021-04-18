@@ -60,14 +60,15 @@
         <div class="volume-on" id="muteToggleBtn" onclick="toggleMute()" style="cursor: pointer">
             <i class="icon icon-volume-off"></i>음소거 해제
         </div>
-
-        <div class="wrap-heart">
-            <a href="#"><i class="icon icon-heart"></i></a>
+        <div class="wrap-heart controledWidth">
+            <div class="wrap-heart-inner">
+                <a href="#"><i class="icon icon-heart"></i></a>
+            </div>
         </div>
 
         <div class="wrapBottom controledWidth">
 
-            <div class="wrap-input-bottom"  style="padding-left: 1rem; padding-right: 1rem">
+            <div class="wrap-input-bottom" style="padding-left: 1rem; padding-right: 1rem">
 
                 <div class="wrap-chat">
                     <div id="chatList">
@@ -121,7 +122,7 @@
             var controledWidths = document.getElementsByClassName('controledWidth')
             Array.from(controledWidths).forEach(
                 function (element, index, array) {
-                element.style.width = `${finalWidth}px`
+                    element.style.width = `${finalWidth}px`
                 }
             );
         }

@@ -193,5 +193,5 @@ class ShowView(SellerAuthMixin, View):
         show = Show.objects.select_related('product').prefetch_related('chat_set').get(
             id=show_id, status=ShowStatus.ONAIR, product__seller__user=request.user
         )
-        last_chat_id = show.chat_set.last().id
+        last_chat_id = show.chat_set.last().id if show.chat_set.last() else 1
         return render(request, 'dashboard/show/show.html', context={"show": show, "last_chat_id": last_chat_id})

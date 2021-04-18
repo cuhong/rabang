@@ -26,7 +26,7 @@ class ShowView(View):
 class ShowLiveView(View):
     def get(self, request, show_id):
         show = get_object_or_404(Show.objects.select_related('product').prefetch_related('chat_set'), id=show_id)
-        last_chat_id = show.chat_set.last().id
+        last_chat_id = show.chat_set.last().id if show.chat_set.last() else 1
         return render(request, 'show/live.html', {"show": show, "last_chat_id": last_chat_id})
 
 

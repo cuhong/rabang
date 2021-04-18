@@ -7,15 +7,15 @@ User = get_user_model()
 # Create your tests here.
 def create_user():
     try:
-        user = User.objects.get(email="teset@tesset.com")
+        user = User.objects.get(email="test@test.com")
     except User.DoesNotExist:
-        user = User.objects.create_user("teset@tesset.com", "테스트셀러", "01000000000", password="xptmxm1!")
+        user = User.objects.create_user("test@test.com", "테스트셀러", "01000000000", password="xptmxm1!")
     return user
 
 def create_seller(user):
     seller = Seller.objects.create(
         user=user,
-        name="테스트 셀러",
+        name=f"테스트 셀러{user.email}",
         contact="01000000000",
         email="teset@tesset.com",
         rep_name="홍길동",

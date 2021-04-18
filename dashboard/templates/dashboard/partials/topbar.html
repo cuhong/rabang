@@ -24,18 +24,23 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
                     <a href="{% url 'seller:logout' %}" class="dropdown-item notify-item">
-                                    <i class="fe-log-out"></i>
-                                    <span>로그아웃</span>
-                                </a>
+                        <i class="fe-log-out"></i>
+                        <span>로그아웃</span>
+                    </a>
                 </div>
             </li>
         </ul>
 
         <!-- LOGO -->
         <div class="logo-box">
-            <a href="{% url 'seller:index' %}" class="logo text-center">
-                <span class="h4">라방 셀러 시스템</span>
-            </a>
+            <div class="d-flex justify-content-center align-items-center">
+                <a href="{% url 'seller:index' %}" class="logo text-center mr-2">
+                    <img src="{% static 'brand/512w/bi512px.png' %}" alt="" height="25px">
+                </a>
+                <div>
+                    셀러 시스템
+                </div>
+            </div>
         </div>
 
     </div>

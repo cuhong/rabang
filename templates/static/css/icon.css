@@ -1,6 +1,6 @@
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 1.5rem;
+  height: 1.5rem;
   display: inline-block;
   vertical-align: middle;
 }
@@ -45,8 +45,13 @@
 }
 
 .icon-alert {
-  background: url('../assets/alert.svg') no-repeat;
+  background: url('../assets/alert_on.svg') no-repeat;
 }
+
+.icon-alert-off {
+  background: url('../assets/alert_off.svg') no-repeat;
+}
+
 
 .icon-live-b {
   background: url('../assets/live_img_blue.svg') no-repeat;
@@ -82,4 +87,8 @@
 
 .icon-setting {
   background: url('../assets/settings.svg') no-repeat;
+}
+
+.icon-chevron-up {
+  background: url('../assets/chevron-up.svg') no-repeat;
 }

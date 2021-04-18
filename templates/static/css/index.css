@@ -2,19 +2,19 @@
 /*Main*/
 .img-main {
   position: absolute;
+  top: 0;
   width: 100%;
   height: 100vh;
+  max-height: 100%;
   background: linear-gradient(0deg, #000 5%, transparent, transparent), rgba( 0, 0, 0, 30%);
-  object-fit: cover;
-  bottom: 0;
 }
 
 .img-main-under {
   width: 100%;
-  height: 680px;
+  height: 100vh;
+  max-height: 100%;
   object-fit: cover;
 }
-
 
 .txt-contents {
   width: 100%;
@@ -53,14 +53,6 @@
 .wrap-content {
   margin-top: 1rem;
   margin-bottom: 2rem;
-}
-
-.wrap-txt {
-  margin-top: 1rem;
-  display: flex;
-  flex: row nowrap;
-  justify-content: space-between;
-  padding: 0 1rem;
 }
 
 .img-soon {

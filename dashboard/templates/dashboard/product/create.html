@@ -29,76 +29,234 @@
 
         <div class="card">
             <div class="card-body">
-                <form>
+                <form method="post">
                     {% csrf_token %}
                     {{ form.media }}
-                    {#                    {{ form.as_p }}#}
-                    <div class="form-group">
-                        <label for="{{ form.name.id_for_label }}">상품명</label>
-                        <input class="form-control" type="text" id="{{ form.name.id_for_label }}"
-                               name="{{ form.name.name }}">
-                    </div>
-                    <div class="form-group">
-                        <label for="{{ form.simple_description.id_for_label }}">간단설명</label>
-                        <textarea class="form-control" rows="5" id="{{ form.simple_description.id_for_label }}"
-                                  name="{{ form.simple_description.name }}"></textarea>
-                    </div>
-
                     <div class="row mb-2">
-                        <div class=" col-md-6">
-                            <div class="form-group">
-                                <label for="{{ form.thumbnail.id_for_label }}">썸네일</label>
-                                <input class="form-control" type="text" id="{{ form.thumbnail.id_for_label }}"
-                                       name="{{ form.thumbnail.name }}" hidden>
-                            </div>
-                            <div style="width: inherit">
-                                <img class="border border-blue mb-2"
-                                     src="{% static 'mall/product-image-placeholder.gif' %}" style="width: inherit"
-                                     alt="이미지를 선택하세요.">
-                                <button onclick="showImageSelectModal()" type="button"
-                                        class="btn btn-primary btn-block">이미지 선택
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <label for="{{ form.original_price.id_for_label }}">정가</label>
-                                <input class="form-control" type="number" id="{{ form.original_price.id_for_label }}"
-                                       name="{{ form.original_price.name }}">
-                            </div>
-                            <div class="form-group ">
-                                <label for="{{ form.sale_price.id_for_label }}">판매가</label>
-                                <input class="form-control" type="number" id="{{ form.sale_price.id_for_label }}"
-                                       name="{{ form.sale_price.name }}">
-                            </div>
-                            <div class="form-group ">
-                                <label for="{{ form.delivery_type.id_for_label }}">배송비 타입</label>
-                                <select class="form-control" id="{{ form.delivery_type.id_for_label }}"
-                                        name="{{ form.delivery_type.name }}">
-                                    {% for k, v in form.fields.delivery_type.choices %}
-                                        <option value="{{ k }}">{{ v }}</option>
+                        <div class="col-md-8">
+                            {% with field=form.name %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}"
+                                           class="{% if field.errors %}text-danger{% endif %}">상품명</label>
+                                    <input class="form-control {% if field.errors %}is-invalid{% endif %}" type="text"
+                                           id="{{ field.id_for_label }}"
+                                           name="{{ field.name }}" value="{{ field.value|default_if_none:"" }}">
+                                    {% for error in field.errors %}
+                                        <small id="{{ field.name }}Help" class="text-danger">
+                                            {{ error }}
+                                        </small>
                                     {% endfor %}
-                                </select>
+                                </div>
+                            {% endwith %}
+                            {% with field=form.simple_description %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}"
+                                           class="{% if field.errors %}text-danger{% endif %}">간단설명</label>
+                                    <textarea class="form-control {% if field.errors %}is-invalid{% endif %}" rows="5"
+                                              id="{{ field.id_for_label }}"
+                                              name="{{ field.name }}">{{ field.value|default_if_none:"" }}</textarea>
+                                    {% for error in field.errors %}
+                                        <small id="{{ field.name }}Help" class="text-danger">
+                                            {{ error }}
+                                        </small>
+                                    {% endfor %}
+                                </div>
+                            {% endwith %}
+                            <div class="row">
+                                {% with field=form.original_price %}
+                                    <div class="form-group col-md-6">
+                                        <label for="{{ field.id_for_label }}"
+                                               class="{% if field.errors %}text-danger{% endif %}">정가</label>
+                                        <input class="form-control" type="number" value="{{ field.value }}"
+                                               id="{{ field.id_for_label }}"
+                                               name="{{ field.name }}">
+                                        {% for error in field.errors %}
+                                            <small id="{{ field.name }}Help" class="text-danger">
+                                                {{ error }}
+                                            </small>
+                                        {% endfor %}
+                                    </div>
+                                {% endwith %}
+                                {% with field=form.sale_price %}
+                                    <div class="form-group col-md-6">
+                                        <label for="{{ field.id_for_label }}"
+                                               class="{% if field.errors %}text-danger{% endif %}">판매가</label>
+                                        <input class="form-control" type="number" id="{{ field.id_for_label }}"
+                                               value="{{ field.value }}"
+                                               name="{{ field.name }}">
+                                        {% for error in field.errors %}
+                                            <small id="{{ field.name }}Help" class="text-danger">
+                                                {{ error }}
+                                            </small>
+                                        {% endfor %}
+                                    </div>
+                                {% endwith %}
                             </div>
-                            <div class="form-group ">
-                                <label for="{{ form.delivery_fee.id_for_label }}">배송비</label>
-                                <input class="form-control" type="number" id="{{ form.delivery_fee.id_for_label }}"
-                                       name="{{ form.delivery_fee.name }}" value="0">
+                            <div class="row">
+                                {% with field=form.delivery_type %}
+                                    <div class="form-group col-md-6">
+                                        <label for="{{ field.id_for_label }}"
+                                               class="{% if field.errors %}text-danger{% endif %}">배송비 타입</label>
+                                        <select class="form-control" id="{{ field.id_for_label }}"
+                                                name="{{ field.name }}">
+                                            {% for k, v in form.fields.delivery_type.choices %}
+                                                <option value="{{ k }}"
+                                                        {% if field.value|intcomma == k|intcomma %}selected{% endif %}>{{ v }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% for error in field.errors %}
+                                            <small id="{{ field.name }}Help" class="text-danger">
+                                                {{ error }}
+                                            </small>
+                                        {% endfor %}
+                                    </div>
+                                {% endwith %}
+                                {% with field=form.delivery_fee %}
+                                    <div class="form-group col-md-6">
+                                        <label for="{{ field.id_for_label }}"
+                                               class="{% if field.errors %}text-danger{% endif %}">배송비</label>
+                                        <input class="form-control" type="number" id="{{ field.id_for_label }}"
+                                               value="{{ field.value }}"
+                                               name="{{ field.name }}" value="0">
+                                        {% for error in field.errors %}
+                                            <small id="{{ field.name }}Help" class="text-danger">
+                                                {{ error }}
+                                            </small>
+                                        {% endfor %}
+                                    </div>
+                                {% endwith %}
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    {% with field=form.description %}
+                                        <div class="form-group mb-1">
+                                            <label for="{{ form.description.id_for_label }}"
+                                                   class="{% if field.errors %}text-danger{% endif %}">상세</label>
+                                            {% for error in field.errors %}
+                                                <small id="{{ field.name }}Help" class="text-danger">
+                                                    {{ error }}
+                                                </small>
+                                            {% endfor %}
+                                        </div>
+                                        {{ form.description }}
+                                    {% endwith %}
+                                </div>
                             </div>
                         </div>
+                        <div class=" col-md-4">
+                            {% with field=form.thumbnail %}
+                                <div class="form-group mb-1">
+                                    <label for="{{ field.id_for_label }}"
+                                           class="{% if field.errors %}text-danger{% endif %}">썸네일</label>
+                                    <input class="form-control" type="text" id="{{ field.id_for_label }}"
+                                           name="{{ field.name }}" hidden>
+                                </div>
+                                <div style="width: inherit">
+                                    <img class="border border-blue mb-2" id="thumbnailPreview"
+                                         src="{% static 'mall/product-image-placeholder.gif' %}" style="width: inherit"
+                                         alt="이미지를 선택하세요.">
+                                    <input type="file" id="proxyThumbnail" hidden>
+                                    <button onclick="browseImage('proxyThumbnail')" type="button"
+                                            class="btn btn-primary btn-block">이미지 선택
+                                    </button>
+                                    {% for error in field.errors %}
+                                        <small id="{{ field.name }}Help" class="text-danger">
+                                            {{ error }}
+                                        </small>
+                                    {% endfor %}
+                                </div>
+                            {% endwith %}
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="{{ form.description.id_for_label }}">상세</label>
-                    </div>
-                    {{ form.description }}
+                    {% if form.non_field_errors %}
+                        <div class="non-field-errors">
+                            {% for error in form.non_field_errors %}
+                                <small id="nfHelp-{{ forloop }}" class="text-danger">
+                                    {{ error }}
+                                </small>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary">저장</button>
+                    <a href="{% url 'seller:product' %}" class="btn btn-warning">취소</a>
                 </form>
+
             </div>
         </div>
     </div>
-    {% include 'dashboard/partials/product_image.html' %}
 {% endblock %}
 
 {% block extra_javascript %}
-    <script src="{% static 'vendor/image-picker/image-picker.min.js' %}"></script>
+    <script>
+        const proxyThumbnail = document.getElementById('proxyThumbnail')
+        const thumbnailPreview = document.getElementById('thumbnailPreview')
+        const browseImage = (thumbnailInputId) => {
+            document.getElementById(thumbnailInputId).click()
+        }
+        const uploadProductImage = (fileObj, successCallback, failCallback) => {
+            var formData = new FormData()
+            formData.append('productImage', fileObj)
+            formData.append('csrfmiddlewaretoken', "{{ csrf_token }}")
+            $.ajax({
+                url: "{% url 'seller:productimage' %}",
+                type: "POST",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function (response) {
+                    if (response.result) {
+                        successCallback(response.data.id, response.data.url)
+                    } else {
+                        failCallback()
+                    }
+                },
+                error: () => {
+                    failCallback()
+                }
+            })
+        }
+        const uploadAndShowFile = (event, previewElemId, targetElemId) => {
+            if (event.target.files.length === 0) {
+                return null
+            }
+            var file = event.target.files[0]
+            if (!file.type.match("image/.*")) {
+                alert('이미지 파일만 업로드 가능합니다.')
+                return null
+            }
+            if (file.size > 3000000) {
+                alert('3메가 바이트 이하의 이미지만 업로드 가능합니다.')
+                return null
+            }
+            console.log(file.size)
+            var reader = new FileReader();
+            reader.onload = (leaderEvent) => {
+                var image = new Image()
+                image.src = leaderEvent.target.result
+                image.onload = () => {
+                    if (image.height > image.width) {
+                        alert('썸네일은 세로가 가로보다 길 수 없습니다.')
+                    } else {
+                        uploadProductImage(
+                            file,
+                            (id, url) => {
+                                console.log(id)
+                                console.log(url)
+                                document.getElementById(previewElemId).src = url
+                                document.getElementById(targetElemId).value = id
+                            },
+                            () => {
+                                alert('업로드 실패')
+                            })
+
+                    }
+                }
+            }
+            reader.readAsDataURL(file)
+        }
+
+        proxyThumbnail.addEventListener('change', (event) => {
+            uploadAndShowFile(event, "thumbnailPreview", "{{ form.thumbnail.id_for_label }}")
+        })
+    </script>
 {% endblock %}

@@ -1,0 +1,114 @@
+{% extends "dashboard/base.html" %}
+{% load humanize %}
+{% load bootstrap_pagination %}
+
+{% block extra_css %}
+    <style>
+        .table > thead > tr > th, td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Start Content-->
+    {#    <div class="container-xl">#}
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">쇼 리스트</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="card">
+            <div class="card-body">
+                <a class="btn btn-primary mb-1" href="{% url 'seller:show_create' %}">쇼 등록</a>
+                <div class="table-responsive mb-2" id="showTableWrapper">
+                    <table class="table table-striped mb-0 display nowrap" style="width: 100%; font-size:12px;"
+                           id="showListTable">
+                        <thead>
+                        <tr>
+                            <th>제목</th>
+                            <th>포스터</th>
+                            <th>포스터 비디오</th>
+                            <th>상품</th>
+                            <th>방송시간</th>
+                            <th>방송상태</th>
+                            <th>알림설정</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for show in object_list %}
+                            <tr class="showRow" data-show-id="{{ show.id }}" id="showRow-{{ show.id }}">
+                                <td class="text-left">{{ show.title }}<br>{{ show.title_display }}</td>
+                                <td><img src="{{ show.poster.url }}" style="height: 50px"></td>
+                                <td>{% if show.poster_video %}
+                                    <a href="{{ show.poster_video.url }}" target="_blank">미리보기</a>{% else %}
+                                    미등록{% endif %}</td>
+                                <td class="text-left"><img src="{{ show.product.thumbnail.file.url }}" class="mr-2"
+                                                           style="height: 50px">{{ show.product.name }}</td>
+                                <td class="text-left">{{ show.start_at|date:"Y-m-d H:i" }}~<br>{{ show.end_at|date:"Y-m-d H:i" }}
+                                </td>
+                                <td>{{ show.get_status_display }}</td>
+                                <td>{{ show.notification_group.count|intcomma }}명</td>
+                                <td>
+                                    {% if show.status == 'pending' %}
+                                        <a class="btn btn-primary btn-xs"
+                                           href="{% url 'seller:show_update' show_id=show.id %}">자세히
+                                        </a>
+                                    {% endif %}
+                                {% if show.status == 'onair' %}
+                                    <a class="btn btn-warning btn-xs text-danger font-weight-bolder"
+                                           href="{% url 'seller:lets_show' show_id=show.id %}">SHOW
+                                        </a>
+                                {% endif %}
+                                    {% if show.status == 'pending' or show.status == 'deny' %}
+                                        <button type="button" class="btn btn-danger btn-xs"
+                                                data-show-delete-url="{% url 'seller:show_delete' show_id=show.id %}"
+                                                onclick="deleteShow(this.dataset.showDeleteUrl)">삭제
+                                        </button>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    {% bootstrap_paginate page_obj range=10 extra_pagination_classes='justify-content-center' show_first_last='true' %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_javascript %}
+    <script>
+        const deleteShow = (showDeleteUrl) => {
+            console.log(showDeleteUrl)
+            $.ajax({
+                url: showDeleteUrl,
+                type: "POST",
+                data: {'csrfmiddlewaretoken': "{{ csrf_token }}"},
+                success: function (response) {
+                    if (response.result) {
+                        alert('삭제되었습니다.')
+                        location.reload()
+                    } else {
+                        alert(response.msg)
+                    }
+                },
+                error: () => {
+                    alert('네트워크 오류')
+                }
+            })
+        }
+    </script>
+{% endblock %}

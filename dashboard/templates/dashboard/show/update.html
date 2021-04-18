@@ -1,0 +1,414 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+    <style>
+        .table > thead > tr > th, td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+    </style>
+    <style href="{% static 'vendor/image-picker/image-picker.css' %}" rel="stylesheet"></style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Start Content-->
+    {#    <div class="container-xl">#}
+    <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+                    <h4 class="page-title">쇼 수정</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="card">
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    <div class="row mb-2">
+                        <div class="col-md-8">
+                            {% with field=form.title %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}"
+                                           class="{% if field.errors %}text-danger{% endif %}">타이틀(셀러용)</label>
+                                    <input class="form-control {% if field.errors %}is-invalid{% endif %}" type="text"
+                                           id="{{ field.id_for_label }}" maxlength="300"
+                                           name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+                                    <div>
+                                        <small id="{{ field.name }}Description" class="">* 고객에게 노출되지 않습니다. </small>
+                                    </div>
+                                    {% for error in field.errors %}
+                                        <div>
+                                            <small id="{{ field.name }}Help" class="text-danger">
+                                                {{ error }}
+                                            </small>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endwith %}
+                            {% with field=form.title_display %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}"
+                                           class="{% if field.errors %}text-danger{% endif %}">타이틀(표시용)</label>
+                                    <input class="form-control {% if field.errors %}is-invalid{% endif %}" type="text"
+                                           id="{{ field.id_for_label }}" maxlength="300"
+                                           name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+                                    <div>
+                                        <small id="{{ field.name }}Description" class="">* 고객에게 노출됩니다. </small>
+                                    </div>
+                                    {% for error in field.errors %}
+                                        <div>
+                                            <small id="{{ field.name }}Help" class="text-danger">
+                                                {{ error }}
+                                            </small>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% endwith %}
+                            {% with field=form.product %}
+                                <div class="form-group mb-1">
+                                    <label for="{{ field.id_for_label }}"
+                                           class="{% if field.errors %}text-danger{% endif %}">상품
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                                onclick="showProductModal()">
+                                            상품선택
+                                        </button>
+                                    </label>
+                                    <input class="form-control {% if field.errors %}is-invalid{% endif %}" type="text"
+                                           id="{{ field.id_for_label }}" hidden
+                                           name="{{ field.name }}" value="{{ field.value|default_if_none:'' }}">
+                                    {% for error in field.errors %}
+                                        <div>
+                                            <small id="{{ field.name }}Help" class="text-danger">
+                                                {{ error }}
+                                            </small>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <table class="table table-borderless">
+                                    <thead class="thead-light">
+                                    <tr>
+                                        <th>썸네일</th>
+                                        <th>상품명</th>
+                                        <th>정가</th>
+                                        <th>판매가</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="productTableBodySelected">
+                                    </tbody>
+                                </table>
+                            {% endwith %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {% with field=form.start_at %}
+                                        <div class="form-group">
+                                            <label for="{{ field.id_for_label }}"
+                                                   class="{% if field.errors %}text-danger{% endif %}">방송 시작시간</label>
+                                            <input class="form-control {% if field.errors %}is-invalid{% endif %}"
+                                                   type="datetime-local"
+                                                   id="{{ field.id_for_label }}"
+                                                   name="{{ field.name }}" value="{{ field.value|date:"Y-m-d" }}T{{ field.value|date:"H:i" }}:00">
+                                            {% for error in field.errors %}
+                                                <div>
+                                                    <small id="{{ field.name }}Help" class="text-danger">
+                                                        {{ error }}
+                                                    </small>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endwith %}
+                                </div>
+                                <div class="col-md-6">
+                                    {% with field=form.end_at %}
+                                        <div class="form-group">
+                                            <label for="{{ field.id_for_label }}"
+                                                   class="{% if field.errors %}text-danger{% endif %}">방송 종료시간</label>
+                                            <input class="form-control {% if field.errors %}is-invalid{% endif %}"
+                                                   type="datetime-local"
+                                                   id="{{ field.id_for_label }}"
+                                                   name="{{ field.name }}" value="{{ field.value|date:"Y-m-d" }}T{{ field.value|date:"H:i" }}:00">
+                                            {% for error in field.errors %}
+                                                <div>
+                                                    <small id="{{ field.name }}Help" class="text-danger">
+                                                        {{ error }}
+                                                    </small>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endwith %}
+                                </div>
+                            </div>
+                            {% with field=form.description %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}"
+                                           class="{% if field.errors %}text-danger{% endif %}">쇼 소개</label>
+                                    <textarea class="form-control {% if field.errors %}is-invalid{% endif %}" rows="5"
+                                              id="{{ field.id_for_label }}"
+                                              name="{{ field.name }}">{{ field.value|default_if_none:"" }}</textarea>
+                                    {% for error in field.errors %}
+                                        <small id="{{ field.name }}Help" class="text-danger">
+                                            {{ error }}
+                                        </small>
+                                    {% endfor %}
+                                </div>
+                            {% endwith %}
+                        </div>
+                        <div class=" col-md-4">
+                            {% with field=form.poster %}
+                                <div class="form-group">
+                                    <label for="{{ field.id_for_label }}"
+                                           class="{% if field.errors %}text-danger{% endif %}">포스터 이미지</label>
+                                    <input class="form-control" type="file" id="{{ field.id_for_label }}" hidden
+                                           name="{{ field.name }}" onchange="previewImage(this, 'posterPreview')">
+                                </div>
+                                <div style="width: inherit">
+                                    <img class="border border-blue mb-2" id="posterPreview"
+                                         src="{{ show.poster.url }}" style="width: inherit"
+                                         alt="이미지를 선택하세요.">
+                                    <button onclick="browseImage('{{ field.id_for_label }}')" type="button"
+                                            class="btn btn-primary btn-block">이미지 선택
+                                    </button>
+                                    <div>
+                                        <small id="posterImageHelp" class="">* 가로 세로 비율이 9:16인 세로로 긴 이미지를 권장합니다.</small>
+                                    </div>
+                                    {% for error in field.errors %}
+                                        <small id="{{ field.name }}Help" class="text-danger">
+                                            {{ error }}
+                                        </small>
+                                    {% endfor %}
+                                </div>
+                            {% endwith %}
+                            {% with field=form.poster_video %}
+                                <div class="form-group mt-3">
+                                    <label for="{{ field.id_for_label }}"
+                                           class="{% if field.errors %}text-danger{% endif %}">포스터 비디오</label>
+                                    <div>
+                                        {{ field }}
+                                    </div>
+                                    <div>
+                                        <small id="posterImageHelp" class="">* 가로 세로 비율이 4:3인 가로로 긴 영상을 권장합니다.</small>
+                                    </div>
+                                    {% for error in field.errors %}
+                                        <small id="{{ field.name }}Help" class="text-danger">
+                                            {{ error }}
+                                        </small>
+                                    {% endfor %}
+                                </div>
+                            {% endwith %}
+                        </div>
+                    </div>
+                    {% if form.non_field_errors %}
+                        <div class="non-field-errors">
+                            {% for error in form.non_field_errors %}
+                                <small id="nfHelp-{{ forloop }}" class="text-danger">
+                                    {{ error }}
+                                </small>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-primary">저장</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="productSelectModal" tabindex="-1" role="dialog"
+         aria-labelledby="productSelectModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productSelectModalLongTitle">상품 선택</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="productSelectModalBody">
+                    <div class="row">
+                        <div class="col-8">
+                            <input class="form-control" id="productQueryInput" placeholder="상품명 검색">
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-primary btn-block"
+                                    onclick="queryProduct(document.getElementById('productQueryInput').value)">검색
+                            </button>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <table class="table table-borderless">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>썸네일</th>
+                                    <th>상품명</th>
+                                    <th>정가</th>
+                                    <th>판매가</th>
+                                    <th>선택</th>
+                                </tr>
+                                </thead>
+                                <tbody id="productTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_javascript %}
+    <script>
+        const showProductModal = () => {
+            $("#productSelectModal").modal('show')
+        }
+        const hideProductModal = () => {
+            $("#productSelectModal").modal('hide')
+        }
+
+        const getProductList = (query, successCallback) => {
+            $.ajax({
+                url: "{% url 'seller:product_ajax' %}",
+                type: "GET",
+                data: {query: query},
+                success: function (response) {
+                    if (response.result) {
+                        successCallback(response)
+                    } else {
+                        alert('네트워크 오류')
+                    }
+                },
+                error: () => {
+                    alert('네트워크 오류')
+                }
+            })
+        }
+
+        const initProduct = () => {
+            var productIdValue = '{{ form.product.value }}'
+            if (productIdValue !== 'None') {
+                getProductList(productIdValue, (response) => {
+                    var product = response.data[0]
+                    var selectedtr = document.createElement('tr')
+                    var selectedtd1 = document.createElement('td')
+                    selectedtd1.innerHTML = `<img src="${product.thumbnail}" style="height: 50px">`
+                    selectedtr.append(selectedtd1)
+                    var selectedtd2 = document.createElement('td')
+                    selectedtd2.innerText = product.name
+                    selectedtr.append(selectedtd2)
+                    var selectedtd3 = document.createElement('td')
+                    selectedtd3.innerText = product.original_price
+                    selectedtr.append(selectedtd3)
+                    var selectedtd4 = document.createElement('td')
+                    selectedtd4.innerText = product.sale_price
+                    selectedtr.append(selectedtd4)
+                    document.getElementById('productTableBodySelected').innerHTML = ''
+                    document.getElementById('{{ form.product.id_for_label }}').value = product.id
+                    document.getElementById('productTableBodySelected').append(selectedtr)
+                })
+            }
+        }
+
+        initProduct()
+
+        const queryProduct = (query) => {
+            if (query === '' || query === null || query === undefined) {
+                alert('검색어를 입력하세요.')
+                return null
+            }
+            let productTableBody = document.getElementById('productTableBody')
+            getProductList(query, (response) => {
+                productTableBody.innerHTML = ''
+                if (response.data.length === 0) {
+                    alert('검색결과가 없습니다.')
+                    return null
+                }
+                response.data.forEach((product) => {
+                    var tr = document.createElement('tr')
+                    var td1 = document.createElement('td')
+                    td1.innerHTML = `<img src="${product.thumbnail}" style="height: 50px">`
+                    tr.append(td1)
+                    var td2 = document.createElement('td')
+                    td2.innerText = product.name
+                    tr.append(td2)
+                    var td3 = document.createElement('td')
+                    td3.innerText = product.original_price
+                    tr.append(td3)
+                    var td4 = document.createElement('td')
+                    td4.innerText = product.sale_price
+                    tr.append(td4)
+                    var td5 = document.createElement('td')
+                    var button = document.createElement('button')
+                    button.dataset.id = product.id
+                    button.dataset.name = product.name
+                    button.dataset.thumbnail = product.thumbnail
+                    button.dataset.original_price = product.original_price
+                    button.dataset.sale_price = product.sale_price
+                    button.type = 'button'
+                    button.classList.add('btn')
+                    button.classList.add('btn-primary')
+                    button.innerText = '선택'
+                    button.onclick = function (elem) {
+                        var selectedtr = document.createElement('tr')
+                        var selectedtd1 = document.createElement('td')
+                        selectedtd1.innerHTML = `<img src="${product.thumbnail}" style="height: 50px">`
+                        selectedtr.append(selectedtd1)
+                        var selectedtd2 = document.createElement('td')
+                        selectedtd2.innerText = product.name
+                        selectedtr.append(selectedtd2)
+                        var selectedtd3 = document.createElement('td')
+                        selectedtd3.innerText = product.original_price
+                        selectedtr.append(selectedtd3)
+                        var selectedtd4 = document.createElement('td')
+                        selectedtd4.innerText = product.sale_price
+                        selectedtr.append(selectedtd4)
+                        document.getElementById('productTableBodySelected').innerHTML = ''
+                        document.getElementById('{{ form.product.id_for_label }}').value = product.id
+                        document.getElementById('productTableBodySelected').append(selectedtr)
+                        hideProductModal()
+                    }
+                    td5.append(button)
+                    tr.append(td5)
+                    productTableBody.append(tr)
+                })
+            })
+        }
+        const browseImage = (thumbnailInputId) => {
+            document.getElementById(thumbnailInputId).click()
+        }
+
+        const previewImage = (elem, previewElemId) => {
+            if (elem.files.length === 0) {
+                return null
+            }
+            var file = elem.files[0]
+            if (!file.type.match("image/.*")) {
+                alert('이미지 파일만 업로드 가능합니다.')
+                return null
+            }
+            if (file.size > 3000000) {
+                alert('3메가 바이트 이하의 이미지만 업로드 가능합니다.')
+                return null
+            }
+            var reader = new FileReader();
+            reader.onload = (leaderEvent) => {
+                var image = new Image()
+                image.src = leaderEvent.target.result
+                image.onload = () => {
+                    if (image.height < image.width) {
+                        alert('포스터 이미지는 세로가 가로보다 길어야합니다.')
+                    } else {
+                        document.getElementById(previewElemId).src = leaderEvent.target.result
+                    }
+                }
+            }
+            reader.readAsDataURL(file)
+        }
+    </script>
+{% endblock %}

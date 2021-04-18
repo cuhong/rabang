@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'ordered_model',
     'solo',
     'corsheaders',
+    'inline_actions',
     'ckeditor',
     'pwa',
     'ckeditor_uploader',

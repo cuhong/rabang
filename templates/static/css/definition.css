@@ -1,9 +1,10 @@
-.red {color: #EE3050;}
-.blue {color: #00B9EF;}
-.secondary-color {color: #FF8F1C;}
-.gray {color: #9B9B9B;}
-.light-gray {color: #F3F3F3;}
-.darkgray {color: #5D5D5D;}
+.red {color: #EE3050 !important;}
+.blue {color: #00B9EF !important;}
+.orange{color: #FF8F1C !important;}
+.white {color: #fff !important;}
+.gray {color: #9B9B9B !important;}
+.light-gray {color: #F3F3F3  !important;}
+.darkgray {color: #5D5D5D !important;}
 
 .bor-gray {border: 1px solid #5D5D5D;}
 .bor-blue {border: 1px solid #00B9EF;}
@@ -67,12 +68,12 @@
 .txtbold {font-weight: bold;}
 .txtnorm {font-weight: normal;}
 
-.imgxs {width: 18px; height: 18px; vertical-align: middle;}
-.imgs {width: 24px; height: 24px; vertical-align: middle;}
-.imgr {width: 40px; height: 40px; vertical-align: middle}
-.imgm {width: 64px; height: 64px; vertical-align: middle;}
-.imgl {width: 120px; height: 120px; vertical-align: middle;}
-.imgxl {width: 240px; height: 240px; vertical-align: middle;}
+.imgxs {width: 18px; height: 18px; vertical-align: middle; object-fit: cover;}
+.imgs {width: 24px; height: 24px; vertical-align: middle; object-fit: cover;}
+.imgr {width: 40px; height: 40px; vertical-align: middle; object-fit: cover;}
+.imgm {width: 64px; height: 64px; vertical-align: middle; object-fit: cover;}
+.imgl {width: 120px; height: 120px; vertical-align: middle; object-fit: cover;}
+.imgxl {width: 240px; height: 240px; vertical-align: middle; object-fit: cover;}
 .imgfull {
   width: 100%;
   max-height: 600px;

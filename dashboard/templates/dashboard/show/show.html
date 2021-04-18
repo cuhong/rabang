@@ -1,0 +1,390 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+    <style>
+        .table > thead > tr > th, td {
+            text-align: center;
+            vertical-align: middle !important;
+        }
+
+        .chat-card-bordered {
+            border: 1px solid #ebebeb
+        }
+
+        .chat-card-header {
+            padding: 0;
+            border: none
+        }
+
+
+        .chat-card-header > *:last-child {
+            margin-right: 0
+        }
+
+        .chat-card-header > * {
+            margin-left: 8px;
+            margin-right: 8px
+        }
+
+        .ps-container {
+            position: relative;
+            -ms-touch-action: auto;
+            touch-action: auto;
+            overflow: hidden !important;
+            -ms-overflow-style: none
+        }
+
+        .media-chat {
+            padding-right: 64px;
+            margin-bottom: 0;
+        }
+
+        .media .avatar {
+            flex-shrink: 0
+        }
+
+        .avatar {
+            position: relative;
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            text-align: center;
+            border-radius: 100%;
+            background-color: #f5f6f7;
+            color: #8b95a5;
+            text-transform: uppercase
+        }
+
+        .media-chat .media-body {
+            -webkit-box-flex: initial;
+            flex: initial;
+            display: table
+        }
+
+        .media-body {
+            min-width: 0
+        }
+
+        .media-chat .media-body p {
+            position: relative;
+            padding: 6px 8px;
+            margin: 4px 0;
+            background-color: #f5f6f7;
+            border-radius: 3px;
+            font-weight: 100;
+            color: #9b9b9b
+        }
+
+
+        .media-chat .media-body p.meta {
+            background-color: transparent !important;
+            padding: 0;
+            opacity: .8
+        }
+
+        .media {
+            padding: 0px 12px;
+            -webkit-transition: background-color .2s linear;
+            transition: background-color .2s linear
+        }
+
+        .media-chat.media-chat-reverse {
+            padding-right: 12px;
+            padding-left: 64px;
+            -webkit-box-orient: horizontal;
+            -webkit-box-direction: reverse;
+            flex-direction: row-reverse
+        }
+
+        .media-chat {
+            padding-right: 64px;
+            margin-bottom: 0
+        }
+
+
+        .media-chat.media-chat-reverse .media-body p {
+            float: right;
+            clear: right;
+            background-color: #48b0f7;
+            color: #fff
+        }
+
+        .media-chat .media-body p {
+            position: relative;
+            padding: 6px 8px;
+            margin: 4px 0;
+            background-color: #f5f6f7;
+            border-radius: 3px
+        }
+
+        .border-light {
+            border-color: #f1f2f3 !important
+        }
+
+        .bt-1 {
+            border-top: 1px solid #ebebeb !important
+        }
+
+        .publisher {
+            position: relative;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            padding: 12px 20px;
+            background-color: #f9fafb
+        }
+
+        .publisher > *:first-child {
+            margin-left: 0
+        }
+
+        .publisher > * {
+            margin: 0 8px
+        }
+
+        .publisher-input {
+            -webkit-box-flex: 1;
+            flex-grow: 1;
+            border: none;
+            outline: none !important;
+            background-color: transparent
+        }
+
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            font-family: Roboto, sans-serif;
+            font-weight: 300
+        }
+
+        .publisher-btn {
+            background-color: transparent;
+            border: none;
+            color: #8b95a5;
+            font-size: 16px;
+            cursor: pointer;
+            overflow: -moz-hidden-unscrollable;
+            -webkit-transition: .2s linear;
+            transition: .2s linear
+        }
+
+        .publisher-btn {
+            background-color: transparent;
+            border: none;
+            color: #cac7c7;
+            font-size: 16px;
+            cursor: pointer;
+            overflow: -moz-hidden-unscrollable;
+            -webkit-transition: .2s linear;
+            transition: .2s linear
+        }
+
+        .file-group input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            z-index: -1;
+            width: 20px
+        }
+
+        .text-info {
+            color: #48b0f7 !important
+        }
+    </style>
+    <style href="{% static 'vendor/image-picker/image-picker.css' %}" rel="stylesheet"></style>
+{% endblock %}
+
+{% block content %}
+
+    <!-- Start Content-->
+    {#    <div class="container-xl">#}
+    <div class="container-xl">
+        <!-- start page title -->
+        <div class="row mb-2">
+            <div class="col-12">
+                <div class="page-title-box">
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-borderless table-striped">
+                            <tbody>
+                                <tr>
+                                    <th>접속자수</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>방송중 장바구니</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>방송중 구매</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>총매출</th>
+                                    <td>N/A</td>
+                                </tr>
+                                <tr>
+                                    <th>고객채팅</th>
+                                    <td>N/A</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body d-flex justify-content-center ">
+                        <video src="{% static 'tempVideo2.mp4' %}" muted autoplay playsinline type="video/mp4"
+                               style="height: 800px; max-width: 100%"></video>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 chat">
+                <div class="card chat-card-bordered">
+                    <div class="ps-container ps-theme-default ps-active-y" id="chatContent"
+                         style="overflow-y: scroll !important; height:800px !important; max-height: 800px">
+
+                        <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+                            <div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+                        </div>
+                        <div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;">
+                            <div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div>
+                        </div>
+                    </div>
+                    <div class="publisher bt-1 border-light">
+                        <img class="avatar avatar-xs" src="{{ show.product.seller.profile.file.url }}" alt="...">
+                        <input class="publisher-input" id="sellerChatInput" type="text" placeholder="메시지를 작성해주세요" onkeyup="enterkey()">
+                        <button type="button" class="publisher-btn text-info" onclick="postChat()" data-abc="true"><i
+                                class="fa fa-paper-plane"></i></button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="productSelectModal" tabindex="-1" role="dialog"
+         aria-labelledby="productSelectModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productSelectModalLongTitle">상품 선택</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="productSelectModalBody">
+                    <div class="row">
+                        <div class="col-8">
+                            <input class="form-control" id="productQueryInput" placeholder="상품명 검색">
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-primary btn-block"
+                                    onclick="queryProduct(document.getElementById('productQueryInput').value)">검색
+                            </button>
+                        </div>
+                        <div class="col-12 mt-2">
+                            <table class="table table-borderless">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th>썸네일</th>
+                                    <th>상품명</th>
+                                    <th>정가</th>
+                                    <th>판매가</th>
+                                    <th>선택</th>
+                                </tr>
+                                </thead>
+                                <tbody id="productTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_javascript %}
+    <script>
+        const chatContent = document.getElementById('chatContent')
+        const sellerChatInput = document.getElementById('sellerChatInput')
+        var lastSeenChat = {{ last_chat_id }}
+        const lenderChat = (msg, user_name, is_mine) => {
+            // 기존 채팅 객수가 일정 이상 넘어가면 삭제
+            var chatMsg
+            if (is_mine === false) {
+                chatMsg = `<div class="media media-chat">
+
+                                <div class="media-body">
+                                    <p>${user_name} : ${msg}</p>
+                                </div>
+                            </div>`
+            } else {
+                chatMsg = `<div class="media media-chat media-chat-reverse">
+                            <div class="media-body">
+                                <p>${msg}</p>
+                            </div>
+                        </div>`
+            }
+            $("#chatContent").prepend(chatMsg)
+        }
+        const fetchChat = () => {
+            $.ajax({
+                type: "GET",
+                url: `{% url 'mall:show_chat' show_id=show.id %}?lastSeen=${lastSeenChat}`,
+                dataType: "json",
+                success: function (response) {
+                    //console.log(response)
+                    var chat_list = response.chat_list
+                    chat_list.forEach(function (chat) {
+                        lenderChat(chat.msg, chat.user__name, chat.is_mine)
+                        lastSeenChat = chat.id
+                    })
+                },
+                error: function (request, status, error) {
+                },
+            });
+        }
+
+        const postChat = () => {
+            var msg = sellerChatInput.value
+            if (msg === '') {
+                return null;
+            }
+            $.ajax({
+                type: "POST",
+                url: "{% url 'mall:show_chat' show_id=show.id %}",
+                data: {'msg': msg, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                dataType: "json",
+                success: function (response) {
+                    //lenderChat(msg, 'teset')
+                    sellerChatInput.value = ''
+                },
+                error: function (request, status, error) {
+                },
+            });
+        }
+        function enterkey() {
+            if (window.event.keyCode == 13) {
+                postChat()
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            setInterval(() => {
+                fetchChat()
+            }, 500)
+        })
+    </script>
+{% endblock %}

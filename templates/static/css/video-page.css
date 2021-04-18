@@ -19,8 +19,8 @@ body, html { max-width: none; background: #000; color: #fff;}
 .header {
   position: absolute;
   top: 1rem;
-  left: 1rem;
-  right: 1rem;
+  left: 0;
+  right: 0;
   width: inherit;
   background-color: transparent;
 }
@@ -44,7 +44,7 @@ body, html { max-width: none; background: #000; color: #fff;}
 
 .wrap-heart {
   position: absolute;
-  bottom: 420px;
+  bottom: 12rem;
   right: 1rem;
   padding: 0.5rem;
   border-radius: 70%;
@@ -89,9 +89,7 @@ body, html { max-width: none; background: #000; color: #fff;}
 
 
 .popup-bottom {
-  margin-top: 5rem;
-  position: relative;
-  bottom: 0;
+  padding: 0;
   width: inherit;
   z-index: 13234242;
 }
@@ -100,4 +98,33 @@ body, html { max-width: none; background: #000; color: #fff;}
   border: none;
   width: 100%;
   overflow: scroll;
+  border-radius: 16px 16px 0 0;
+
+}
+
+.popup-bottom {
+  border-radius: 16px 16px 0 0;
+}
+
+.wrapPopup {
+  position: relative;
+  margin-top: 3rem;
+  border-radius: 16px 16px 0 0;
+}
+
+.popup-line {
+  width: 2rem;
+  position: absolute;
+  top: -1.25rem;
+  left: 0;
+  right : 0;
+}
+
+.volume-on {
+  position: absolute;
+  top: 6.5rem;
+  left: 1rem;
+  padding: .5rem 1rem;
+  background: rgba(50, 50, 50, .7);
+  border-radius: 24px;
 }

@@ -1,12 +1,11 @@
 html, body {
   padding: 0;
+  margin: 0 auto;
   letter-spacing: -0.2px;
   text-align: center;
-  margin: 0 auto;
   max-width: 650px;
   line-height: 1.5;
   color: #323232;
-  overflow-x: hidden;
 }
 
 p {
@@ -38,8 +37,8 @@ li {
   color: #323232;
   padding-top: 1.5rem;
   padding-bottom: 2rem;
-  /*padding-left: 1rem;*/
-  /*padding-right: 1rem;*/
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .full-popup {
@@ -136,6 +135,12 @@ li {
   border: 1px solid #00B9EF;
 }
 
+.btn-selc {
+  background: #fff;
+  border-top: 1px solid #FF8F1C;
+
+}
+
 .btn-kakao {
   background-color: #FFE42C;
   color: #3F1D1D;
@@ -146,7 +151,6 @@ li {
   border-radius: 0px;
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-  color: #fff !important;
 }
 
 .bt-fixed {
@@ -169,10 +173,6 @@ li {
   width: 5rem;
   height: 5rem;
   border-radius: 8px;
-}
-
-.wrap-img {
-  display: relative;
 }
 
 .img-volume {

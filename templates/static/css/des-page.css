@@ -2,14 +2,6 @@ body {
   text-align: center;
 }
 
-.wrap-txt {
-  margin-top: 1rem;
-  padding: 0 1rem;
-  display: flex;
-  flex: row nowrap;
-  justify-content: space-between;
-}
-
 .right-img .txt-caption {
   font-weight: normal;
   font-size: 0.75rem;

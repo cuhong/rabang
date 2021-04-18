@@ -1,85 +1,55 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+
 {% block pagestyle %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/video-page.css' %}"/>
-    <style>
-        .slider {
-            position: absolute;
-            width: 100%;
-            top: 0;
-            height: 100%;
-            overflow: hidden;
-            transition: all 1s;
-        }
-
-        .slider.close {
-            display: none;
-            top: 100%;
-            height: 0;
-        }
-    </style>
 {% endblock %}
-
 {% block content %}
     <div class="container">
-        <video class="i-video" id="showLive" poster="{{ show.poster.url }}" autoplay="" muted="" playsinline=""
+        {#        <video class="i-video"#}
+        {#               poster="https://rabang-s3.s3.amazonaws.com/local/public/show/poster/image/2021/04/11/KakaoTalk_Photo_2021-04-11-21-28-00.jpeg"#}
+        {#               autoplay="" muted="" playsinline=""#}
+        {#               src="blob:https://dev.rabang.live/d96c7d77-243d-4452-8efe-4b658aee100b"></video>#}
+        <video class="i-video" id="showLive" poster="{{ show.poster.url }}" src="{{ show.hls_path }}" autoplay=""
+               muted=""
+               playsinline="" loop
                style="max-width: 100vw"></video>
-
         <div class="header row flex f-between">
             <div class="row flex ahw">
                 <div class="wrap-profile">
                     <img class="img-oval imgr" src="{{ show.product.seller.profile.file.url }}"/>
                     <i class="iconw icon-live-b"></i>
                 </div>
-                <div class="wrap-profile-txt pl16">
+                <div class="wrap-profile-txt pl16 txtl">
                     <p class="txtbold txt-title">{{ show.title_display }}</p>
                     <div class="light-gray flex row txt-caption txtnorm">
                         <p class="txt-subs">{{ show.product.seller.name }}</p>
-                        <p class="ml12"><img class="imgxs" src="{% static 'assets/visibility.svg' %}" alt=""> 2</p>
+                        <p class="ml12"><img class="imgxs" src="{% static 'assets/visibility.svg' %}" alt=""> 1,203</p>
                     </div>
-
                 </div>
             </div>
-
-            <div class="wrap-profile-txt">
-                <button id="muteToggleBtn" onclick="toggleMute()">음소거 해제</button>
-            </div>
             <i class="icon icon-big-close" onclick="goProduct('{{ show.product_id }}')"></i>
+        </div>
+
+        <div class="volume-on" id="muteToggleBtn" onclick="toggleMute()" style="cursor: pointer">
+            <i class="icon icon-volume-off"></i>음소거 해제
         </div>
 
         <div class="wrap-heart">
             <a href="#"><i class="icon icon-heart"></i></a>
         </div>
 
-        <div class="wrapBottom" style="max-width: 100vw;">
+        <div class="wrapBottom">
 
             <div class="wrap-input-bottom">
 
                 <div class="wrap-chat">
-                    {#                    <ul class="flex row mb16">#}
-                    {#                        <li id="chat-name">알롱이</li>#}
-                    {#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-                    {#                    </ul>#}
-                    {#                    <ul class="flex row mb16">#}
-                    {#                        <li id="chat-name">알롱이</li>#}
-                    {#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-                    {#                    </ul>#}
-                    {#                    <ul class="flex row mb16">#}
-                    {#                        <li id="chat-name">알롱이</li>#}
-                    {#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-                    {#                    </ul>#}
-                    {#                    <ul class="flex row mb16">#}
-                    {#                        <li id="chat-name">알롱이</li>#}
-                    {#                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-                    {#                    </ul>#}
-                    {#                    <ul class="flex row mb16">#}
-                    {#                        <li id="chat-name">알롱이</li>#}
-                    {#                        <li class="ml16 txtbold" id="chat-des">와... 시간이 벌써 이렇게 되다니</li>#}
-                    {#                    </ul>#}
-                    <div id="chatList"></div>
-                    <div class="itemDetail flex row a-center showProduct">
-                        <img class="imgm" src="{{ show.product.thumbnail.file.url }}"/>
+                    <div id="chatList">
+                    </div>
+
+                    <div class="itemDetail flex row a-center">
+                        <img class="imgm " src="{{ show.product.thumbnail.file.url }}"/>
                         <div class="itemTxt">
                             <p class="itemTitle">{{ show.product.name }}</p>
                             <p class="itemPrice red txtbold">{{ show.product.sale_price|intcomma }}원</p>
@@ -88,222 +58,30 @@
                 </div>
 
                 <div class="wrap-input">
-                    <a href="#"><i class="icon icon-chevron-up"></i></a>
-                    <input class="input-chat" id="chatMsg" type="text" placeholder="메세지를 입력해주세요."
-                           onkeyup="enterkey();"/>
+                    <a href="#" onclick="postChat()"><i class="icon icon-chevron-up"></i></a>
+                    <input class="input-chat" id="chatMsg" type="text" placeholder="메세지를 입력해주세요." onkeyup="enterkey();"/>
                 </div>
             </div>
         </div>
-        <div class="popup-bottom slider close" style="padding: 0">
-            <i class="icon icon-close f-right" style="margin-right: 30px"></i>
-            <iframe class="wrap-des" style="height: 100vh" src="{% url 'mall:show' show.id %}?hideHeader=true"></iframe>
-        </div>
 
+        <!--
+              <div class="wrapPopup">
+                <hr class="popup-line" />
+                <div class="popup-bottom">
+                  <iframe class="wrap-des" src="./des-page.html"></iframe>
+                </div>
+              </div>
+        -->
     </div>
-    {#    <div class="full-popup txtl" style="position: absolute">#}
-    {#        <div class="wrap-title flex row">#}
-    {#            <p class="popup-title">상품목록 <span>3</span></p>#}
-    {#            <p class="popup-title ml24 blue">장바구니</p>#}
-    {#        </div>#}
-    {#        <hr class="mt24 mb24"/>#}
-    {#        <div class="a-left col w-100">#}
-    {#            <a class="chbx f-left" href="#"><i class="icon icon-check mr5"></i>전체선택(<span>1</span>/<span>1</span>)</a>#}
-    {#            <div class="wrap-list mt32">#}
-    {#                <p class="sub-title">스파오 블랙프라이데이</p>#}
-    {#                <hr class="bor-gray"/>#}
-    {#                <div class="order-list flex row">#}
-    {#                    <i class="icon icon-check mr8"></i>#}
-    {#                    <img class="imgm img-border-rect mr16" alt="" src="./assets/img2.jpeg"/>#}
-    {#                    <div class="flex-2 flex col ">#}
-    {#                        <div class="price flex row f-between txtbold">#}
-    {#                            <p class="">상품 금액</p>#}
-    {#                            <p class="">20,000원</p>#}
-    {#                        </div>#}
-    {#                        <div class="price flex row f-between mt4">#}
-    {#                            <p class="">배송비</p>#}
-    {#                            <p class="">2,000원</p>#}
-    {#                        </div>#}
-    {#                        <div class="price flex row f-between mt16">#}
-    {#                            <div class="spinning flex row">#}
-    {#                                <p class="bor-lightgray pa4">-</p>#}
-    {#                                <p class="bor-lightgray pa4 pr12 pl12">1</p>#}
-    {#                                <p class="bor-lightgray pa4">+</p>#}
-    {#                            </div>#}
-    {#                            <div class="wrap-btn">#}
-    {#                                <a class="bor-lightgray pa4">삭제</a>#}
-    {#                                <a class="bor-blue pa4 ml16 blue">바로구매</a>#}
-    {#                            </div>#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {##}
-    {#                </div>#}
-    {#                <hr class="bor-lightgray mt24 mb16"/>#}
-    {#                <div class="all-price txt-caption lgray flex row">#}
-    {#                    <p>29,000원 + 배송비 3,000원 = 32,000원</p>#}
-    {#                </div>#}
-    {#                <hr class="bor-gray mt16 mb32"/>#}
-    {#                <div class="wrap-contents mt16 pt24 pb24 pl16 pr16">#}
-    {#                    <p class="txt-title">최종 결제금액</p>#}
-    {#                    <div class="flex row f-between mt16">#}
-    {#                        <p>총 주문 금액</p>#}
-    {#                        <p class="txtbold">29,000원</p>#}
-    {#                    </div>#}
-    {#                    <div class="flex row f-between mt16">#}
-    {#                        <p>총 배송비</p>#}
-    {#                        <p class="txtbold">3,000원</p>#}
-    {#                    </div>#}
-    {#                    <div class="flex row f-between mt16 mb72">#}
-    {#                        <p>총 결제금액</p>#}
-    {#                        <p class="txtbold red">32,000원</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {##}
-    {#            </div>#}
-    {#        </div>#}
-    {#        <div class="btn-order flex row w-100">#}
-    {#            <a class="btn btn-rect btn-selc" href="#">선택구매</a>#}
-    {#            <a class="btn btn-rect btn-all" href="#">전체구매</a>#}
-    {#        </div>#}
-    {#    </div>#}
 {% endblock %}
-
-<!-- 로그인 팝업
-
-    <div class="popup-bottom">
-      <div class="wrap-title flex row f-between">
-        <p class="popup-title">로그인</p>
-        <img class="middle" src="./assets/close.svg" />
-      </div>
-      <div class="popup-list mt24">
-        <div class="wrap-input ">
-          <input class="" type="text" placeholder="hogne@gmail.com" />
-          <input class=" mt16" type="password" placeholder="●●●●●●●●●●●●" />
-        </div>
-        <a class="btn btn-blue mt16" href="#">로그인</a>
-        <a class="btn btn-kakao mt16" href="#">카카오로 로그인하기</a>
-
-        <p class="mt24">아이디가 없다면? <a class="blue underline" href="#">회원가입</a> 하기</p>
-      </div>
-    </div>
-    -->
-<!--장바구니
-    <div class="full-popup txtl">
-      <div class="wrap-title flex row">
-        <p class="popup-title">상품목록 <span>3</span></p>
-        <p class="popup-title ml24 blue">장바구니</p>
-      </div>
-      <hr class="mt24 mb24"/>
-      <div class="a-left col w-100">
-        <a class="chbx f-left" href="#"><i class="icon icon-check mr5"></i>전체선택(<span>1</span>/<span>1</span>)</a>
-        <div class="wrap-list mt32">
-          <p class="sub-title">스파오 블랙프라이데이</p>
-          <hr class="bor-gray"/>
-          <div class="order-list flex row">
-            <i class="icon icon-check mr8"></i>
-            <img class="imgm img-border-rect mr16" alt="" src="./assets/img2.jpeg" />
-            <div class="flex-2 flex col ">
-              <div class="price flex row f-between txtbold">
-                <p class="">상품 금액</p>
-                <p class="">20,000원</p>
-              </div>
-              <div class="price flex row f-between mt4">
-                <p class="">배송비</p>
-                <p class="">2,000원</p>
-              </div>
-              <div class="price flex row f-between mt16">
-                <div class="spinning flex row">
-                  <p class="bor-lightgray pa4">-</p><p class="bor-lightgray pa4 pr12 pl12">1</p><p class="bor-lightgray pa4">+</p>
-                </div>
-                <div class="wrap-btn">
-                  <a class="bor-lightgray pa4">삭제</a>
-                  <a class="bor-blue pa4 ml16 blue">바로구매</a>
-                </div>
-              </div>
-            </div>
-
-          </div>
-          <hr class="bor-lightgray mt24 mb16" />
-          <div class="all-price txt-caption lgray flex row">
-            <p>29,000원 + 배송비 3,000원 = 32,000원</p>
-          </div>
-          <hr class="bor-gray mt16 mb32" />
-          <div class="wrap-contents mt16 pt24 pb24 pl16 pr16">
-            <p class="txt-title">최종 결제금액</p>
-            <div class="flex row f-between mt16">
-              <p>총 주문 금액</p>
-              <p class="txtbold">29,000원</p>
-            </div>
-            <div class="flex row f-between mt16">
-              <p>총 배송비</p>
-              <p class="txtbold">3,000원</p>
-            </div>
-            <div class="flex row f-between mt16 mb72">
-              <p>총 결제금액</p>
-              <p class="txtbold red">32,000원</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      <div class="btn-order flex row w-100">
-        <a class="btn btn-rect btn-selc" href="#">선택구매</a>
-        <a class="btn btn-rect btn-all" href="#">전체구매</a>
-      </div>
-    </div>
-    -->
-
-<!--상품목록
-<div class="full-popup txtl" style="position:absolute; bottom: 30px">
-    <div class="wrap-title flex row">
-        <p class="popup-title blue">상품목록 <span>3</span></p>
-        <p class="popup-title ml24">장바구니</p>
-    </div>
-    <hr class="mt24 mb24"/>
-
-    <div class="item-list">
-        <div class="wrap-item flex row w-100 mb72">
-            <img class="imgm img-border-rect" alt="" src="./assets/img5.png"/>
-            <div class="flex-2 flex col ml16">
-                <p class="">스파오 블랙프라이데이</p>
-                <p class="red txtbold">3,0000원</p>
-            </div>
-            <i class="icon icon-check a-center"></i>
-        </div>
-        <div class="btn-order flex row w-100">
-            <a class="btn btn-rect btn-selc" href="#">선택구매</a>
-            <a class="btn btn-rect btn-all" href="#">전체구매</a>
-        </div>
-    </div>
-</div>
-    -->
-{#<div class="full-popup txtl" style="position:absolute; bottom: 30px">#}
-{#    <div class="wrap-title flex row">#}
-{#        <p class="popup-title blue">상품목록 <span>3</span></p>#}
-{#        <p class="popup-title ml24">장바구니</p>#}
-{#    </div>#}
-{#    <hr class="mt24 mb24"/>#}
-{##}
-{#    <div class="item-list">#}
-{#        <div class="wrap-item flex row w-100 mb72">#}
-{#            <img class="imgm img-border-rect" alt="" src="./assets/img5.png"/>#}
-{#            <div class="flex-2 flex col ml16">#}
-{#                <p class="">스파오 블랙프라이데이</p>#}
-{#                <p class="red txtbold">3,0000원</p>#}
-{#            </div>#}
-{#            <i class="icon icon-check a-center"></i>#}
-{#        </div>#}
-{#        <div class="btn-order flex row w-100">#}
-{#            <a class="btn btn-rect btn-selc" href="#">선택구매</a>#}
-{#            <a class="btn btn-rect btn-all" href="#">전체구매</a>#}
-{#        </div>#}
-{#    </div>#}
-{#</div>#}
 
 {% block extrascript %}
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
-        var lastSeenChat = 1
-
+        var lastSeenChat = {{ last_chat_id }}
+        const chatMsgInput = document.getElementById('chatMsg')
+        const chatList = document.getElementById('chatList')
+        const sellerName = "{{ show.product.seller.name }}"
         const toggleMute = () => {
             var muteToggleBtn = document.getElementById('muteToggleBtn')
             var showVideo = document.getElementById('showLive')
@@ -315,33 +93,41 @@
             }
             showVideo.muted = !currentState
         }
-        const postChat = (msg) => {
+        const postChat = () => {
+            var msg = chatMsgInput.value
+            if (msg === '') {
+                return null;
+            }
             $.ajax({
                 type: "POST",
                 url: "{% url 'mall:show_chat' show_id=show.id %}",
                 data: {'msg': msg, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
                 dataType: "json",
                 success: function (response) {
-                    lenderChat(msg, true)
+                    //lenderChat(msg, 'teset')
+                    chatMsgInput.value = ''
                 },
                 error: function (request, status, error) {
                 },
             });
         }
 
-        const lenderChat = (msg, me) => {
-            var sender = ''
-            if (me === true) {
-                sender = '나'
-            } else {
-                sender = '당신'
-            }
-            var chatBody = `<ul class="flex row mb16">
-                        <li id="chat-name">${sender}</li>
+        const lenderChat = (msg, user__name, is_mine) => {
+            var chatBody
+            if (is_mine === true) {
+                chatBody = `<ul class="flex row mb16">
+                        <li id="chat-name"><span style="color: orange">${user__name}</span></li>
                         <li class="ml16 txtbold" id="chat-des">${msg}</li>
                     </ul>`
-            if (document.getElementById('chatList').children.length > 4) {
-                document.getElementById('chatList').children[0].remove()
+            } else {
+                chatBody = `<ul class="flex row mb16">
+                        <li id="chat-name">${user__name}</li>
+                        <li class="ml16 txtbold" id="chat-des">${msg}</li>
+                    </ul>`
+            }
+            console.log(chatBody)
+            if (chatList.children.length > 4) {
+                chatList.children[0].remove()
             }
             $("#chatList").append(chatBody)
         }
@@ -351,11 +137,12 @@
                 type: "GET",
                 url: `{% url 'mall:show_chat' show_id=show.id %}?lastSeen=${lastSeenChat}`,
                 dataType: "json",
+                headers: {"Keep-Alive": "timeout=5, max=100"},
                 success: function (response) {
                     console.log(response)
                     var chat_list = response.chat_list
                     chat_list.forEach(function (chat) {
-                        lenderChat(chat.msg)
+                        lenderChat(chat.msg, chat.user__name, chat.is_mine)
                         lastSeenChat = chat.id
                     })
                 },
@@ -372,25 +159,8 @@
             }
         }
 
-        $('.showProduct, .slider').click(function () {
-            $('.slider').toggleClass('close');
-        });
-        var video = document.getElementById('showLive');
-        {#var videoSrc = 'https://cdn3.wowza.com/1/MDhpNzl6R2pYMElD/eXU2M2du/hls/live/playlist.m3u8';#}
-        {#var videoSrc = 'https://cdn3.wowza.com/1/aDg3SDN6U0NUaUYx/aGQ0NHlK/hls/live/playlist.m3u8';#}
-        var videoSrc = '{{ show.hls_path }}'
-        if (Hls.isSupported()) {
-            var hls = new Hls({capLevelToPlayerSize: true});
-            hls.loadSource(videoSrc);
-            hls.attachMedia(video);
-        } else {
-            video.src = videoSrc
-        }
-
-        document.addEventListener('DOMContentLoaded', function (event) {
-            fetchChat()
+        document.addEventListener('DOMContentLoaded', () => {
+            setInterval(() => {fetchChat()}, 1500)
         })
-        setInterval(fetchChat(), 1000)
-
     </script>
 {% endblock %}

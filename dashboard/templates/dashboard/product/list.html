@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box">
-                    <h4 class="page-title">상품</h4>
+                    <h4 class="page-title">상품 리스트</h4>
                 </div>
             </div>
         </div>
@@ -123,10 +123,9 @@
                                 <td>{{ product.original_price|intcomma }}</td>
                                 <td>{{ product.sale_price|intcomma }}</td>
                                 <td>
-                                    <button type="button" data-reservation-id="{{ reservation.id }}"
-                                            class="btn btn-primary btn-xs"
-                                            onclick="getReservationDetail(this.dataset.reservationId)">자세히
-                                    </button>
+                                    <a class="btn btn-primary btn-xs"
+                                            href="{% url 'seller:product_update' product_id=product.id %}">자세히
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}

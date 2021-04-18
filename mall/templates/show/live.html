@@ -104,6 +104,7 @@
 {% block extrascript %}
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
+
         const showVideo = document.getElementById('showLive')
         const setVideoRatio = () => {
             var ih = window.innerHeight
@@ -114,6 +115,15 @@
             } else {
                 showVideo.style.width = `${iw}px`
             }
+            var finalWidth = showVideo.clientWidth
+            console.log(finalWidth)
+            document.getElementById('content-wrap').style.width = `${finalWidth}px`
+            var controledWidths = document.getElementsByClassName('controledWidth')
+            Array.from(controledWidths).forEach(
+                function (element, index, array) {
+                element.style.width = `${finalWidth}px`
+                }
+            );
         }
         setVideoRatio()
         var lastSeenChat =

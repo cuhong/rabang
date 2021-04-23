@@ -25,12 +25,13 @@ body, html {
   width: inherit;
   background-color: transparent;
 }
+
 .iconw {
   width: 16px;
   position: absolute;
   left: 32px;
-  /*top: 30px;*/
-  top: 1rem
+  top: 30px;
+  /*top: 1rem*/
 }
 
 .wrapBottom {

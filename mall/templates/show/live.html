@@ -5,9 +5,10 @@
 {% block pagestyle %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/video-page.css' %}"/>
     <style>
-    :root {
-   --app-height: 100%;
-}
+        :root {
+            --app-height: 100%;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -15,13 +16,13 @@
 
         html {
             width: 100vw;
-            max-height: --app-height;
+            max-height: var(--app-height);
             overflow: hidden;
         }
 
         body {
             width: 100vw;
-            max-height: --app-height;
+            max-height: var(--app-height);
             overflow: hidden;
         }
 

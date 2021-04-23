@@ -41,11 +41,10 @@
 
 
 {% block content %}
-{#    <div class="container" id="utilityContainer"#}
-{#         style="position: fixed; top: 0; left: auto; right: auto; z-index: 9999999; max-width: 500px; display: flex">#}
-{#    </div>#}
+    {#    <div class="container" id="utilityContainer"#}
+    {#         style="position: fixed; top: 0; left: auto; right: auto; z-index: 9999999; max-width: 500px; display: flex">#}
+    {#    </div>#}
     <div class="container" id="videoContainer">
-
         <div class="showHeader row flex f-between controledWidth">
             <div class="row flex ahw" style="padding-left: 1rem;">
                 <div class="wrap-profile">
@@ -53,9 +52,9 @@
                     <i class="iconw icon-live-b"></i>
                 </div>
                 <div class="wrap-profile-txt pl16 txtl">
-                    <p class="txtbold txt-title">이 집 콜라보 잘하네! </p>
+                    <p class="txtbold txt-title">{{ show.title_display }}</p>
                     <div class="light-gray flex row txt-caption txtnorm">
-                        <p class="txt-subs">공식그리퍼 화도</p>
+                        <p class="txt-subs">{{ show.product.seller.name }}</p>
                         <p class="ml12"><img class="imgxs" src="{% static 'assets/visibility.svg' %}" alt=""> 1,203</p>
                     </div>
                 </div>
@@ -69,9 +68,9 @@
         <video class="i-video" id="showLive" poster="{{ show.poster.url }}" src=""
                autoplay="" muted="" playsinline="" style="max-width: 100vw; z-index: -9999"></video>
 
-                <div class="wrap-heart">
-                    <a href="#"><i class="icon icon-heart"></i></a>
-                </div>
+        <div class="wrap-heart">
+            <a href="#"><i class="icon icon-heart"></i></a>
+        </div>
 
         <div class="wrapBottom controledWidth">
 

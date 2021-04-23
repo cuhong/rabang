@@ -29,7 +29,8 @@ body, html {
   width: 16px;
   position: absolute;
   left: 32px;
-  top: 30px;
+  /*top: 30px;*/
+  top: 1rem
 }
 
 .wrapBottom {

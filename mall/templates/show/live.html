@@ -178,6 +178,10 @@
             }, 500)
             setVideoRatio()
         })
+        window.addEventListener('resize', () => {
+            console.log('rest')
+            setVideoRatio()
+        })
         showVideo.addEventListener('canplay', function (event) {
             setVideoRatio()
         })

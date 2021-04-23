@@ -222,6 +222,7 @@
             }
             var finalHeight = `${showVideo.clientHeight}px`
             var finalWidth = `${showVideo.clientWidth}px`
+            videoContainer.style.width = finalWidth
             utilityContainer.style.width = finalWidth
             var controledWidths = document.getElementsByClassName('controledWidth')
             Array.from(controledWidths).forEach(

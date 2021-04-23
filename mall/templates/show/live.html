@@ -5,22 +5,21 @@
 {% block pagestyle %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/video-page.css' %}"/>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
+            * {
+                margin: 0;
+                padding: 0;
+            }
+                html {
+                    widht: 100%;
+                    height: 99.9%;
+                    overflow: hidden;
+                }
 
-        html {
-            widht: 100%;
-            height: 99.9%;
-            overflow: hidden;
-        }
-
-        body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
+            body {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
 
         .slider {
             position: absolute;
@@ -41,80 +40,7 @@
 
 
 {% block content %}
-    {#    <div class="container" id="utilityContainer"#}
-    {#         style="position: fixed; top: 0; left: auto; right: auto; z-index: 9999999; max-width: 500px; display: flex">#}
-    {#        <div class="showHeader row flex f-between controledWidth">#}
-    {#            <div class="row flex ahw" style="padding-left: 1rem;">#}
-    {#                <div class="wrap-profile">#}
-    {#                    <img class="img-oval imgr" src="{{ show.product.seller.profile.file.url }}"/>#}
-    {#                    <i class="iconw icon-live-b"></i>#}
-    {#                </div>#}
-    {#                <div class="wrap-profile-txt pl16 txtl">#}
-    {#                    <p class="txtbold txt-title">이 집 콜라보 잘하네! </p>#}
-    {#                    <div class="light-gray flex row txt-caption txtnorm">#}
-    {#                        <p class="txt-subs">공식그리퍼 화도</p>#}
-    {#                        <p class="ml12"><img class="imgxs" src="{% static 'assets/visibility.svg' %}" alt=""> 1,203</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#            <i class="icon icon-big-close" style="padding-right: 1rem" onclick="location.href='./index.html'"></i>#}
-    {#        </div>#}
-    {##}
-    {#        <div class="volume-on" id="muteToggleBtn" onclick="toggleMute()" style="cursor: pointer">#}
-    {#            <i class="icon icon-volume-off"></i>음소거 해제#}
-    {#        </div>#}
-    {##}
-    {#        <div class="wrap-heart">#}
-    {#            <a href="#"><i class="icon icon-heart"></i></a>#}
-    {#        </div>#}
-    {##}
-    {#        <div class="wrapBottom controledWidth">#}
-    {##}
-    {#            <div class="wrap-input-bottom" style="padding-left: 1rem; padding-right: 1rem;">#}
-    {##}
-    {#                <div class="wrap-chat">#}
-    {#                    <ul class="flex row mb12">#}
-    {#                        <li id="chat-name">알롱이</li>#}
-    {#                        <li class="ml16 txtbold chatText" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-    {#                    </ul>#}
-    {#                    <ul class="flex row mb12">#}
-    {#                        <li id="chat-name">알롱이</li>#}
-    {#                        <li class="ml16 txtbold chatText" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-    {#                    </ul>#}
-    {#                    <ul class="flex row mb12">#}
-    {#                        <li id="chat-name">알롱이</li>#}
-    {#                        <li class="ml16 txtbold chatText" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-    {#                    </ul>#}
-    {#                    <ul class="flex row mb12">#}
-    {#                        <li id="chat-name">알롱이</li>#}
-    {#                        <li class="ml16 txtbold chatText" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>#}
-    {#                    </ul>#}
-    {#                    <ul class="flex row mb12">#}
-    {#                        <li id="chat-name">알롱이</li>#}
-    {#                        <li class="ml16 txtbold chatText" id="chat-des">와... 시간이 벌써 이렇게 되다니</li>#}
-    {#                    </ul>#}
-    {#                    <ul class="flex row mb12">#}
-    {#                        <li id="chat-name">알롱이</li>#}
-    {#                        <li class="ml16 txtbold chatText" id="chat-des">인간 승리네요.</li>#}
-    {#                    </ul>#}
-    {##}
-    {#                    <div class="itemDetail flex row a-center">#}
-    {#                        <img class="imgm " src="{{ show.product.thumbnail.file.url }}"/>#}
-    {#                        <div class="itemTxt">#}
-    {#                            <p class="itemTitle">스파오 블랙프라이데이</p>#}
-    {#                            <p class="itemPrice red txtbold">24,000원</p>#}
-    {#                        </div>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {##}
-    {#                <div class="wrap-input">#}
-    {#                    <a href="#"><i class="icon icon-chevron-up"></i></a>#}
-    {#                    <input class="input-chat" type="text" placeholder="메세지를 입력해주세요."/>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-    <div class="container" id="videoContainer" style="display: flex">
+    <div class="container" id="utilityContainer" style="position: fixed; top: 0; left: auto; right: auto; z-index: 9999999; max-width: 500px; display: flex">
         <div class="showHeader row flex f-between controledWidth">
             <div class="row flex ahw" style="padding-left: 1rem;">
                 <div class="wrap-profile">
@@ -131,16 +57,14 @@
             </div>
             <i class="icon icon-big-close" style="padding-right: 1rem" onclick="location.href='./index.html'"></i>
         </div>
-        <video class="i-video" id="showLive" poster="{{ show.poster.url }}" src=""
-               autoplay="" muted="" playsinline="" style="max-width: 100vw"></video>
 
         <div class="volume-on" id="muteToggleBtn" onclick="toggleMute()" style="cursor: pointer">
             <i class="icon icon-volume-off"></i>음소거 해제
         </div>
-
-        <div class="wrap-heart">
-            <a href="#"><i class="icon icon-heart"></i></a>
-        </div>
+{##}
+{#        <div class="wrap-heart">#}
+{#            <a href="#"><i class="icon icon-heart"></i></a>#}
+{#        </div>#}
 
         <div class="wrapBottom controledWidth">
 
@@ -188,6 +112,10 @@
             </div>
         </div>
     </div>
+    <div class="container" id="videoContainer" style="display: flex">
+        <video class="i-video" id="showLive" poster="{{ show.poster.url }}" src=""
+               autoplay="" muted="" playsinline="" style="max-width: 100vw"></video>
+    </div>
     <!--
           <div class="wrapPopup">
             <hr class="popup-line" />
@@ -205,7 +133,7 @@
         const videoSrc = "{{ show.hls_path }}"
         const showVideo = document.getElementById('showLive')
         const videoContainer = document.getElementById('videoContainer')
-        {#const utilityContainer = document.getElementById('utilityContainer')#}
+        const utilityContainer = document.getElementById('utilityContainer')
         const muteToggleBtn = document.getElementById('muteToggleBtn')
         const startVideo = () => {
             showVideo.src = videoSrc
@@ -222,8 +150,7 @@
             }
             var finalHeight = `${showVideo.clientHeight}px`
             var finalWidth = `${showVideo.clientWidth}px`
-            videoContainer.style.width = finalWidth
-            {#utilityContainer.style.width = finalWidth#}
+            utilityContainer.style.width = finalWidth
             var controledWidths = document.getElementsByClassName('controledWidth')
             Array.from(controledWidths).forEach(
                 function (element, index, array) {

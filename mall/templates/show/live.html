@@ -205,7 +205,7 @@
         const videoSrc = "{{ show.hls_path }}"
         const showVideo = document.getElementById('showLive')
         const videoContainer = document.getElementById('videoContainer')
-        const utilityContainer = document.getElementById('utilityContainer')
+        {#const utilityContainer = document.getElementById('utilityContainer')#}
         const muteToggleBtn = document.getElementById('muteToggleBtn')
         const startVideo = () => {
             showVideo.src = videoSrc
@@ -223,7 +223,7 @@
             var finalHeight = `${showVideo.clientHeight}px`
             var finalWidth = `${showVideo.clientWidth}px`
             videoContainer.style.width = finalWidth
-            utilityContainer.style.width = finalWidth
+            {#utilityContainer.style.width = finalWidth#}
             var controledWidths = document.getElementsByClassName('controledWidth')
             Array.from(controledWidths).forEach(
                 function (element, index, array) {

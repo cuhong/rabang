@@ -3,7 +3,7 @@
 {% load humanize %}
 
 {% block pagestyle %}
-    {#    <link rel="stylesheet" type="text/css" href="{% static 'css/video-page.css' %}"/>#}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/video-page.css' %}"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
           integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <style>
@@ -50,28 +50,32 @@
                autoplay="" muted="" playsinline=""
                style="max-width: 100vw; z-index: -9999; background-color: black"></video>
         <div class="position-absolute" style="top:0 ; left: 0">
-            <div class="d-flex row justify-content-between align-items-center align-content-stretch m-0 p-3 controledWidth">
-                <div class="d-flex row justify-content-start m-0 p-1">
-                    <div class="wrap-profile">
+            <div class="row controledWidth">
+                <div class="col-2 d-flex align-items-center justify-content-end pr-0">
+                    <div>
                         <img class="img-oval imgr" src="{{ show.product.seller.profile.file.url }}"/>
                         <i class="iconw icon-live-b"></i>
                     </div>
-                    <div class="wrap-profile-txt pl16 txtl">
-                        <p class="txtbold txt-title">{{ show.title_display }}</p>
+                </div>
+                <div class="col-8 d-flex align-items-center">
+                    <div class="wrap-profile-txt txtl">
+                        <p class="font-weight-bold" style="margin: 0; font-size: 1.25rem; font-weight: bold; color: white;
+text-align: left;">{{ show.title_display }}</p>
                         <div class="light-gray flex txt-caption txtnorm">
                             <p class="txt-subs">{{ show.product.seller.name }}</p>
-                            <p class="ml12"><img class="imgxs" src="{% static 'assets/visibility.svg' %}" alt=""> 1,203
+                            <p class="ml-1"><img class="imgxs" src="{% static 'assets/visibility.svg' %}" alt=""> 1,203
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">
+                <div class="col-2 d-flex justify-content-end align-items-center">
+
                     <i class="icon icon-big-close" style="padding-right: 1rem"
                        onclick="location.href='./index.html'"></i>
                 </div>
             </div>
             <div class="p-3">
-                <div style="padding: .5rem 1rem; cursor: pointer; background: rgba(50, 50, 50, .7); border-radius: 24px;"
+                <div style="padding: .5rem 1rem; cursor: pointer; background: rgba(50, 50, 50, .7); border-radius: 24px; max-width: 9rem"
                      id="muteToggleBtn" onclick="toggleMute()" class="">
                     <i class="icon icon-volume-off"></i>음소거 해제
                 </div>

@@ -12,13 +12,13 @@
 
         html {
             width: 100vw;
-            max-height: -webkit-fill-available;
+            max-height: --app-height;
             overflow: hidden;
         }
 
         body {
             width: 100vw;
-            max-height: -webkit-fill-available;
+            max-height: --app-height;
             overflow: hidden;
         }
 
@@ -61,13 +61,14 @@
                     </div>
                 </div>
                 <div class="row flex ahw" style="padding-left: 1rem;">
-                <i class="icon icon-big-close" style="padding-right: 1rem" onclick="location.href='./index.html'"></i>
+                    <i class="icon icon-big-close" style="padding-right: 1rem"
+                       onclick="location.href='./index.html'"></i>
                 </div>
             </div>
             <div class="row flex ahw" style="padding-left: 1rem;">
-            <div class="volume-on" id="muteToggleBtn" onclick="toggleMute()" style="cursor: pointer">
-                <i class="icon icon-volume-off"></i>음소거 해제
-            </div>
+                <div class="volume-on" id="muteToggleBtn" onclick="toggleMute()" style="cursor: pointer">
+                    <i class="icon icon-volume-off"></i>음소거 해제
+                </div>
             </div>
 
             <div class="wrap-heart">
@@ -156,8 +157,8 @@
             var finalHeight = `${showVideo.clientHeight}px`
             var finalWidth = `${showVideo.clientWidth}px`
             //utilityContainer.style.width = finalWidth
-                videoContainer.style.height = finalHeight
-                videoContainer.style.width = finalWidth
+            videoContainer.style.height = finalHeight
+            videoContainer.style.width = finalWidth
             var controledWidths = document.getElementsByClassName('controledWidth')
             var controlHeights = document.getElementsByClassName('controlHeight')
             Array.from(controledWidths).forEach(
@@ -185,16 +186,24 @@
             muteToggleBtn.hidden = currentState
         }
 
+        const appHeight = () => {
+            const doc = document.documentElement
+            doc.style.setProperty('--app-height', `${window.innerHeight}px`)
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            appHeight()
             setTimeout(() => {
                 startVideo()
             }, 500)
             setVideoRatio()
         })
         window.addEventListener('resize', () => {
+            appHeight()
             setVideoRatio()
         })
         showVideo.addEventListener('canplay', function (event) {
+            appHeight()
             setVideoRatio()
         })
 

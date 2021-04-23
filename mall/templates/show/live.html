@@ -152,8 +152,10 @@
             var finalHeight = `${showVideo.clientHeight}px`
             var finalWidth = `${showVideo.clientWidth}px`
             //utilityContainer.style.width = finalWidth
+                videoContainer.style.height = finalHeight
+                videoContainer.style.width = finalWidth
             var controledWidths = document.getElementsByClassName('controledWidth')
-            var  controlHeights = document.getElementsByClassName(' controlHeight')
+            var controlHeights = document.getElementsByClassName('controlHeight')
             Array.from(controledWidths).forEach(
                 function (element, index, array) {
                     element.style.width = finalWidth

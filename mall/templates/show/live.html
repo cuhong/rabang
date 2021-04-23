@@ -22,6 +22,8 @@
 
         body {
             width: 100vw;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   max-height: 100vh;
   max-height: -webkit-fill-available;
             overflow: hidden;
@@ -165,20 +167,12 @@
             videoContainer.style.height = finalHeight
             videoContainer.style.width = finalWidth
             var controledWidths = document.getElementsByClassName('controledWidth')
-            var controlHeights = document.getElementsByClassName('controlHeight')
             Array.from(controledWidths).forEach(
                 function (element, index, array) {
                     element.style.width = finalWidth
                     //element.style.height = finalHeight
                 }
             );
-            Array.from(controlHeights).forEach(
-                function (element, index, array) {
-                    element.style.heigt = `${window.innerHeight}px`
-                    //element.style.height = finalHeight
-                }
-            );
-            alert(`${window.innerHeight} ${window.innerHeight}`)
             //console.log(finalWidth)
         }
         const toggleMute = () => {

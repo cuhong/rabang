@@ -49,7 +49,7 @@
     <div class="container controlHeight" id="videoContainer" style="height: 100%; overflow: hidden">
         <video class="i-video" id="showLive" poster="{{ show.poster.url }}" src=""
                autoplay="" muted="" playsinline="" style="max-width: 100vw; z-index: -9999"></video>
-        <div class="controledWidth" style="position: fixed; top: 0; height: 100vh">
+        <div class="controledWidth controledHeight" style="position: fixed; top: 0;">
             <div class="showHeader row flex f-between controledWidth">
                 <div class="row flex ahw" style="padding-left: 1rem;">
                     <div class="wrap-profile">
@@ -171,7 +171,7 @@
             );
             Array.from(controlHeights).forEach(
                 function (element, index, array) {
-                    element.style.heigt = `${window.innerHeight}px`
+                    element.style.height = finalHeight
                     //element.style.height = finalHeight
                 }
             );

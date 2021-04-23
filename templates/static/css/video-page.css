@@ -125,7 +125,7 @@ body, html {
 
 .volume-on {
   position: absolute;
-  top: 4.5rem;
+  top: 5.5rem;
   left: 1rem;
   padding: .5rem 1rem;
   background: rgba(50, 50, 50, .7);

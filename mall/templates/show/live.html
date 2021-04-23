@@ -54,9 +54,7 @@
 
 
 {% block content %}
-    <div class="container" id="videoContainer">
-        <video class="i-video" id="showLive" poster="{{ show.poster.url }}" src=""
-               autoplay="" muted="" playsinline=""></video>
+    <div class="container" id="utilityContainer" style="position: fixed; top: 0; left: auto; right: auto; z-index: 9999999; max-width: 500px; display: flex">
         <div class="showHeader row flex f-between controledWidth">
             <div class="row flex ahw" style="padding-left: 1rem;">
                 <div class="wrap-profile">
@@ -74,7 +72,7 @@
             <i class="icon icon-big-close" style="padding-right: 1rem" onclick="location.href='./index.html'"></i>
         </div>
 
-        <div class="volume-on">
+        <div class="volume-on" id="muteToggleBtn" onclick="toggleMute()" style="cursor: pointer">
             <i class="icon icon-volume-off"></i>음소거 해제
         </div>
 {##}
@@ -89,27 +87,27 @@
                 <div class="wrap-chat">
                     <ul class="flex row mb12">
                         <li id="chat-name">알롱이</li>
-                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
+                        <li class="ml16 txtbold chatText" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
                     </ul>
                     <ul class="flex row mb12">
                         <li id="chat-name">알롱이</li>
-                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
+                        <li class="ml16 txtbold chatText" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
                     </ul>
                     <ul class="flex row mb12">
                         <li id="chat-name">알롱이</li>
-                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
+                        <li class="ml16 txtbold chatText" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
                     </ul>
                     <ul class="flex row mb12">
                         <li id="chat-name">알롱이</li>
-                        <li class="ml16 txtbold" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
+                        <li class="ml16 txtbold chatText" id="chat-des">상품 구매하기 너무 어렵고 괴로워요</li>
                     </ul>
                     <ul class="flex row mb12">
                         <li id="chat-name">알롱이</li>
-                        <li class="ml16 txtbold" id="chat-des">와... 시간이 벌써 이렇게 되다니</li>
+                        <li class="ml16 txtbold chatText" id="chat-des">와... 시간이 벌써 이렇게 되다니</li>
                     </ul>
                     <ul class="flex row mb12">
                         <li id="chat-name">알롱이</li>
-                        <li class="ml16 txtbold" id="chat-des">인간 승리네요.</li>
+                        <li class="ml16 txtbold chatText" id="chat-des">인간 승리네요.</li>
                     </ul>
 
                     <div class="itemDetail flex row a-center">
@@ -128,6 +126,10 @@
             </div>
         </div>
     </div>
+    <div class="container" id="videoContainer" style="display: flex">
+        <video class="i-video" id="showLive" poster="{{ show.poster.url }}" src=""
+               autoplay="" muted="" playsinline="" style="max-width: 100vw"></video>
+    </div>
     <!--
           <div class="wrapPopup">
             <hr class="popup-line" />
@@ -145,10 +147,13 @@
         const videoSrc = "{{ show.hls_path }}"
         const showVideo = document.getElementById('showLive')
         const videoContainer = document.getElementById('videoContainer')
+        const utilityContainer = document.getElementById('utilityContainer')
+        const muteToggleBtn = document.getElementById('muteToggleBtn')
         const startVideo = () => {
             showVideo.src = videoSrc
         }
         const setVideoRatio = () => {
+            // 비디오 가로세로 맞추기
             var ih = window.innerHeight
             var iw = window.innerWidth
             if (iw > ih) {
@@ -157,17 +162,36 @@
             } else {
                 showVideo.style.width = `${iw}px`
             }
-            var finalWidth = showVideo.clientWidth
+            var finalHeight = `${showVideo.clientHeight}px`
+            var finalWidth = `${showVideo.clientWidth}px`
+            utilityContainer.style.width = finalWidth
             var controledWidths = document.getElementsByClassName('controledWidth')
             Array.from(controledWidths).forEach(
                 function (element, index, array) {
-                    element.style.width = `${finalWidth}px`
+                    element.style.width = finalWidth
                 }
             );
             console.log(finalWidth)
         }
+        const toggleMute = () => {
+            var currentState = showVideo.muted
+            if (currentState === true) {
+                muteToggleBtn.innerText = '음소거'
+            } else {
+                muteToggleBtn.innerText = '음소거 해제'
+            }
+            showVideo.muted = !currentState
+            muteToggleBtn.hidden = currentState
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                startVideo()
+            }, 500)
+            setVideoRatio()
+        })
+        window.addEventListener('resize', () => {
+            console.log('rest')
             setVideoRatio()
         })
         showVideo.addEventListener('canplay', function (event) {

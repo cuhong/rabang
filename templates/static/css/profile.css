@@ -10,11 +10,45 @@
   color: #9B9B9B;
 }
 
-.btn-selc {
+.btn-prof {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-decoration: none;
+  color: #323232 !important;
   padding: 1.25rem 0;
   border-bottom: 1px solid #F3F3F3;
 }
+.btn-prof:focus {
+  color: #323232;
+  text-decoration: none;
+}
+.btn-prof:hover {
+  color: #323232;
+  text-decoration: none;
+}.btn-prof:link {
+  color: #323232;
+  text-decoration: none;
+}
+.btn-prof:active {
+  color: #323232;
+  text-decoration: none;
+}
 
-.btn-selc:last-child {
+.btn-prof:last-child {
   border-bottom: none;
+}
+
+
+
+.wrap-container {
+  text-align: center;
+  padding:0 1rem;
+
+}
+
+.btn-rect{
+  position: fixed;
+  bottom: 0;
+  left:0;
 }

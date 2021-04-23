@@ -17,9 +17,24 @@ a {
   box-sizing: border-box;
   vertical-align: middle;
   text-decoration: none;
+  color: #00B9EF;
 }
 a:visited{
-  color: #323232;
+
+  text-decoration: none;
+  color: #00B9EF;
+}
+a:link {
+  color: #00B9EF;
+  text-decoration: none;
+}
+a:active {
+    color: #00B9EF;
+  text-decoration: none;
+}
+a:hover {
+    color: #00B9EF;
+    text-decoration: none;
 }
 
 
@@ -109,6 +124,10 @@ li {
   padding-bottom: 0.75rem;
   background-color: #00B9EF;
   text-decoration: none;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 .btn-gray-outline {

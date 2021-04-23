@@ -1,27 +1,28 @@
-body, html { max-width: none; background: #000; color: #fff;}
+body, html {
+  text-align: center;
+  margin: 0 auto;
+  display: inline-block;
+   max-width: none;
+   background: #000; color: #fff;}
 
 .container {
   display: inline-block;
   position: relative;
+  max-width: 100vw;
+  width: 100%;
   height: 100vh;
-  max-height: 100%;
-  z-index: -9999px;
+  /*z-index: -9999;*/
 }
 
 .i-video {
   z-index: 1;
-  margin: 0 auto;
-  /*max-height: 100%;*/
-  /*height: 100vh;*/
+  /*height: inherit;*/
   object-fit: contain;
 }
 
-.header {
+.showHeader {
   position: absolute;
-  padding: 1rem 1rem;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 1rem;
   width: inherit;
   background-color: transparent;
 }
@@ -29,21 +30,23 @@ body, html { max-width: none; background: #000; color: #fff;}
   width: 16px;
   position: absolute;
   left: 32px;
-  top: 48px;
+  top: 30px;
 }
 
 .wrapBottom {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 1rem;
+  bottom: 1rem;
+  /*left: 1rem;*/
+  /*right: 1rem;*/
+  /*padding-left: 1rem;*/
+  /*padding-right: 1rem;*/
   z-index: 100;
-  width: inherit;
+  /*width: 100%;*/
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.wrap-heart-inner {
+.wrap-heart {
   position: absolute;
   bottom: 12rem;
   right: 1rem;

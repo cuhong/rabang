@@ -66,6 +66,10 @@
   background: url('../assets/live_img.svg') no-repeat;
 }
 
+.icon-rabang-ori {
+  background: url('../assets/rabang_ori.svg') no-repeat;
+}
+
 .icon-volume-off {
   background: url('../assets/volume_off.svg') no-repeat;
 }

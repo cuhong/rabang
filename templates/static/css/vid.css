@@ -1,26 +1,38 @@
-body, html { max-width: none; background: #000; color: #fff;}
+body {
+  height:  100vh;
+  display: inline-block;
+  max-width: none;
+  color: #fff;
+}
+
+.test {
+  overflow: hidden;
+  position: fixed;
+  display: inline-block;
+  top: 0;
+  left: 0;
+
+  right: 0;
+}
 
 .container {
-  display: inline-block;
   position: relative;
-  height: 100vh;
-  max-height: 100%;
-  z-index: -9999px;
 }
 
+
+
 .i-video {
-  z-index: 1;
-  margin: 0 auto;
-  max-height: 100%;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
+
 
 .header {
   position: absolute;
   top: 1rem;
-  left: 1rem;
-  right: 1rem;
+  /*left: 0;*/
+  /*right: 0;*/
   width: inherit;
   background-color: transparent;
 }
@@ -36,20 +48,20 @@ body, html { max-width: none; background: #000; color: #fff;}
   bottom: 1rem;
   left: 1rem;
   right: 1rem;
-  z-index: 318713471;
+  z-index: 100;
   width: inherit;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .wrap-heart {
-  z-index: 13434141;
   position: absolute;
-  bottom: 0;
-  width: inherit;
+  bottom: 12rem;
+  right: 1rem;
   padding: 0.5rem;
   border-radius: 70%;
-  background-color: rgba( 50, 50,  50, 1);
+  border: 2px solid #fff;
+
 }
 
 
@@ -94,9 +106,7 @@ body, html { max-width: none; background: #000; color: #fff;}
 
 
 .popup-bottom {
-  margin-top: 5rem;
-  position: relative;
-  bottom: 0;
+  padding: 0;
   width: inherit;
   z-index: 13234242;
 }
@@ -105,4 +115,33 @@ body, html { max-width: none; background: #000; color: #fff;}
   border: none;
   width: 100%;
   overflow: scroll;
+  border-radius: 16px 16px 0 0;
+
+}
+
+.popup-bottom {
+  border-radius: 16px 16px 0 0;
+}
+
+.wrapPopup {
+  position: relative;
+  margin-top: 3rem;
+  border-radius: 16px 16px 0 0;
+}
+
+.popup-line {
+  width: 2rem;
+  position: absolute;
+  top: -1.25rem;
+  left: 0;
+  right : 0;
+}
+
+.volume-on {
+  position: absolute;
+  top: 6.5rem;
+  left: 1rem;
+  padding: .5rem 1rem;
+  background: rgba(50, 50, 50, .7);
+  border-radius: 24px;
 }

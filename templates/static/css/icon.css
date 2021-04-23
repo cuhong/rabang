@@ -12,6 +12,11 @@
   vertical-align: middle;
 }
 
+
+.icon-menu {
+  background: url('../assets/menu.svg') no-repeat;
+}
+
 .icon-heart {
   background: url('../assets/heart_outline.svg') no-repeat;
 }

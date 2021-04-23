@@ -2,7 +2,7 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig host="ec2-13-125-100-207.ap-northeast-2.compute.amazonaws.com" id="a15a331d-c699-433c-99f1-0aeb94b32f20" keyPath="$PROJECT_DIR$/dev_.pem" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" />
+      <sshConfig connectionConfig="{&quot;serverAliveInterval&quot;:300}" host="ec2-13-125-100-207.ap-northeast-2.compute.amazonaws.com" id="a15a331d-c699-433c-99f1-0aeb94b32f20" keyPath="$PROJECT_DIR$/dev_.pem" port="22" nameFormat="DESCRIPTIVE" username="ubuntu" />
     </configs>
   </component>
 </project>

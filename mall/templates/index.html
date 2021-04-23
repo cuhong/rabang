@@ -3,42 +3,49 @@
 {% block pagestyle %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}"/>
 {% endblock %}
+
+{% block header %}
+    <div class="header flex row f-between a-center">
+        <a href="#" class="f-left" style="visibility: hidden;"><i class="icon icon-chevron-left"></i></a>
+        <img src="{% static 'assets/rabang_ori.svg' %}" width="72px" height="28px" style="display: inline-block;"/>
+        <a href="#" class="f-right"><i class="icon icon-menu"></i></a>
+    </div>
+{% endblock %}
 {% block content %}
     <div class="wrap-container">
         <!-- Main Contents Start-->
         {% with show=show_list.first %}
             {% if show %}
-            <div class="container">
-                <a href="#"><img class="logo-white" src="{% static 'assets/rabang_white.svg' %}" alt=""/></a>
-                <div class="img-main"></div>
-                <video id="my_video_1" width="100%" height="auto" poster="{{ show.poster.url }}" autoplay muted playsinline></video>
-                <div class="txt-contents">
-                    <p class="txt-title ml16">{{ show.title_display }}</p>
-                    <div class="wrap-btn pl16 pr16">
-                        {% if show.is_live %}
-                            <a class="btn btn-blue mt16" href="{% url 'mall:show_live' show_id=show.id %}">
-                                <i class="iconw icon-live-w mr12"></i>입장하기
-                            </a>
-                        {% else %}
-                            <a class="btn btn-gray-outline mt16" href="{% url 'mall:show' show_id=show.id %}">자세히 보기</a>
-                        {% endif %}
-                        <div class="txt-comment mt12">
+                <div class="container">
+                    <img class="imgMain" src="{{ show.poster.url }}" alt=""/>
+                    <div class="txt-contents">
+                        <p class="txt-title ml16">{{ show.title_display }}</p>
+                        <div class="wrap-btn pl16 pr16">
                             {% if show.is_live %}
-                                <div>1,200명이 보고있어요!</div>
+                                <a class="btn btn-blue mt16" href="{% url 'mall:show_live' show_id=show.id %}">
+                                    <i class="iconw icon-live-w mr12"></i>입장하기
+                                </a>
                             {% else %}
-                                <div>1,200명이 기다리고 있어요!</div>
+                                <a class="btn btn-gray-outline mt16" href="{% url 'mall:show' show_id=show.id %}">자세히
+                                    보기</a>
                             {% endif %}
-                            <div class="wrap-oval">
-                                <img class="img-oval" src="{% static 'assets/img.png' %}" alt=""/>
-                                <img class="img-oval" src="{% static 'assets/img.png' %}" alt=""/>
-                                <img class="img-oval" src="{% static 'assets/img.png' %}" alt=""/>
-                                <img class="img-oval" src="{% static 'assets/img.png' %}" alt=""/>
+                            <div class="txt-comment mt12">
+                                {% if show.is_live %}
+                                    <div>1,200명이 보고있어요!</div>
+                                {% else %}
+                                    <div>1,200명이 기다리고 있어요!</div>
+                                {% endif %}
+                                <div class="wrap-oval">
+                                    <img class="img-oval" src="{% static 'assets/img.png' %}" alt=""/>
+                                    <img class="img-oval" src="{% static 'assets/img.png' %}" alt=""/>
+                                    <img class="img-oval" src="{% static 'assets/img.png' %}" alt=""/>
+                                    <img class="img-oval" src="{% static 'assets/img.png' %}" alt=""/>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
             {% endif %}
         {% endwith %}
         <!-- Main Contents End-->
@@ -56,125 +63,126 @@
         <!-- comingsoon Start -->
         <div class="container wrap-comingsoon">
             <p class="txt-title red ml16">라이브 예고</p>
-{#            <div class="wrap-content">#}
-{#                <div class="wrap-img">#}
-{#                    <img class="img-volume" src="{% static 'assets/volume_up.svg' %}" alt=""/>#}
-{#                    <img class="img-soon" src="{% static 'assets/img.png' %}" alt=""/>#}
-{#                </div>#}
-{#                <div class="wrap-txt">#}
-{#                    <div class="txtl">#}
-{#                        <p class="txt-title">위닉스 단독 가격전</p>#}
-{#                        <p class="txt-caption red">내일 | 6:00 PM</p>#}
-{#                    </div>#}
-{#                    <a class="right-img" href="#">#}
-{#                        <i class="icon icon-alert"></i>#}
-{#                        <p class="txt-caption blue mt4">알림받기</p>#}
-{#                    </a>#}
-{#                </div>#}
-{#                <div class="txtl pa16">#}
-{#                    <span>-프라우반 2단트레이 접시스탠드-<br/></span>#}
-{#                    주변 분위기나 용도에 따라 접시를 바꾸어 가며 다양하게 활용할 수 있는#}
-{#                    우드 핸들 2단 트레이 스탠드를 소개합니다.#}
-{#                    매트한 무광 블랙 철재 바디에 천연 원목으로 만든 우드 손잡이로 중심을 잡아 절제미와 세련미를 동시에 갖추었습니다.#}
-{#                    일반 그릇뿐만 아니라 구성품인 다용도 바스켓을 결합하여 다양한 식재료나 소품을 넣어두기 좋습니다.#}
-{#                </div>#}
-{#                <div class="mr16 ml16 wrap-btn">#}
-{#                    <a class="btn btn-gray-outline">자세히 보기</a>#}
-{#                    <div class="txt-comment mt12">#}
-{#                        <div>1,200명이 보고있어요!</div>#}
-{#                        <div class="wrap-oval">#}
-{#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{#            </div>#}
-{#            <div class="wrap-content">#}
-{#                <div class="wrap-img">#}
-{#                    <img class="img-volume" src="{% static 'assets/volume_up.svg' %}" alt=""/>#}
-{#                    <img class="img-soon" src="{% static 'assets/img.png' %}" alt=""/>#}
-{#                </div>#}
-{#                <div class="wrap-txt">#}
-{#                    <div class="txtl">#}
-{#                        <p class="txt-title">위닉스 단독 가격전</p>#}
-{#                        <p class="txt-caption red">내일 | 6:00 PM</p>#}
-{#                    </div>#}
-{#                    <a class="right-img" href="#">#}
-{#                        <i class="icon icon-alert"></i>#}
-{#                        <p class="txt-caption blue mt4">알림받기</p>#}
-{#                    </a>#}
-{#                </div>#}
-{#                <div class="txtl pa16">#}
-{#                    <span>-프라우반 2단트레이 접시스탠드-<br/></span>#}
-{#                    주변 분위기나 용도에 따라 접시를 바꾸어 가며 다양하게 활용할 수 있는#}
-{#                    우드 핸들 2단 트레이 스탠드를 소개합니다.#}
-{#                    매트한 무광 블랙 철재 바디에 천연 원목으로 만든 우드 손잡이로 중심을 잡아 절제미와 세련미를 동시에 갖추었습니다.#}
-{#                    일반 그릇뿐만 아니라 구성품인 다용도 바스켓을 결합하여 다양한 식재료나 소품을 넣어두기 좋습니다.#}
-{#                </div>#}
-{#                <div class="mr16 ml16 wrap-btn">#}
-{#                    <a class="btn btn-gray-outline">자세히 보기</a>#}
-{#                    <div class="txt-comment mt12">#}
-{#                        <div>1,200명이 보고있어요!</div>#}
-{#                        <div class="wrap-oval">#}
-{#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{#            </div>#}
-{#            <div class="wrap-content">#}
-{#                <div class="wrap-img">#}
-{#                    <img class="img-volume" src="{% static 'assets/volume_up.svg' %}" alt=""/>#}
-{#                    <img class="img-soon" src="{% static 'assets/img.png' %}" alt=""/>#}
-{#                </div>#}
-{#                <div class="wrap-txt">#}
-{#                    <div class="txtl">#}
-{#                        <p class="txt-title">위닉스 단독 가격전</p>#}
-{#                        <p class="txt-caption red">내일 | 6:00 PM</p>#}
-{#                    </div>#}
-{#                    <a class="right-img" href="#">#}
-{#                        <i class="icon icon-alert"></i>#}
-{#                        <p class="txt-caption blue mt4">알림받기</p>#}
-{#                    </a>#}
-{#                </div>#}
-{#                <div class="txtl pa16">#}
-{#                    <span>-프라우반 2단트레이 접시스탠드-<br/></span>#}
-{#                    주변 분위기나 용도에 따라 접시를 바꾸어 가며 다양하게 활용할 수 있는#}
-{#                    우드 핸들 2단 트레이 스탠드를 소개합니다.#}
-{#                    매트한 무광 블랙 철재 바디에 천연 원목으로 만든 우드 손잡이로 중심을 잡아 절제미와 세련미를 동시에 갖추었습니다.#}
-{#                    일반 그릇뿐만 아니라 구성품인 다용도 바스켓을 결합하여 다양한 식재료나 소품을 넣어두기 좋습니다.#}
-{#                </div>#}
-{#                <div class="mr16 ml16 wrap-btn">#}
-{#                    <a class="btn btn-gray-outline">자세히 보기</a>#}
-{#                    <div class="txt-comment mt12">#}
-{#                        <div>1,200명이 보고있어요!</div>#}
-{#                        <div class="wrap-oval">#}
-{#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{##}
-{#            </div>#}
+            {#            <div class="wrap-content">#}
+            {#                <div class="wrap-img">#}
+            {#                    <img class="img-volume" src="{% static 'assets/volume_up.svg' %}" alt=""/>#}
+            {#                    <img class="img-soon" src="{% static 'assets/img.png' %}" alt=""/>#}
+            {#                </div>#}
+            {#                <div class="wrap-txt">#}
+            {#                    <div class="txtl">#}
+            {#                        <p class="txt-title">위닉스 단독 가격전</p>#}
+            {#                        <p class="txt-caption red">내일 | 6:00 PM</p>#}
+            {#                    </div>#}
+            {#                    <a class="right-img" href="#">#}
+            {#                        <i class="icon icon-alert"></i>#}
+            {#                        <p class="txt-caption blue mt4">알림받기</p>#}
+            {#                    </a>#}
+            {#                </div>#}
+            {#                <div class="txtl pa16">#}
+            {#                    <span>-프라우반 2단트레이 접시스탠드-<br/></span>#}
+            {#                    주변 분위기나 용도에 따라 접시를 바꾸어 가며 다양하게 활용할 수 있는#}
+            {#                    우드 핸들 2단 트레이 스탠드를 소개합니다.#}
+            {#                    매트한 무광 블랙 철재 바디에 천연 원목으로 만든 우드 손잡이로 중심을 잡아 절제미와 세련미를 동시에 갖추었습니다.#}
+            {#                    일반 그릇뿐만 아니라 구성품인 다용도 바스켓을 결합하여 다양한 식재료나 소품을 넣어두기 좋습니다.#}
+            {#                </div>#}
+            {#                <div class="mr16 ml16 wrap-btn">#}
+            {#                    <a class="btn btn-gray-outline">자세히 보기</a>#}
+            {#                    <div class="txt-comment mt12">#}
+            {#                        <div>1,200명이 보고있어요!</div>#}
+            {#                        <div class="wrap-oval">#}
+            {#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {##}
+            {#            </div>#}
+            {#            <div class="wrap-content">#}
+            {#                <div class="wrap-img">#}
+            {#                    <img class="img-volume" src="{% static 'assets/volume_up.svg' %}" alt=""/>#}
+            {#                    <img class="img-soon" src="{% static 'assets/img.png' %}" alt=""/>#}
+            {#                </div>#}
+            {#                <div class="wrap-txt">#}
+            {#                    <div class="txtl">#}
+            {#                        <p class="txt-title">위닉스 단독 가격전</p>#}
+            {#                        <p class="txt-caption red">내일 | 6:00 PM</p>#}
+            {#                    </div>#}
+            {#                    <a class="right-img" href="#">#}
+            {#                        <i class="icon icon-alert"></i>#}
+            {#                        <p class="txt-caption blue mt4">알림받기</p>#}
+            {#                    </a>#}
+            {#                </div>#}
+            {#                <div class="txtl pa16">#}
+            {#                    <span>-프라우반 2단트레이 접시스탠드-<br/></span>#}
+            {#                    주변 분위기나 용도에 따라 접시를 바꾸어 가며 다양하게 활용할 수 있는#}
+            {#                    우드 핸들 2단 트레이 스탠드를 소개합니다.#}
+            {#                    매트한 무광 블랙 철재 바디에 천연 원목으로 만든 우드 손잡이로 중심을 잡아 절제미와 세련미를 동시에 갖추었습니다.#}
+            {#                    일반 그릇뿐만 아니라 구성품인 다용도 바스켓을 결합하여 다양한 식재료나 소품을 넣어두기 좋습니다.#}
+            {#                </div>#}
+            {#                <div class="mr16 ml16 wrap-btn">#}
+            {#                    <a class="btn btn-gray-outline">자세히 보기</a>#}
+            {#                    <div class="txt-comment mt12">#}
+            {#                        <div>1,200명이 보고있어요!</div>#}
+            {#                        <div class="wrap-oval">#}
+            {#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {##}
+            {#            </div>#}
+            {#            <div class="wrap-content">#}
+            {#                <div class="wrap-img">#}
+            {#                    <img class="img-volume" src="{% static 'assets/volume_up.svg' %}" alt=""/>#}
+            {#                    <img class="img-soon" src="{% static 'assets/img.png' %}" alt=""/>#}
+            {#                </div>#}
+            {#                <div class="wrap-txt">#}
+            {#                    <div class="txtl">#}
+            {#                        <p class="txt-title">위닉스 단독 가격전</p>#}
+            {#                        <p class="txt-caption red">내일 | 6:00 PM</p>#}
+            {#                    </div>#}
+            {#                    <a class="right-img" href="#">#}
+            {#                        <i class="icon icon-alert"></i>#}
+            {#                        <p class="txt-caption blue mt4">알림받기</p>#}
+            {#                    </a>#}
+            {#                </div>#}
+            {#                <div class="txtl pa16">#}
+            {#                    <span>-프라우반 2단트레이 접시스탠드-<br/></span>#}
+            {#                    주변 분위기나 용도에 따라 접시를 바꾸어 가며 다양하게 활용할 수 있는#}
+            {#                    우드 핸들 2단 트레이 스탠드를 소개합니다.#}
+            {#                    매트한 무광 블랙 철재 바디에 천연 원목으로 만든 우드 손잡이로 중심을 잡아 절제미와 세련미를 동시에 갖추었습니다.#}
+            {#                    일반 그릇뿐만 아니라 구성품인 다용도 바스켓을 결합하여 다양한 식재료나 소품을 넣어두기 좋습니다.#}
+            {#                </div>#}
+            {#                <div class="mr16 ml16 wrap-btn">#}
+            {#                    <a class="btn btn-gray-outline">자세히 보기</a>#}
+            {#                    <div class="txt-comment mt12">#}
+            {#                        <div>1,200명이 보고있어요!</div>#}
+            {#                        <div class="wrap-oval">#}
+            {#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                            <img class="img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                            <img class=" img-oval" src="{% static 'assets/img.png ' %}" alt=""/>#}
+            {#                        </div>#}
+            {#                    </div>#}
+            {#                </div>#}
+            {##}
+            {#            </div>#}
             {% for show in show_list %}
                 {% if forloop.counter0 == 0 %}
                 {% else %}
                     <div class="wrap-content">
                         <div class="wrap-img">
                             {% if show.poster_video %}
-                            <img class="img-volume" src="{% static 'assets/volume_off.svg' %}" alt=""/>
-                            <video class="img-soon" autoplay muted src="{{ show.poster_video.url }}" poster="{{ show.poster.url }}"></video>
+                                <img class="img-volume" src="{% static 'assets/volume_off.svg' %}" alt=""/>
+                                <video class="img-soon" autoplay muted src="{{ show.poster_video.url }}"
+                                       poster="{{ show.poster.url }}"></video>
                             {% else %}
-                            <img class="img-volume" src="{% static 'assets/volume_up.svg' %}" alt=""/>
-                            <img class="img-soon" src="{{ show.poster.url }}" alt=""/>
+                                <img class="img-volume" src="{% static 'assets/volume_up.svg' %}" alt=""/>
+                                <img class="img-soon" src="{{ show.poster.url }}" alt=""/>
                             {% endif %}
                         </div>
                         <div class="wrap-txt">
@@ -189,7 +197,7 @@
                         </div>
                         <div class="txtl pa16">
                             {% autoescape off %}
-                            {{ show.description }}
+                                {{ show.description }}
                             {% endautoescape %}
                         </div>
                         <div class="mr16 ml16 wrap-btn">

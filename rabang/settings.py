@@ -213,3 +213,6 @@ PWA_APP_SPLASH_SCREEN = [
 PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'ko-KR'
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'templates/static/js/serviceworker.js')
+
+NCLOUD_ACCESS = "UzU8mlh8YVSbPdk2ywk2"
+NCLOUD_SECRET = "pHwdZk5VClPPAUBbIPkp5ZnBZoA3FJzvqS04xsIg"
